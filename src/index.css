@@ -3,11 +3,12 @@
 @layer base {
   :root {
     --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   }
 
   html {
     font-family: var(--font-sans);
-    background-color: #030712;
+    background-color: #04060b;
     color: #f8fafc;
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
@@ -15,29 +16,33 @@
   }
 
   body {
-    background-color: #030712;
+    background-color: #04060b;
     color: #f8fafc;
     overflow-x: hidden;
+  }
+
+  pre, code, kbd, samp {
+    font-family: var(--font-mono);
   }
 }
 
 /* Glassmorphic luxury effects */
 .glass-panel {
-  background: rgba(15, 23, 42, 0.65);
+  background: rgba(10, 14, 24, 0.65);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glass-panel-hover {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-panel-hover:hover {
-  background: rgba(30, 41, 59, 0.7);
+  background: rgba(18, 24, 38, 0.75);
   border-color: rgba(255, 255, 255, 0.16);
   transform: translateY(-2px);
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), 0 0 25px -5px rgba(56, 189, 248, 0.08);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), 0 0 25px -5px rgba(56, 189, 248, 0.06);
 }
 
 /* Custom Scrollbar */
@@ -46,14 +51,14 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #030712;
+  background: #04060b;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #182030;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #28344c;
 }
 
 /* Print Styles for Resume */

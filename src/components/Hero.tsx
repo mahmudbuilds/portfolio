@@ -177,6 +177,22 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
                     </a>
                   </div>
 
+                  {/* Real Telemetry Strip */}
+                  <div className="p-3.5 rounded-xl bg-black/40 border border-white/[0.05] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                      <span className="text-white font-medium">SKU-412 (Industrial Valve)</span>
+                      <span className="text-slate-600">•</span>
+                      <span className="text-slate-400">Warehouse: Alpha-US</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-emerald-400 font-semibold">284 in stock</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
+                        Row-Level Lock Active
+                      </span>
+                    </div>
+                  </div>
+
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="p-4 rounded-xl bg-slate-900/50 border border-white/[0.06] space-y-2">
                       <div className="flex items-center gap-2 text-sky-400 text-xs font-semibold">
@@ -238,6 +254,22 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
                     </a>
                   </div>
 
+                  {/* Real Telemetry Strip */}
+                  <div className="p-3.5 rounded-xl bg-black/40 border border-white/[0.05] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-sky-400" />
+                      <span className="text-white font-medium">pdfjs Coordinate Parser</span>
+                      <span className="text-slate-600">•</span>
+                      <span className="text-slate-400">Bounding Box Gutter: 24px</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-sky-300 font-semibold">2 Columns Disambiguated</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded bg-sky-500/10 text-sky-300 border border-sky-500/20">
+                        In-Memory
+                      </span>
+                    </div>
+                  </div>
+
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="p-4 rounded-xl bg-slate-900/50 border border-white/[0.06] space-y-2">
                       <div className="text-sky-400 text-xs font-semibold">Spatial Coordinate Clustering</div>
@@ -288,6 +320,22 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
                       <span>View GitHub Profile</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
+                  </div>
+
+                  {/* Real Telemetry Strip */}
+                  <div className="p-3.5 rounded-xl bg-black/40 border border-white/[0.05] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-amber-400" />
+                      <span className="text-white font-medium">ast.NodeVisitor</span>
+                      <span className="text-slate-600">•</span>
+                      <span className="text-slate-400">Target: Django Viewset Handlers</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-amber-300 font-semibold">0 False Positives</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/20">
+                        CWE Evaluated
+                      </span>
+                    </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
