@@ -1,161 +1,132 @@
 import React, { useState, useEffect } from "react";
-import { Terminal, FileText, Mail, Check, Menu, X, ArrowUpRight } from "lucide-react";
+import { FileText, ArrowUpRight, Menu, X, Sparkles } from "lucide-react";
 import { GithubIcon } from "./SocialIcons";
 import { developerBio } from "../data/portfolioData";
 
 interface NavbarProps {
-  onOpenTerminal: () => void;
   onOpenResume: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, onOpenResume }) => {
-  const [copied, setCopied] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
   const [scrolled, setScrolled] = useState(false);
-  const [time, setTime] = useState("");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
-
-    // Live clock in UTC
-    const updateTime = () => {
-      const now = new Date();
-      setTime(now.toLocaleTimeString("en-US", { timeZone: "UTC", hour12: false }) + " UTC");
-    };
-    updateTime();
-    const timer = setInterval(updateTime, 1000);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      clearInterval(timer);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const copyEmail = () => {
-    navigator.clipboard.writeText(developerBio.email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#07090e]/90 backdrop-blur-xl border-b border-white/[0.08] py-3 shadow-2xl shadow-black/50"
-          : "bg-transparent py-5"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          {/* Brand & Moniker */}
-          <a
-            href="#"
-            className="group flex items-center gap-3 text-slate-100 hover:text-white transition-colors"
-          >
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-slate-800 to-slate-900 border border-white/10 flex items-center justify-center font-mono font-bold text-sm text-sky-400 group-hover:border-sky-500/40 group-hover:scale-105 transition-all">
-              M_
+    <header className="fixed top-0 left-0 right-0 z-50 py-4 px-4 sm:px-6 transition-all duration-300">
+      <div className="max-w-6xl mx-auto">
+        <div
+          className={`flex items-center justify-between px-5 py-3 rounded-2xl transition-all duration-300 ${
+            scrolled
+              ? "bg-slate-950/80 backdrop-blur-xl border border-white/[0.08] shadow-2xl shadow-black/60"
+              : "bg-slate-900/40 backdrop-blur-md border border-white/[0.05]"
+          }`}
+        >
+          {/* Brand Logo & Name */}
+          <a href="#" className="flex items-center gap-3 group">
+            <div className="relative">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 via-indigo-500 to-emerald-400 p-[1.5px] transition-transform duration-300 group-hover:scale-105">
+                <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center font-bold text-sm text-white">
+                  M
+                </div>
+              </div>
+              <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 border-2 border-slate-950 rounded-full" />
             </div>
-            <div className="flex flex-col">
-              <span className="font-mono text-sm font-semibold tracking-tight text-slate-200 group-hover:text-sky-300 transition-colors">
-                mahmudbuilds
+
+            <div className="flex flex-col text-left">
+              <span className="font-semibold text-sm text-white tracking-tight group-hover:text-sky-300 transition-colors">
+                Mahmud
               </span>
-              <span className="text-[11px] font-mono text-slate-400 flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                {time || "SYS: ONLINE"}
+              <span className="text-[11px] text-slate-400 font-normal">
+                Full-Stack &amp; AI Engineer
               </span>
             </div>
           </a>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-7 text-xs font-mono tracking-wide text-slate-400">
-            <a href="#projects" className="hover:text-slate-100 transition-colors">
-              // PROJECTS
+          {/* Desktop Navigation Links */}
+          <nav className="hidden md:flex items-center gap-1 bg-white/[0.03] px-3 py-1.5 rounded-xl border border-white/[0.05] text-xs font-medium text-slate-300">
+            <a
+              href="#projects"
+              className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/[0.05] transition-all"
+            >
+              Featured Work
             </a>
-            <a href="#workbench" className="hover:text-slate-100 transition-colors">
-              // WORKBENCH
+            <a
+              href="#showcase"
+              className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/[0.05] transition-all flex items-center gap-1.5 text-sky-400"
+            >
+              <Sparkles className="w-3 h-3" />
+              <span>Interactive Studio</span>
             </a>
-            <a href="#skills" className="hover:text-slate-100 transition-colors">
-              // RADAR
+            <a
+              href="#skills"
+              className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/[0.05] transition-all"
+            >
+              Tech Stack
             </a>
-            <a href="#experience" className="hover:text-slate-100 transition-colors">
-              // TIMELINE
+            <a
+              href="#experience"
+              className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/[0.05] transition-all"
+            >
+              Milestones
             </a>
-            <a href="#contact" className="hover:text-slate-100 transition-colors">
-              // CONTACT
+            <a
+              href="#contact"
+              className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/[0.05] transition-all"
+            >
+              Contact
             </a>
           </nav>
 
-          {/* Quick Action Buttons */}
+          {/* Right Action Buttons */}
           <div className="hidden sm:flex items-center gap-2.5">
-            {/* Terminal CLI Trigger */}
-            <button
-              onClick={onOpenTerminal}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] hover:border-sky-500/30 text-xs font-mono text-slate-300 hover:text-white transition-all cursor-pointer active:scale-95"
-              title="Open Interactive Command Palette (⌘K)"
-            >
-              <Terminal className="w-3.5 h-3.5 text-sky-400" />
-              <span>CLI</span>
-              <kbd className="hidden lg:inline-block px-1.5 py-0.5 text-[10px] text-slate-400 bg-white/[0.06] rounded border border-white/10">
-                ⌘K
-              </kbd>
-            </button>
-
-            {/* Resume Trigger */}
             <button
               onClick={onOpenResume}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] hover:border-emerald-500/30 text-xs font-mono text-slate-300 hover:text-white transition-all cursor-pointer active:scale-95"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] hover:border-white/[0.15] text-xs font-medium text-slate-200 hover:text-white transition-all cursor-pointer active:scale-95"
             >
-              <FileText className="w-3.5 h-3.5 text-emerald-400" />
-              <span>RESUME</span>
+              <FileText className="w-3.5 h-3.5 text-sky-400" />
+              <span>Resume</span>
             </button>
 
-            {/* Email Copy */}
-            <button
-              onClick={copyEmail}
-              className="relative inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-xs font-mono text-slate-300 hover:text-white transition-all cursor-pointer active:scale-95"
-              title="Click to copy email address"
-            >
-              {copied ? (
-                <>
-                  <Check className="w-3.5 h-3.5 text-emerald-400" />
-                  <span className="text-emerald-400">COPIED!</span>
-                </>
-              ) : (
-                <>
-                  <Mail className="w-3.5 h-3.5 text-slate-400" />
-                  <span>EMAIL</span>
-                </>
-              )}
-            </button>
-
-            {/* GitHub Profile */}
             <a
               href={developerBio.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-1.5 rounded-md bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-slate-400 hover:text-white transition-all hover:scale-105 active:scale-95"
-              title="GitHub Profile"
+              className="p-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] hover:border-white/[0.15] text-slate-300 hover:text-white transition-all hover:scale-105 active:scale-95"
+              aria-label="GitHub Profile"
             >
               <GithubIcon className="w-4 h-4" />
+            </a>
+
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-medium text-xs shadow-md shadow-sky-500/20 transition-all hover:shadow-sky-500/30 active:scale-95"
+            >
+              <span>Get in touch</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex sm:hidden items-center gap-2">
+          <div className="flex md:hidden items-center gap-2">
             <button
-              onClick={onOpenTerminal}
-              className="p-2 rounded-md bg-white/[0.04] border border-white/10 text-sky-400"
-              aria-label="Open CLI"
+              onClick={onOpenResume}
+              className="p-2 rounded-xl bg-white/[0.04] border border-white/10 text-sky-400 text-xs font-medium"
+              title="View Resume"
             >
-              <Terminal className="w-4 h-4" />
+              <FileText className="w-4 h-4" />
             </button>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-md bg-white/[0.04] border border-white/10 text-slate-300"
-              aria-label="Toggle Navigation Menu"
+              className="p-2 rounded-xl bg-white/[0.04] border border-white/10 text-slate-300"
+              aria-label="Toggle Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -165,77 +136,64 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenTerminal, onOpenResume }) 
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="sm:hidden bg-[#07090e]/95 backdrop-blur-2xl border-b border-white/10 px-5 pt-4 pb-6 space-y-4 animate-in slide-in-from-top-4 duration-200">
-          <nav className="flex flex-col gap-3 font-mono text-sm text-slate-300">
+        <div className="md:hidden mt-2 max-w-6xl mx-auto bg-slate-950/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-5 space-y-4 animate-in slide-in-from-top-3 duration-200 shadow-2xl">
+          <nav className="flex flex-col gap-2 text-sm text-slate-300 text-left">
             <a
               href="#projects"
               onClick={() => setMobileMenuOpen(false)}
-              className="py-1.5 border-b border-white/[0.05] hover:text-sky-400"
+              className="p-2.5 rounded-xl hover:bg-white/[0.05] hover:text-white transition-colors"
             >
-              // 01. Flagship Projects
+              Featured Work
             </a>
             <a
-              href="#workbench"
+              href="#showcase"
               onClick={() => setMobileMenuOpen(false)}
-              className="py-1.5 border-b border-white/[0.05] hover:text-sky-400"
+              className="p-2.5 rounded-xl hover:bg-white/[0.05] hover:text-white transition-colors text-sky-400"
             >
-              // 02. Interactive Workbench
+              Interactive Product Studio
             </a>
             <a
               href="#skills"
               onClick={() => setMobileMenuOpen(false)}
-              className="py-1.5 border-b border-white/[0.05] hover:text-sky-400"
+              className="p-2.5 rounded-xl hover:bg-white/[0.05] hover:text-white transition-colors"
             >
-              // 03. Technical Radar
+              Tech Stack
             </a>
             <a
               href="#experience"
               onClick={() => setMobileMenuOpen(false)}
-              className="py-1.5 border-b border-white/[0.05] hover:text-sky-400"
+              className="p-2.5 rounded-xl hover:bg-white/[0.05] hover:text-white transition-colors"
             >
-              // 04. Milestones Timeline
+              Engineering Milestones
             </a>
             <a
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="py-1.5 border-b border-white/[0.05] hover:text-sky-400"
+              className="p-2.5 rounded-xl hover:bg-white/[0.05] hover:text-white transition-colors"
             >
-              // 05. Direct Contact
+              Contact
             </a>
           </nav>
 
-          <div className="pt-2 flex flex-col gap-2.5">
+          <div className="pt-2 border-t border-white/[0.08] flex flex-col gap-2">
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 onOpenResume();
               }}
-              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-mono text-xs font-medium"
+              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/[0.05] border border-white/10 text-slate-200 text-xs font-medium"
             >
-              <FileText className="w-4 h-4" />
-              <span>View Executive CV / Resume</span>
-            </button>
-
-            <button
-              onClick={() => {
-                copyEmail();
-                setMobileMenuOpen(false);
-              }}
-              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-white/[0.04] border border-white/10 text-slate-200 font-mono text-xs"
-            >
-              <Mail className="w-4 h-4 text-sky-400" />
-              <span>Copy {developerBio.email}</span>
+              <FileText className="w-4 h-4 text-sky-400" />
+              <span>View Executive Resume</span>
             </button>
 
             <a
-              href={developerBio.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-white/[0.04] border border-white/10 text-slate-300 font-mono text-xs"
+              href="#contact"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 text-white text-xs font-semibold"
             >
-              <GithubIcon className="w-4 h-4" />
-              <span>mahmudbuilds on GitHub</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
+              <span>Get in touch</span>
+              <ArrowUpRight className="w-4 h-4" />
             </a>
           </div>
         </div>

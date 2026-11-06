@@ -1,206 +1,318 @@
-import React from "react";
-import { ArrowDown, Terminal, FileText, CheckCircle2, ShieldCheck, Cpu, Database, ExternalLink } from "lucide-react";
+import React, { useState } from "react";
+import { ArrowRight, FileText, Sparkles, ShieldCheck, Activity, Layers, ExternalLink } from "lucide-react";
 import { developerBio } from "../data/portfolioData";
 
 interface HeroProps {
-  onOpenTerminal: () => void;
   onOpenResume: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenTerminal, onOpenResume }) => {
+export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
+  const [activePreview, setActivePreview] = useState<"inventry" | "resumind" | "vesper">("inventry");
+
   return (
-    <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
-      {/* Background Subtle Ambience (Taste-skill compliant: dark neutral, subtle grid lines, no violent violet gradient) */}
+    <section className="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden text-left">
+      {/* Ambient background glows */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
-        {/* Subtle grid pattern */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[450px] bg-gradient-to-tr from-sky-500/10 via-indigo-500/10 to-emerald-500/5 blur-[140px] rounded-full" />
+        <div className="absolute top-10 right-10 w-96 h-96 bg-sky-500/5 blur-[100px] rounded-full" />
+        <div className="absolute bottom-10 left-10 w-96 h-96 bg-indigo-500/5 blur-[120px] rounded-full" />
+        
+        {/* Subtle grid lines */}
         <div
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute inset-0 opacity-[0.025]"
           style={{
             backgroundImage: `radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0)`,
-            backgroundSize: "32px 32px"
+            backgroundSize: "40px 40px",
           }}
         />
-        {/* Soft top starlight glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-sky-500/[0.04] blur-[120px] rounded-full pointer-events-none" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          
-          {/* Main Copy (Col 1 to 7) */}
-          <div className="lg:col-span-7 space-y-6 text-left">
-            {/* System Status Telemetry Badge */}
-            <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.08] text-xs font-mono text-slate-300">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping inline-block" />
-              <span className="text-slate-400">STATUS:</span>
-              <span className="text-emerald-400 font-medium">FULL-STACK &amp; AI SYSTEMS ENGINEER</span>
-            </div>
-
-            {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight text-white leading-[1.12]">
-              Engineering resilient <span className="text-sky-400">cloud platforms</span>, backends, &amp; pragmatic AI tools.
-            </h1>
-
-            {/* Crisp Plain Copy (Anti-slop) */}
-            <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl font-normal">
-              I’m <strong className="text-white font-semibold">{developerBio.name}</strong> ({developerBio.handle}). I architect high-performance decoupled systems — from enterprise multi-tenant supply chain infrastructures (Next.js 16 + Django REST) to client-side ATS AST analyzers and fluid 60 FPS developer tools.
-            </p>
-
-            {/* Quick Metrics & Highlights Strip */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
-              <div className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06]">
-                <div className="text-xl font-bold font-mono text-white">5+</div>
-                <div className="text-xs text-slate-400 font-mono">Shipped Systems</div>
-              </div>
-              <div className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06]">
-                <div className="text-xl font-bold font-mono text-emerald-400">Multi-Tenant</div>
-                <div className="text-xs text-slate-400 font-mono">RBAC Security</div>
-              </div>
-              <div className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06] col-span-2 sm:col-span-1">
-                <div className="text-xl font-bold font-mono text-sky-400">&lt;50ms</div>
-                <div className="text-xs text-slate-400 font-mono">Edge Latency</div>
-              </div>
-            </div>
-
-            {/* Call to Actions */}
-            <div className="flex flex-wrap items-center gap-3.5 pt-4">
-              <a
-                href="#projects"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-medium text-sm transition-all shadow-lg shadow-sky-500/20 active:scale-[0.98] cursor-pointer"
-              >
-                <span>Explore Flagship Systems</span>
-                <ArrowDown className="w-4 h-4" />
-              </a>
-
-              <button
-                onClick={onOpenTerminal}
-                className="inline-flex items-center gap-2 px-4 py-3 rounded-lg bg-white/[0.05] hover:bg-white/[0.09] border border-white/[0.1] text-slate-200 hover:text-white font-mono text-xs transition-all active:scale-[0.98] cursor-pointer"
-              >
-                <Terminal className="w-4 h-4 text-sky-400" />
-                <span>Launch CLI Console</span>
-                <span className="text-[10px] text-slate-400 bg-white/10 px-1 rounded">⌘K</span>
-              </button>
-
-              <button
-                onClick={onOpenResume}
-                className="inline-flex items-center gap-2 px-4 py-3 rounded-lg bg-white/[0.05] hover:bg-white/[0.09] border border-white/[0.1] text-slate-200 hover:text-white font-mono text-xs transition-all active:scale-[0.98] cursor-pointer"
-              >
-                <FileText className="w-4 h-4 text-emerald-400" />
-                <span>View CV Matrix</span>
-              </button>
-            </div>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="flex flex-col items-center text-center max-w-3xl mx-auto space-y-6">
+          {/* Status Badge */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-white/10 text-xs font-medium text-slate-300 shadow-inner">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-slate-400">Available for high-impact roles &amp; contracts</span>
           </div>
 
-          {/* Right Column: Live Interactive Architecture Telemetry Card (Col 8 to 12) */}
-          <div className="lg:col-span-5">
-            <div className="relative rounded-xl bg-[#0d121e]/90 border border-white/[0.08] shadow-2xl shadow-black/80 overflow-hidden text-left">
-              {/* Header Bar */}
-              <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
-                <div className="flex items-center gap-2">
-                  <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
-                  <span className="ml-2 font-mono text-[11px] text-slate-400">system_architecture.telemetry</span>
-                </div>
-                <span className="font-mono text-[10px] text-emerald-400/90 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
-                  HEALTH: NOMINAL
-                </span>
-              </div>
+          {/* Main Headline */}
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white leading-[1.08]">
+            Crafting resilient cloud systems &amp; <span className="bg-gradient-to-r from-sky-400 via-indigo-300 to-emerald-400 bg-clip-text text-transparent">refined digital products.</span>
+          </h1>
 
-              {/* Live Architecture Nodes Visualizer */}
-              <div className="p-5 space-y-4 font-mono text-xs">
-                {/* Node 1: Edge & Client */}
-                <div className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06] flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <div className="p-2 rounded bg-sky-500/10 text-sky-400">
-                      <Cpu className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <div className="text-slate-200 font-semibold">Client &amp; Edge Runtime</div>
-                      <div className="text-[11px] text-slate-400">Next.js 16 / React 19 / Vite App Router</div>
-                    </div>
-                  </div>
-                  <div className="text-[10px] text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded">
-                    Vercel Edge
-                  </div>
-                </div>
+          {/* Subtitle */}
+          <p className="text-base sm:text-xl text-slate-300 leading-relaxed font-normal max-w-2xl">
+            I’m <strong className="text-white font-semibold">{developerBio.name}</strong> ({developerBio.handle}). Full-Stack Software Engineer building production-ready multi-tenant architectures, decoupled APIs, and intelligent developer tooling.
+          </p>
 
-                {/* Connection line */}
-                <div className="flex justify-center -my-2">
-                  <div className="w-px h-4 bg-gradient-to-b from-sky-500/40 to-emerald-500/40" />
-                </div>
+          {/* Action Buttons */}
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-3">
+            <a
+              href="#projects"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white hover:bg-slate-100 text-slate-950 font-semibold text-sm transition-all shadow-xl shadow-white/10 hover:shadow-white/20 active:scale-95 cursor-pointer"
+            >
+              <span>Explore Flagship Work</span>
+              <ArrowRight className="w-4 h-4 text-slate-900" />
+            </a>
 
-                {/* Node 2: Backend & Security */}
-                <div className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06] flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <div className="p-2 rounded bg-emerald-500/10 text-emerald-400">
-                      <ShieldCheck className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <div className="text-slate-200 font-semibold">Decoupled API &amp; Auth</div>
-                      <div className="text-[11px] text-slate-400">Django REST Framework + JWT &amp; Multi-Tenant RBAC</div>
-                    </div>
-                  </div>
-                  <div className="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
-                    Isolated
-                  </div>
-                </div>
+            <button
+              onClick={onOpenResume}
+              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-white/10 hover:border-white/20 text-slate-200 hover:text-white font-medium text-sm transition-all active:scale-95 cursor-pointer"
+            >
+              <FileText className="w-4 h-4 text-sky-400" />
+              <span>View Executive CV</span>
+            </button>
 
-                {/* Connection line */}
-                <div className="flex justify-center -my-2">
-                  <div className="w-px h-4 bg-gradient-to-b from-emerald-500/40 to-amber-500/40" />
-                </div>
-
-                {/* Node 3: Database & Cloud */}
-                <div className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06] flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <div className="p-2 rounded bg-amber-500/10 text-amber-400">
-                      <Database className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <div className="text-slate-200 font-semibold">Persistence Layer</div>
-                      <div className="text-[11px] text-slate-400">PostgreSQL Cloud Pool (Neon.tech)</div>
-                    </div>
-                  </div>
-                  <div className="text-[10px] text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded">
-                    Pooled
-                  </div>
-                </div>
-
-                {/* Live Console Output Simulation */}
-                <div className="mt-4 p-3 rounded-lg bg-black/60 border border-white/[0.06] text-[11px] space-y-1">
-                  <div className="text-slate-400 flex items-center justify-between">
-                    <span>$ sys.verify_pipeline</span>
-                    <span className="text-emerald-400">✓ ALL PASS</span>
-                  </div>
-                  <div className="text-slate-400 text-[10px] leading-relaxed">
-                    &gt; Inventry: Multi-Tenant schema partition verified.<br/>
-                    &gt; ResuMind: AST PDF tokenizer ready (zero retention).<br/>
-                    &gt; Vesper: 60 FPS motion rendering nominal.
-                  </div>
-                </div>
-              </div>
-
-              {/* Bottom Quick Action */}
-              <div className="px-4 py-2.5 bg-white/[0.02] border-t border-white/[0.06] flex items-center justify-between text-xs font-mono text-slate-400">
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                  Deployed on Vercel
-                </span>
-                <a
-                  href="https://github.com/mahmudbuilds"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-white flex items-center gap-1"
-                >
-                  <span>@mahmudbuilds</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
-            </div>
+            <a
+              href="#showcase"
+              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-slate-900/50 hover:bg-slate-800/80 border border-white/10 hover:border-sky-500/30 text-slate-300 hover:text-white font-medium text-sm transition-all active:scale-95 cursor-pointer"
+            >
+              <Sparkles className="w-4 h-4 text-emerald-400" />
+              <span>Interactive Studio</span>
+            </a>
           </div>
 
+          {/* Quick Credibility Strip */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 w-full max-w-2xl text-left">
+            <div className="p-3.5 rounded-xl bg-slate-900/40 border border-white/[0.06]">
+              <div className="text-2xl font-bold text-white tracking-tight">5+</div>
+              <div className="text-xs text-slate-400 mt-0.5">Shipped Platforms</div>
+            </div>
+            <div className="p-3.5 rounded-xl bg-slate-900/40 border border-white/[0.06]">
+              <div className="text-2xl font-bold text-emerald-400 tracking-tight">Multi-Tenant</div>
+              <div className="text-xs text-slate-400 mt-0.5">RBAC Security</div>
+            </div>
+            <div className="p-3.5 rounded-xl bg-slate-900/40 border border-white/[0.06]">
+              <div className="text-2xl font-bold text-sky-400 tracking-tight">&lt;45ms</div>
+              <div className="text-xs text-slate-400 mt-0.5">Edge Latency</div>
+            </div>
+            <div className="p-3.5 rounded-xl bg-slate-900/40 border border-white/[0.06]">
+              <div className="text-2xl font-bold text-indigo-400 tracking-tight">60 FPS</div>
+              <div className="text-xs text-slate-400 mt-0.5">Tactile Interfaces</div>
+            </div>
+          </div>
         </div>
+
+        {/* Luxury Application Showcase Frame */}
+        <div className="mt-16 max-w-5xl mx-auto rounded-2xl bg-gradient-to-b from-white/[0.1] to-white/[0.02] p-[1px] shadow-2xl shadow-sky-500/5">
+          <div className="rounded-[15px] bg-slate-950/90 backdrop-blur-2xl overflow-hidden border border-white/[0.06]">
+            {/* Window Topbar */}
+            <div className="px-4 py-3.5 bg-slate-900/60 border-b border-white/[0.06] flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-3 h-3 rounded-full bg-rose-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-amber-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
+                </div>
+                <div className="h-4 w-px bg-white/10 mx-1" />
+                <span className="text-xs text-slate-400 font-medium hidden sm:inline">
+                  mahmud.systems // flagship_architecture_preview
+                </span>
+              </div>
+
+              {/* Product Switcher Tabs */}
+              <div className="flex items-center gap-1 bg-black/40 p-1 rounded-lg border border-white/[0.08] text-xs">
+                <button
+                  onClick={() => setActivePreview("inventry")}
+                  className={`px-3 py-1 rounded-md transition-all cursor-pointer ${
+                    activePreview === "inventry"
+                      ? "bg-sky-500 text-slate-950 font-semibold"
+                      : "text-slate-400 hover:text-white"
+                  }`}
+                >
+                  Inventry (Supply Chain)
+                </button>
+                <button
+                  onClick={() => setActivePreview("resumind")}
+                  className={`px-3 py-1 rounded-md transition-all cursor-pointer ${
+                    activePreview === "resumind"
+                      ? "bg-sky-500 text-slate-950 font-semibold"
+                      : "text-slate-400 hover:text-white"
+                  }`}
+                >
+                  ResuMind (ATS Engine)
+                </button>
+                <button
+                  onClick={() => setActivePreview("vesper")}
+                  className={`px-3 py-1 rounded-md transition-all cursor-pointer ${
+                    activePreview === "vesper"
+                      ? "bg-sky-500 text-slate-950 font-semibold"
+                      : "text-slate-400 hover:text-white"
+                  }`}
+                >
+                  Vesper (Interview HUD)
+                </button>
+              </div>
+            </div>
+
+            {/* Window Content Preview */}
+            <div className="p-6 md:p-8">
+              {activePreview === "inventry" && (
+                <div className="space-y-6 text-left">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/[0.06]">
+                    <div>
+                      <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                        <span>Inventry — Multi-Tenant Cloud Logistics</span>
+                        <span className="text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                          Production Live
+                        </span>
+                      </h3>
+                      <p className="text-xs text-slate-400 mt-1">
+                        Next.js 16 App Router client decoupled from a high-performance Django REST Framework API with PostgreSQL.
+                      </p>
+                    </div>
+
+                    <a
+                      href="https://inventry-roan.vercel.app"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 text-xs font-medium border border-sky-500/30 transition-colors self-start sm:self-auto"
+                    >
+                      <span>Open Live Demo</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+
+                  {/* Architecture Feature Cards */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="p-4 rounded-xl bg-slate-900/50 border border-white/[0.06] space-y-2">
+                      <div className="flex items-center gap-2 text-sky-400 text-xs font-semibold">
+                        <ShieldCheck className="w-4 h-4" />
+                        <span>Tenant Isolation</span>
+                      </div>
+                      <p className="text-xs text-slate-300 leading-relaxed">
+                        Data tenancy enforced at the ORM base manager level to prevent cross-organization queries.
+                      </p>
+                    </div>
+
+                    <div className="p-4 rounded-xl bg-slate-900/50 border border-white/[0.06] space-y-2">
+                      <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold">
+                        <Activity className="w-4 h-4" />
+                        <span>Stock Depletion Engine</span>
+                      </div>
+                      <p className="text-xs text-slate-300 leading-relaxed">
+                        Row-level locked transactions preventing concurrent race conditions during rapid warehouse orders.
+                      </p>
+                    </div>
+
+                    <div className="p-4 rounded-xl bg-slate-900/50 border border-white/[0.06] space-y-2">
+                      <div className="flex items-center gap-2 text-indigo-400 text-xs font-semibold">
+                        <Layers className="w-4 h-4" />
+                        <span>Decoupled Deployment</span>
+                      </div>
+                      <p className="text-xs text-slate-300 leading-relaxed">
+                        Frontend deployed on Vercel Edge with global proxy caching; backend deployed on Render with cloud PostgreSQL.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activePreview === "resumind" && (
+                <div className="space-y-6 text-left">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/[0.06]">
+                    <div>
+                      <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                        <span>ResuMind — AI ATS Semantic Scoring Engine</span>
+                        <span className="text-[11px] font-semibold text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded-full border border-sky-500/20">
+                          Client-Side AST
+                        </span>
+                      </h3>
+                      <p className="text-xs text-slate-400 mt-1">
+                        Zero-retention privacy engine evaluating resumes against job descriptions with multi-column PDF structural parsing.
+                      </p>
+                    </div>
+
+                    <a
+                      href="https://github.com/mahmudbuilds/ResuMind"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 text-xs font-medium border border-sky-500/30 transition-colors self-start sm:self-auto"
+                    >
+                      <span>View GitHub Repo</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="p-4 rounded-xl bg-slate-900/50 border border-white/[0.06] space-y-2">
+                      <div className="text-sky-400 text-xs font-semibold">0-100 Scoring Algorithm</div>
+                      <p className="text-xs text-slate-300 leading-relaxed">
+                        Deterministic scoring mimicking modern enterprise ATS filters (Workday, Greenhouse, Lever).
+                      </p>
+                    </div>
+
+                    <div className="p-4 rounded-xl bg-slate-900/50 border border-white/[0.06] space-y-2">
+                      <div className="text-emerald-400 text-xs font-semibold">Bounding-Box PDF Parser</div>
+                      <p className="text-xs text-slate-300 leading-relaxed">
+                        Uses pdfjs-dist coordinate clustering to accurately read multi-column layouts without scrambling text.
+                      </p>
+                    </div>
+
+                    <div className="p-4 rounded-xl bg-slate-900/50 border border-white/[0.06] space-y-2">
+                      <div className="text-indigo-400 text-xs font-semibold">Zero-Data Retention</div>
+                      <p className="text-xs text-slate-300 leading-relaxed">
+                        Evaluations run entirely in client memory; resumes are never stored on external database disks.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activePreview === "vesper" && (
+                <div className="space-y-6 text-left">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/[0.06]">
+                    <div>
+                      <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                        <span>Vesper — 60 FPS Technical Interview Copilot HUD</span>
+                        <span className="text-[11px] font-semibold text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded-full border border-indigo-500/20">
+                          React 19 + Motion
+                        </span>
+                      </h3>
+                      <p className="text-xs text-slate-400 mt-1">
+                        Hyper-tactile interface concept inspired by modern desktop copilots with sub-pixel typography tracking.
+                      </p>
+                    </div>
+
+                    <a
+                      href="https://github.com/mahmudbuilds/vesper"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 text-xs font-medium border border-sky-500/30 transition-colors self-start sm:self-auto"
+                    >
+                      <span>View GitHub Repo</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="p-4 rounded-xl bg-slate-900/50 border border-white/[0.06] space-y-2">
+                      <div className="text-sky-400 text-xs font-semibold">Fluid Kinetic Transitions</div>
+                      <p className="text-xs text-slate-300 leading-relaxed">
+                        Spring-physics animations crafted with Motion for fluid micro-interactions and tactile feel.
+                      </p>
+                    </div>
+
+                    <div className="p-4 rounded-xl bg-slate-900/50 border border-white/[0.06] space-y-2">
+                      <div className="text-emerald-400 text-xs font-semibold">Stealth HUD Architecture</div>
+                      <p className="text-xs text-slate-300 leading-relaxed">
+                        High-density UI optimized for quick visual scanning with zero cognitive overload.
+                      </p>
+                    </div>
+
+                    <div className="p-4 rounded-xl bg-slate-900/50 border border-white/[0.06] space-y-2">
+                      <div className="text-indigo-400 text-xs font-semibold">Sub-Pixel Typography</div>
+                      <p className="text-xs text-slate-300 leading-relaxed">
+                        Calibrated letter-spacing and hierarchy tested across Retina and high-DPI displays.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   );
