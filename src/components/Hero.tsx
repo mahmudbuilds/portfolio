@@ -1,276 +1,207 @@
-"use client";
-
-import { useState } from "react";
-import { motion } from "motion/react";
-import {
-  ArrowRight,
-  Command,
-  FileText,
-  Copy,
-  Check,
-  Terminal,
-  Sparkles,
-  Layers,
-  Cpu,
-  Database,
-  ExternalLink
-} from "lucide-react";
+import React from "react";
+import { ArrowDown, Terminal, FileText, CheckCircle2, ShieldCheck, Cpu, Database, ExternalLink } from "lucide-react";
+import { developerBio } from "../data/portfolioData";
 
 interface HeroProps {
-  onOpenCommandPalette: () => void;
+  onOpenTerminal: () => void;
   onOpenResume: () => void;
 }
 
-export function Hero({ onOpenCommandPalette, onOpenResume }: HeroProps) {
-  const [copied, setCopied] = useState(false);
-  const [activeCodeTab, setActiveCodeTab] = useState<"inventry" | "resumind" | "stack">("inventry");
-
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText("mahxgithub@gmail.com");
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const codeSnippets = {
-    inventry: `// Inventry: Enterprise Decoupled Architecture
-interface SupplyChainNode {
-  tenantId: string;        // Strict multi-tenant isolation
-  rbacRole: "Admin" | "Manager" | "Auditor";
-  inventoryTelemetry: {
-    realTimeStock: number;
-    thresholdAlert: boolean;
-  };
-}
-
-// Next.js 16 App Router -> Django REST Framework
-export async function syncWarehouse(node: SupplyChainNode) {
-  return await api.post("/v1/inventory/reconcile/", {
-    headers: { Authorization: \`Bearer \${jwtToken}\` },
-    body: JSON.stringify(node),
-  });
-}`,
-    resumind: `// ResuMind: AI ATS Scoring & PDF Parsing
-import * as pdfjs from "pdfjs-dist";
-
-export async function parseAndScoreResume(file: ArrayBuffer, jobSpec: string) {
-  const extractedText = await extractMultiColumnPDF(file);
-  const { score, missingKeywords } = await evaluateATS({
-    resumeText: extractedText,
-    targetRole: jobSpec,
-    algorithm: "ATS-Match-V3" // 0-100 compatibility
-  });
-  return { score, missingKeywords };
-}`,
-    stack: `// Developer Profile: Mahmud (@mahmudbuilds)
-const engineer = {
-  name: "Mahmud",
-  role: "Full-Stack & AI Engineer",
-  ethos: "Indie builder solving problems with code",
-  runtime: "Bun (High-performance JS/TS)",
-  frontend: ["Next.js 16", "React 19", "Tailwind v4", "Motion"],
-  backend: ["Python", "Django REST", "Node.js", "PostgreSQL"],
-  intelligence: ["LLM Workflows", "Vector/Prompt Systems", "pdfjs-dist"],
-  status: "Open to high-impact engineering roles"
-};`
-  };
-
+export const Hero: React.FC<HeroProps> = ({ onOpenTerminal, onOpenResume }) => {
   return (
-    <section className="relative min-h-[92vh] flex items-center justify-center pt-28 pb-16 overflow-hidden">
-      {/* Background Decorative Mesh & Glow */}
-      <div className="absolute inset-0 bg-mesh subtle-grid pointer-events-none" />
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[350px] bg-gradient-to-tr from-cyan-500/10 via-violet-500/10 to-emerald-500/5 blur-[100px] rounded-full pointer-events-none" />
+    <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+      {/* Background Subtle Ambience (Taste-skill compliant: dark neutral, subtle grid lines, no violent violet gradient) */}
+      <div className="absolute inset-0 -z-10 pointer-events-none">
+        {/* Subtle grid pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0)`,
+            backgroundSize: "32px 32px"
+          }}
+        />
+        {/* Soft top starlight glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-sky-500/[0.04] blur-[120px] rounded-full pointer-events-none" />
+      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Column: Bio & Value Proposition */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="lg:col-span-7 space-y-6 text-left"
-          >
-            {/* Status Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/[0.08] backdrop-blur-md">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
-              </span>
-              <span className="text-xs font-mono text-emerald-300 tracking-wide font-medium">
-                Open to Full-Stack & AI Roles
-              </span>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          
+          {/* Main Copy (Col 1 to 7) */}
+          <div className="lg:col-span-7 space-y-6 text-left">
+            {/* System Status Telemetry Badge */}
+            <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.08] text-xs font-mono text-slate-300">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping inline-block" />
+              <span className="text-slate-400">STATUS:</span>
+              <span className="text-emerald-400 font-medium">FULL-STACK &amp; AI SYSTEMS ENGINEER</span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.1]">
-              Architecting{" "}
-              <span className="bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent">
-                resilient systems
-              </span>{" "}
-              & intelligent tools.
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight text-white leading-[1.12]">
+              Engineering resilient <span className="text-sky-400">cloud platforms</span>, backends, &amp; pragmatic AI tools.
             </h1>
 
-            {/* Subheading / Tagline */}
-            <p className="text-base sm:text-lg text-zinc-400 max-w-2xl leading-relaxed">
-              I&apos;m <span className="text-white font-medium">Mahmud</span> (
-              <a
-                href="https://github.com/mahmudbuilds"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-cyan-400 hover:underline font-mono"
-              >
-                @mahmudbuilds
-              </a>
-              ), an indie developer and full-stack software engineer crafting enterprise multi-tenant cloud platforms, ATS-beating AI analyzers, and fluid 60 FPS user experiences.
+            {/* Crisp Plain Copy (Anti-slop) */}
+            <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl font-normal">
+              I’m <strong className="text-white font-semibold">{developerBio.name}</strong> ({developerBio.handle}). I architect high-performance decoupled systems — from enterprise multi-tenant supply chain infrastructures (Next.js 16 + Django REST) to client-side ATS AST analyzers and fluid 60 FPS developer tools.
             </p>
 
-            {/* Tech Pill Row */}
-            <div className="flex flex-wrap gap-2 pt-1 font-mono text-xs text-zinc-400">
-              <span className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.08]">
-                Next.js 16
-              </span>
-              <span className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.08]">
-                React 19
-              </span>
-              <span className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.08]">
-                Django REST
-              </span>
-              <span className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.08]">
-                PostgreSQL
-              </span>
-              <span className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.08]">
-                AI / LLMs
-              </span>
-              <span className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/[0.08]">
-                Bun
-              </span>
+            {/* Quick Metrics & Highlights Strip */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
+              <div className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06]">
+                <div className="text-xl font-bold font-mono text-white">5+</div>
+                <div className="text-xs text-slate-400 font-mono">Shipped Systems</div>
+              </div>
+              <div className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06]">
+                <div className="text-xl font-bold font-mono text-emerald-400">Multi-Tenant</div>
+                <div className="text-xs text-slate-400 font-mono">RBAC Security</div>
+              </div>
+              <div className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06] col-span-2 sm:col-span-1">
+                <div className="text-xl font-bold font-mono text-sky-400">&lt;50ms</div>
+                <div className="text-xs text-slate-400 font-mono">Edge Latency</div>
+              </div>
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3 pt-4">
+            {/* Call to Actions */}
+            <div className="flex flex-wrap items-center gap-3.5 pt-4">
               <a
                 href="#projects"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 text-slate-950 font-semibold text-sm hover:from-cyan-400 hover:to-teal-400 transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/30 hover:-translate-y-0.5 cursor-pointer"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-medium text-sm transition-all shadow-lg shadow-sky-500/20 active:scale-[0.98] cursor-pointer"
               >
-                Explore Projects
-                <ArrowRight className="w-4 h-4" />
+                <span>Explore Flagship Systems</span>
+                <ArrowDown className="w-4 h-4" />
               </a>
+
+              <button
+                onClick={onOpenTerminal}
+                className="inline-flex items-center gap-2 px-4 py-3 rounded-lg bg-white/[0.05] hover:bg-white/[0.09] border border-white/[0.1] text-slate-200 hover:text-white font-mono text-xs transition-all active:scale-[0.98] cursor-pointer"
+              >
+                <Terminal className="w-4 h-4 text-sky-400" />
+                <span>Launch CLI Console</span>
+                <span className="text-[10px] text-slate-400 bg-white/10 px-1 rounded">⌘K</span>
+              </button>
 
               <button
                 onClick={onOpenResume}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.1] text-white text-sm font-medium transition-all hover:-translate-y-0.5 cursor-pointer"
+                className="inline-flex items-center gap-2 px-4 py-3 rounded-lg bg-white/[0.05] hover:bg-white/[0.09] border border-white/[0.1] text-slate-200 hover:text-white font-mono text-xs transition-all active:scale-[0.98] cursor-pointer"
               >
-                <FileText className="w-4 h-4 text-cyan-400" />
-                Resume
-              </button>
-
-              <button
-                onClick={handleCopyEmail}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.1] text-zinc-300 hover:text-white text-sm font-medium transition-all cursor-pointer"
-              >
-                {copied ? (
-                  <>
-                    <Check className="w-4 h-4 text-emerald-400" />
-                    <span className="text-emerald-400 font-mono text-xs">Email Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-4 h-4 text-zinc-400" />
-                    <span className="font-mono text-xs">Copy Email</span>
-                  </>
-                )}
-              </button>
-
-              <button
-                onClick={onOpenCommandPalette}
-                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl text-zinc-400 hover:text-zinc-200 text-xs font-mono transition-colors"
-                title="Press ⌘K or Ctrl+K anytime"
-              >
-                <Command className="w-3.5 h-3.5 text-cyan-400" />
-                <span>Cmd + K</span>
+                <FileText className="w-4 h-4 text-emerald-400" />
+                <span>View CV Matrix</span>
               </button>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Right Column: Interactive Code & Architecture Inspector */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
-            className="lg:col-span-5"
-          >
-            <div className="relative rounded-2xl border border-white/[0.12] bg-[#0c1018]/90 backdrop-blur-xl shadow-2xl shadow-cyan-950/40 overflow-hidden">
-              {/* Window Title Bar */}
-              <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.08] bg-white/[0.02]">
+          {/* Right Column: Live Interactive Architecture Telemetry Card (Col 8 to 12) */}
+          <div className="lg:col-span-5">
+            <div className="relative rounded-xl bg-[#0d121e]/90 border border-white/[0.08] shadow-2xl shadow-black/80 overflow-hidden text-left">
+              {/* Header Bar */}
+              <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-rose-500/70 border border-rose-600/40" />
-                  <div className="w-3 h-3 rounded-full bg-amber-500/70 border border-amber-600/40" />
-                  <div className="w-3 h-3 rounded-full bg-emerald-500/70 border border-emerald-600/40" />
-                  <span className="ml-2 text-xs font-mono text-zinc-400 flex items-center gap-1.5">
-                    <Terminal className="w-3.5 h-3.5 text-cyan-400" />
-                    architecture.preview.ts
-                  </span>
+                  <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+                  <span className="ml-2 font-mono text-[11px] text-slate-400">system_architecture.telemetry</span>
                 </div>
-                <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
-                  LIVE
+                <span className="font-mono text-[10px] text-emerald-400/90 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                  HEALTH: NOMINAL
                 </span>
               </div>
 
-              {/* Tabs */}
-              <div className="flex border-b border-white/[0.06] bg-black/30 text-xs font-mono">
-                <button
-                  onClick={() => setActiveCodeTab("inventry")}
-                  className={`px-3.5 py-2 border-b-2 transition-all cursor-pointer ${
-                    activeCodeTab === "inventry"
-                      ? "border-cyan-400 text-cyan-300 bg-white/[0.04]"
-                      : "border-transparent text-zinc-400 hover:text-zinc-200"
-                  }`}
-                >
-                  Inventry.ts
-                </button>
-                <button
-                  onClick={() => setActiveCodeTab("resumind")}
-                  className={`px-3.5 py-2 border-b-2 transition-all cursor-pointer ${
-                    activeCodeTab === "resumind"
-                      ? "border-cyan-400 text-cyan-300 bg-white/[0.04]"
-                      : "border-transparent text-zinc-400 hover:text-zinc-200"
-                  }`}
-                >
-                  ResuMind.ts
-                </button>
-                <button
-                  onClick={() => setActiveCodeTab("stack")}
-                  className={`px-3.5 py-2 border-b-2 transition-all cursor-pointer ${
-                    activeCodeTab === "stack"
-                      ? "border-cyan-400 text-cyan-300 bg-white/[0.04]"
-                      : "border-transparent text-zinc-400 hover:text-zinc-200"
-                  }`}
-                >
-                  Bio.ts
-                </button>
-              </div>
-
-              {/* Code Display */}
-              <div className="p-4 font-mono text-[11px] sm:text-xs text-zinc-300 overflow-x-auto leading-relaxed max-h-[360px]">
-                <pre className="text-zinc-300">
-                  <code>{codeSnippets[activeCodeTab]}</code>
-                </pre>
-              </div>
-
-              {/* Card Footer Telemetry */}
-              <div className="px-4 py-2.5 bg-black/40 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-zinc-400">
-                <div className="flex items-center gap-3">
-                  <span className="flex items-center gap-1 text-emerald-400">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                    TypeScript Strict
-                  </span>
-                  <span>UTF-8</span>
+              {/* Live Architecture Nodes Visualizer */}
+              <div className="p-5 space-y-4 font-mono text-xs">
+                {/* Node 1: Edge & Client */}
+                <div className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06] flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="p-2 rounded bg-sky-500/10 text-sky-400">
+                      <Cpu className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-slate-200 font-semibold">Client &amp; Edge Runtime</div>
+                      <div className="text-[11px] text-slate-400">Next.js 16 / React 19 / Vite App Router</div>
+                    </div>
+                  </div>
+                  <div className="text-[10px] text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded">
+                    Vercel Edge
+                  </div>
                 </div>
-                <span className="text-zinc-400">Next.js 16 + Bun</span>
+
+                {/* Connection line */}
+                <div className="flex justify-center -my-2">
+                  <div className="w-px h-4 bg-gradient-to-b from-sky-500/40 to-emerald-500/40" />
+                </div>
+
+                {/* Node 2: Backend & Security */}
+                <div className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06] flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="p-2 rounded bg-emerald-500/10 text-emerald-400">
+                      <ShieldCheck className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-slate-200 font-semibold">Decoupled API &amp; Auth</div>
+                      <div className="text-[11px] text-slate-400">Django REST Framework + JWT &amp; Multi-Tenant RBAC</div>
+                    </div>
+                  </div>
+                  <div className="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
+                    Isolated
+                  </div>
+                </div>
+
+                {/* Connection line */}
+                <div className="flex justify-center -my-2">
+                  <div className="w-px h-4 bg-gradient-to-b from-emerald-500/40 to-amber-500/40" />
+                </div>
+
+                {/* Node 3: Database & Cloud */}
+                <div className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06] flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="p-2 rounded bg-amber-500/10 text-amber-400">
+                      <Database className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-slate-200 font-semibold">Persistence Layer</div>
+                      <div className="text-[11px] text-slate-400">PostgreSQL Cloud Pool (Neon.tech)</div>
+                    </div>
+                  </div>
+                  <div className="text-[10px] text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded">
+                    Pooled
+                  </div>
+                </div>
+
+                {/* Live Console Output Simulation */}
+                <div className="mt-4 p-3 rounded-lg bg-black/60 border border-white/[0.06] text-[11px] space-y-1">
+                  <div className="text-slate-400 flex items-center justify-between">
+                    <span>$ sys.verify_pipeline</span>
+                    <span className="text-emerald-400">✓ ALL PASS</span>
+                  </div>
+                  <div className="text-slate-400 text-[10px] leading-relaxed">
+                    &gt; Inventry: Multi-Tenant schema partition verified.<br/>
+                    &gt; ResuMind: AST PDF tokenizer ready (zero retention).<br/>
+                    &gt; Vesper: 60 FPS motion rendering nominal.
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Quick Action */}
+              <div className="px-4 py-2.5 bg-white/[0.02] border-t border-white/[0.06] flex items-center justify-between text-xs font-mono text-slate-400">
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                  Deployed on Vercel
+                </span>
+                <a
+                  href="https://github.com/mahmudbuilds"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white flex items-center gap-1"
+                >
+                  <span>@mahmudbuilds</span>
+                  <ExternalLink className="w-3 h-3" />
+                </a>
               </div>
             </div>
-          </motion.div>
+          </div>
+
         </div>
       </div>
     </section>
   );
-}
+};

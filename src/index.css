@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --p-bg: #07090e;
+    --p-surface: #0d121d;
+    --p-surface-elevated: #131a29;
+    --p-surface-card: #0f1522;
+    --p-border: rgba(255, 255, 255, 0.08);
+    --p-border-hover: rgba(255, 255, 255, 0.18);
+    --p-ink: #f1f5f9;
+    --p-muted: #8493a8;
+    --p-accent: #38bdf8;
+    --p-accent-muted: rgba(56, 189, 248, 0.12);
+    --p-emerald: #10b981;
+    --p-emerald-muted: rgba(16, 185, 129, 0.12);
+    --font-display: 'Mona Sans', system-ui, -apple-system, sans-serif;
+    --font-text: 'Mona Sans', system-ui, -apple-system, sans-serif;
+    --font-mono: 'Geist Mono', ui-monospace, monospace;
+  }
+
+  * {
+    border-color: var(--p-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--p-bg);
+    color: var(--p-ink);
+    font-family: var(--font-text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--p-bg);
+    color: var(--p-ink);
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #07090e;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Print Styles for Resume */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+}

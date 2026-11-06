@@ -1,57 +1,65 @@
-"use client";
-
-import { useState, useEffect, useMemo, useRef } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import {
-  Search,
-  Command,
-  ExternalLink,
-  Copy,
-  Check,
-  FolderGit2,
-  FileText,
-  Sparkles,
-  ArrowRight,
-  Code2,
-  Send,
-  X
-} from "lucide-react";
-import { GithubIcon, XIcon } from "./Icons";
-import { projects } from "@/data/projects";
+import React, { useState, useEffect, useRef } from "react";
+import { Terminal, X, CornerDownLeft, Sparkles } from "lucide-react";
+import confetti from "canvas-confetti";
+import { developerBio, projectsData, skillCategoriesData } from "../data/portfolioData";
+import type { Project } from "../types";
 
 interface CommandPaletteProps {
   isOpen: boolean;
   onClose: () => void;
   onOpenResume: () => void;
+  onSelectProject: (p: Project) => void;
 }
 
-interface CommandItem {
+interface CommandLog {
   id: string;
-  title: string;
-  subtitle?: string;
-  category: "Actions" | "Projects" | "Navigation";
-  icon: any;
-  action: () => void;
-  badge?: string;
+  command: string;
+  output: React.ReactNode;
 }
 
-export function CommandPalette({ isOpen, onClose, onOpenResume }: CommandPaletteProps) {
-  const [query, setQuery] = useState("");
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [copiedEmail, setCopiedEmail] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+export const CommandPalette: React.FC<CommandPaletteProps> = ({
+  isOpen,
+  onClose,
+  onOpenResume,
+  onSelectProject,
+}) => {
+  const [input, setInput] = useState("");
+  const [history, setHistory] = useState<CommandLog[]>([
+    {
+      id: "init",
+      command: "welcome",
+      output: (
+        <div className="space-y-1 text-slate-300">
+          <div className="text-sky-400 font-semibold">
+            Mahmud Developer Console [Version 2.5.0-vite]
+          </div>
+          <div className="text-slate-400">
+            Type <span className="text-emerald-400 font-bold">help</span> to view available commands, or try <span className="text-emerald-400 font-bold">projects</span>, <span className="text-emerald-400 font-bold">skills</span>, <span className="text-emerald-400 font-bold">cat resume</span>, <span className="text-emerald-400 font-bold">hire</span>.
+          </div>
+        </div>
+      )
+    }
+  ]);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const bottomRef = useRef<HTMLDivElement | null>(null);
 
-  // Global keyboard listener for Cmd+K / Ctrl+K
+  useEffect(() => {
+    if (isOpen) {
+      setTimeout(() => inputRef.current?.focus(), 50);
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [history]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
-        if (isOpen) {
-          onClose();
-        } else {
-          // Open handled by parent or toggle
-        }
-      } else if (e.key === "Escape" && isOpen) {
+        onClose();
+      }
+      if (e.key === "Escape" && isOpen) {
         onClose();
       }
     };
@@ -59,283 +67,261 @@ export function CommandPalette({ isOpen, onClose, onOpenResume }: CommandPalette
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
-  // Focus input on open
-  useEffect(() => {
-    if (isOpen) {
-      setQuery("");
-      setSelectedIndex(0);
-      setTimeout(() => inputRef.current?.focus(), 50);
-    }
-  }, [isOpen]);
+  if (!isOpen) return null;
 
-  const copyEmail = () => {
-    navigator.clipboard.writeText("mahxgithub@gmail.com");
-    setCopiedEmail(true);
-    setTimeout(() => {
-      setCopiedEmail(false);
-      onClose();
-    }, 1200);
-  };
+  const handleCommand = (e: React.FormEvent) => {
+    e.preventDefault();
+    const cmd = input.trim().toLowerCase();
+    if (!cmd) return;
 
-  const scrollToSection = (id: string) => {
-    onClose();
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+    let outputNode: React.ReactNode = null;
 
-  const items: CommandItem[] = useMemo(() => {
-    const actions: CommandItem[] = [
-      {
-        id: "copy-email",
-        title: copiedEmail ? "Copied mahxgithub@gmail.com!" : "Copy Email Address",
-        subtitle: "mahxgithub@gmail.com",
-        category: "Actions",
-        icon: copiedEmail ? Check : Copy,
-        badge: "Contact",
-        action: copyEmail,
-      },
-      {
-        id: "view-resume",
-        title: "View & Download Resume",
-        subtitle: "Scannable interactive CV & experience",
-        category: "Actions",
-        icon: FileText,
-        badge: "CV",
-        action: () => {
+    switch (cmd) {
+      case "help":
+        outputNode = (
+          <div className="space-y-1.5 text-xs text-slate-300">
+            <div className="text-slate-400">// AVAILABLE COMMANDS:</div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 pt-1">
+              <div><strong className="text-sky-400">projects</strong> - List all flagship systems</div>
+              <div><strong className="text-sky-400">skills</strong> - View technical radar matrix</div>
+              <div><strong className="text-sky-400">cat resume</strong> - View scannable CV format</div>
+              <div><strong className="text-sky-400">contact</strong> - Get direct email &amp; handles</div>
+              <div><strong className="text-sky-400">hire</strong> - Instant offer trigger + confetti</div>
+              <div><strong className="text-sky-400">whoami</strong> - Visitor &amp; runtime telemetry</div>
+              <div><strong className="text-sky-400">status</strong> - Check cloud deployments status</div>
+              <div><strong className="text-sky-400">clear</strong> - Reset terminal history</div>
+            </div>
+          </div>
+        );
+        break;
+
+      case "projects":
+        outputNode = (
+          <div className="space-y-2 text-xs">
+            <div className="text-slate-400">// SHIPPED ARCHITECTURES:</div>
+            <div className="space-y-1.5">
+              {projectsData.map((p) => (
+                <div
+                  key={p.id}
+                  className="p-2 rounded bg-white/[0.03] border border-white/[0.06] flex items-center justify-between"
+                >
+                  <div>
+                    <span className="font-semibold text-white">{p.title}</span>
+                    <span className="text-slate-400 ml-2">({p.category})</span>
+                    <div className="text-[11px] text-slate-400">{p.tagline}</div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      onClose();
+                      onSelectProject(p);
+                    }}
+                    className="text-[11px] font-mono text-sky-400 hover:text-sky-300 underline cursor-pointer"
+                  >
+                    inspect →
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+        break;
+
+      case "skills":
+        outputNode = (
+          <div className="space-y-3 text-xs">
+            {skillCategoriesData.map((cat, i) => (
+              <div key={i} className="space-y-1">
+                <div className="text-sky-400 font-semibold">{cat.name}:</div>
+                <div className="flex flex-wrap gap-1.5">
+                  {cat.skills.map((s, idx) => (
+                    <span
+                      key={idx}
+                      className="px-2 py-0.5 rounded bg-white/[0.04] text-[11px] font-mono text-slate-300"
+                    >
+                      {s.name}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        );
+        break;
+
+      case "cat resume":
+      case "resume":
+        outputNode = (
+          <div className="space-y-2 text-xs">
+            <div className="text-emerald-400 font-semibold">Opening Interactive CV modal...</div>
+            <p className="text-slate-300">
+              Launching scannable, print-to-PDF ready executive developer resume.
+            </p>
+          </div>
+        );
+        setTimeout(() => {
           onClose();
           onOpenResume();
-        },
-      },
-      {
-        id: "github-profile",
-        title: "Visit GitHub Profile",
-        subtitle: "github.com/mahmudbuilds (17+ repos)",
-        category: "Actions",
-        icon: GithubIcon,
-        badge: "External",
-        action: () => {
-          window.open("https://github.com/mahmudbuilds", "_blank");
-          onClose();
-        },
-      },
-      {
-        id: "twitter-profile",
-        title: "Connect on X / Twitter",
-        subtitle: "@mahmudbuilds",
-        category: "Actions",
-        icon: XIcon,
-        badge: "Social",
-        action: () => {
-          window.open("https://twitter.com/mahmudbuilds", "_blank");
-          onClose();
-        },
-      },
-    ];
+        }, 600);
+        break;
 
-    const projectItems: CommandItem[] = projects.map((p) => ({
-      id: `project-${p.id}`,
-      title: p.title,
-      subtitle: p.tagline,
-      category: "Projects",
-      icon: FolderGit2,
-      badge: p.category,
-      action: () => {
-        if (p.liveUrl) {
-          window.open(p.liveUrl, "_blank");
-        } else {
-          window.open(p.githubUrl, "_blank");
-        }
-        onClose();
-      },
-    }));
+      case "contact":
+        outputNode = (
+          <div className="space-y-2 text-xs text-slate-300">
+            <div className="text-sky-400 font-semibold">// DIRECT REACH OUT:</div>
+            <div>
+              Email:{" "}
+              <a href={`mailto:${developerBio.email}`} className="text-white underline">
+                {developerBio.email}
+              </a>
+            </div>
+            <div>GitHub: <a href={developerBio.github} target="_blank" rel="noopener noreferrer" className="text-sky-400 underline">github.com/mahmudbuilds</a></div>
+            <div>X / Twitter: <a href={developerBio.twitter} target="_blank" rel="noopener noreferrer" className="text-sky-400 underline">@mahmudbuilds</a></div>
+          </div>
+        );
+        break;
 
-    const navigationItems: CommandItem[] = [
-      {
-        id: "nav-projects",
-        title: "Browse Featured Projects",
-        subtitle: "Inventry, ResuMind, Vesper, E-Commerce",
-        category: "Navigation",
-        icon: Code2,
-        action: () => scrollToSection("projects"),
-      },
-      {
-        id: "nav-skills",
-        title: "Explore Tech Stack & Radar",
-        subtitle: "Next.js 16, Django REST, React 19, AI/LLMs",
-        category: "Navigation",
-        icon: Sparkles,
-        action: () => scrollToSection("skills"),
-      },
-      {
-        id: "nav-journey",
-        title: "View Journey & Milestones",
-        subtitle: "Engineering milestones and trajectory",
-        category: "Navigation",
-        icon: ArrowRight,
-        action: () => scrollToSection("journey"),
-      },
-      {
-        id: "nav-contact",
-        title: "Get In Touch",
-        subtitle: "Send a message or collaborate",
-        category: "Navigation",
-        icon: Send,
-        action: () => scrollToSection("contact"),
-      },
-    ];
+      case "hire":
+        confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+        navigator.clipboard.writeText(developerBio.email);
+        outputNode = (
+          <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-xs text-emerald-300 space-y-1">
+            <div className="font-bold flex items-center gap-1.5">
+              <Sparkles className="w-4 h-4 text-emerald-400" />
+              CONFIRMED: Let’s Build Something Exceptional!
+            </div>
+            <div>
+              Copied <strong>{developerBio.email}</strong> to your clipboard.
+            </div>
+            <div className="text-[11px] text-slate-300">
+              Send an email or message on X (@mahmudbuilds). Let’s connect on your vision or open role.
+            </div>
+          </div>
+        );
+        break;
 
-    return [...actions, ...projectItems, ...navigationItems];
-  }, [copiedEmail, onOpenResume]);
+      case "whoami":
+        outputNode = (
+          <div className="text-xs space-y-1 text-slate-300">
+            <div><strong>Visitor:</strong> Engineering Recruiter / Technical Leader</div>
+            <div><strong>Host:</strong> mahmud.builds (Vercel Edge Global Network)</div>
+            <div><strong>Protocol:</strong> HTTPS / HTTP/3 QUIC (0-RTT)</div>
+            <div><strong>Design Standard:</strong> Anti-Slop (Taste-Skill 2.5)</div>
+          </div>
+        );
+        break;
 
-  const filteredItems = useMemo(() => {
-    if (!query.trim()) return items;
-    const q = query.toLowerCase();
-    return items.filter(
-      (item) =>
-        item.title.toLowerCase().includes(q) ||
-        item.subtitle?.toLowerCase().includes(q) ||
-        item.category.toLowerCase().includes(q)
-    );
-  }, [items, query]);
+      case "status":
+        outputNode = (
+          <div className="text-xs space-y-1 font-mono text-emerald-400">
+            <div>✓ Vercel Edge: DEPLOYED (100% Uptime)</div>
+            <div>✓ Neon PostgreSQL Pool: ONLINE</div>
+            <div>✓ Inventry Multi-Tenant Partition: ACTIVE</div>
+            <div>✓ ResuMind ATS Engine: OPERATIONAL</div>
+          </div>
+        );
+        break;
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      setSelectedIndex((prev) => (prev + 1) % (filteredItems.length || 1));
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      setSelectedIndex((prev) => (prev - 1 + filteredItems.length) % (filteredItems.length || 1));
-    } else if (e.key === "Enter") {
-      e.preventDefault();
-      if (filteredItems[selectedIndex]) {
-        filteredItems[selectedIndex].action();
-      }
+      case "clear":
+        setHistory([]);
+        setInput("");
+        return;
+
+      case "sudo rm -rf /":
+      case "rm -rf /":
+        outputNode = (
+          <div className="text-rose-400 text-xs font-mono">
+            nice try! Immutable production sandbox. Permission denied.
+          </div>
+        );
+        break;
+
+      default:
+        outputNode = (
+          <div className="text-xs text-slate-400 font-mono">
+            Command not recognized: &quot;{cmd}&quot;. Type <span className="text-sky-400">help</span> for the manual.
+          </div>
+        );
     }
+
+    setHistory((prev) => [
+      ...prev,
+      {
+        id: Date.now().toString(),
+        command: input,
+        output: outputNode
+      }
+    ]);
+    setInput("");
   };
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 px-4">
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="fixed inset-0 bg-black/75 backdrop-blur-md"
-          />
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
+      <div
+        className="relative w-full max-w-2xl max-h-[80vh] flex flex-col rounded-xl bg-[#080b12] border border-white/10 shadow-2xl text-left overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Terminal Header */}
+        <div className="flex items-center justify-between px-4 py-3 bg-[#0d121d] border-b border-white/[0.08]">
+          <div className="flex items-center gap-2">
+            <Terminal className="w-4 h-4 text-sky-400" />
+            <span className="font-mono text-xs text-slate-200 font-semibold">
+              mahmud@developer-console: ~
+            </span>
+          </div>
 
-          {/* Dialog Container */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96, y: -10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: -10 }}
-            transition={{ duration: 0.18, ease: "easeOut" }}
-            className="relative w-full max-w-2xl bg-[#0e121b] border border-white/[0.12] rounded-2xl shadow-2xl shadow-cyan-950/40 overflow-hidden z-10"
-          >
-            {/* Input Header */}
-            <div className="flex items-center gap-3 px-4 py-3.5 border-b border-white/[0.08] bg-white/[0.02]">
-              <Search className="w-5 h-5 text-zinc-400 shrink-0" />
-              <input
-                ref={inputRef}
-                type="text"
-                value={query}
-                onChange={(e) => {
-                  setQuery(e.target.value);
-                  setSelectedIndex(0);
-                }}
-                onKeyDown={handleKeyDown}
-                placeholder="Type a command, project, skill, or action..."
-                className="w-full bg-transparent text-white placeholder-zinc-500 text-sm focus:outline-none font-medium"
-              />
-              <button
-                onClick={onClose}
-                aria-label="Close command palette"
-                className="p-1 text-zinc-400 hover:text-white rounded-md transition-colors"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            {/* List Body */}
-            <div className="max-h-[60vh] overflow-y-auto p-2 divide-y divide-white/[0.04]">
-              {filteredItems.length === 0 ? (
-                <div className="py-12 text-center text-zinc-500 text-sm">
-                  No matching commands or projects found for &quot;{query}&quot;
-                </div>
-              ) : (
-                <div className="space-y-1">
-                  {filteredItems.map((item, idx) => {
-                    const Icon = item.icon;
-                    const isSelected = idx === selectedIndex;
-                    return (
-                      <button
-                        key={item.id}
-                        onClick={item.action}
-                        onMouseEnter={() => setSelectedIndex(idx)}
-                        className={`w-full text-left flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all ${
-                          isSelected
-                            ? "bg-gradient-to-r from-cyan-500/15 to-violet-500/10 border border-cyan-500/30 text-white"
-                            : "text-zinc-300 hover:bg-white/[0.04] border border-transparent"
-                        }`}
-                      >
-                        <div className="flex items-center gap-3 min-w-0">
-                          <div
-                            className={`p-2 rounded-lg shrink-0 ${
-                              isSelected
-                                ? "bg-cyan-500/20 text-cyan-300"
-                                : "bg-white/[0.05] text-zinc-400"
-                            }`}
-                          >
-                            <Icon className="w-4 h-4" />
-                          </div>
-                          <div className="min-w-0">
-                            <div className="text-xs sm:text-sm font-medium truncate flex items-center gap-2">
-                              <span>{item.title}</span>
-                              {item.badge && (
-                                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-white/[0.08] text-zinc-400 border border-white/[0.06]">
-                                  {item.badge}
-                                </span>
-                              )}
-                            </div>
-                            {item.subtitle && (
-                              <p className="text-[11px] text-zinc-400 truncate">
-                                {item.subtitle}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                        <span className="text-[11px] text-zinc-400 font-mono shrink-0 ml-2 hidden sm:inline">
-                          {isSelected ? "↵ Enter" : item.category}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-
-            {/* Palette Footer */}
-            <div className="px-4 py-2.5 bg-white/[0.02] border-t border-white/[0.06] flex items-center justify-between text-[11px] text-zinc-400 font-mono">
-              <div className="flex items-center gap-3">
-                <span className="flex items-center gap-1">
-                  <kbd className="bg-white/[0.08] px-1.5 py-0.5 rounded text-[10px]">↑↓</kbd> Navigate
-                </span>
-                <span className="flex items-center gap-1">
-                  <kbd className="bg-white/[0.08] px-1.5 py-0.5 rounded text-[10px]">↵</kbd> Select
-                </span>
-                <span className="flex items-center gap-1">
-                  <kbd className="bg-white/[0.08] px-1.5 py-0.5 rounded text-[10px]">Esc</kbd> Close
-                </span>
-              </div>
-              <span className="text-cyan-400/80 font-semibold">Mahmud OS</span>
-            </div>
-          </motion.div>
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] font-mono text-slate-400 hidden sm:inline">
+              ESC to exit
+            </span>
+            <button
+              onClick={onClose}
+              className="p-1 rounded bg-white/[0.05] hover:bg-white/[0.1] text-slate-400 hover:text-white transition-colors cursor-pointer"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
         </div>
-      )}
-    </AnimatePresence>
+
+        {/* Terminal Output Area */}
+        <div className="flex-1 p-4 overflow-y-auto space-y-4 font-mono text-xs">
+          {history.map((item) => (
+            <div key={item.id} className="space-y-1.5">
+              <div className="flex items-center gap-2 text-slate-400">
+                <span className="text-emerald-400 font-bold">&gt;</span>
+                <span className="text-slate-200 font-medium">{item.command}</span>
+              </div>
+              <div className="pl-4">{item.output}</div>
+            </div>
+          ))}
+          <div ref={bottomRef} />
+        </div>
+
+        {/* Terminal Command Input Form */}
+        <form
+          onSubmit={handleCommand}
+          className="flex items-center gap-2 px-4 py-3 bg-[#0a0e17] border-t border-white/[0.08]"
+        >
+          <span className="text-sky-400 font-mono font-bold">&gt;</span>
+          <input
+            ref={inputRef}
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Type a command (try 'help', 'projects', 'hire')..."
+            className="flex-1 bg-transparent border-none text-xs font-mono text-white placeholder-slate-500 focus:outline-none"
+          />
+          <button
+            type="submit"
+            className="p-1.5 rounded bg-white/[0.05] hover:bg-white/[0.1] text-slate-300 hover:text-white transition-colors cursor-pointer"
+          >
+            <CornerDownLeft className="w-3.5 h-3.5" />
+          </button>
+        </form>
+      </div>
+    </div>
   );
-}
+};
