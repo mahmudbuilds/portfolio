@@ -34,13 +34,13 @@ export interface Project {
 
 export interface SkillItem {
   name: string;
-  level: "Core" | "Advanced" | "Proficient";
+  level?: string;
   highlight?: boolean;
 }
 
 export interface SkillCategory {
   name: string;
-  description: string;
+  description?: string;
   skills: SkillItem[];
 }
 
@@ -50,5 +50,5 @@ export interface ExperienceMilestone {
   company: string;
   description: string;
   highlights: string[];
-  tags: string[];
+  tags?: string[];
 }

@@ -16,20 +16,20 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
     : projectsData.filter((p) => p.category === activeCategory);
 
   return (
-    <section id="projects" className="py-24 border-t border-white/[0.06] relative text-left">
+    <section id="projects" className="py-24 border-t border-white/[0.08] relative text-left">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div className="space-y-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-semibold text-emerald-400">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-medium text-emerald-400">
               <Layers className="w-3.5 h-3.5" />
-              <span>PRODUCTION SYSTEMS &amp; PRODUCTS</span>
+              <span>Production Applications</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-              Selected Flagship Work
+              Featured Software Systems
             </h2>
             <p className="text-sm sm:text-base text-slate-400 max-w-xl">
-              Scalable multi-tenant platforms, high-performance backends, and responsive client-side AI tools.
+              Production architectures engineered with Next.js 16, Django REST Framework, PostgreSQL, and AST parsing engines.
             </p>
           </div>
 
@@ -53,12 +53,12 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProjects.map((project) => (
+          {filteredProjects.map((project, idx) => (
             <div
               key={project.id}
-              className="group relative rounded-2xl bg-slate-900/40 border border-white/[0.08] hover:border-white/[0.2] transition-all duration-300 flex flex-col justify-between overflow-hidden hover:-translate-y-1.5 shadow-xl hover:shadow-2xl hover:shadow-sky-500/5 backdrop-blur-sm"
+              className="group relative rounded-2xl bg-slate-900/40 border border-white/[0.08] hover:border-white/[0.2] transition-all duration-300 flex flex-col justify-between overflow-hidden hover:-translate-y-1 shadow-xl hover:shadow-2xl backdrop-blur-sm"
             >
-              {/* Subtle top glow bar */}
+              {/* Top Accent Line */}
               <div
                 className="h-1 w-full opacity-60 group-hover:opacity-100 transition-opacity"
                 style={{ backgroundColor: project.accentHex }}
@@ -67,14 +67,12 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
               <div className="p-7 space-y-5 flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+                    <span className="font-mono text-xs text-slate-500">
+                      0{idx + 1}
+                    </span>
+                    <span className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">
                       {project.category}
                     </span>
-                    {project.featured && (
-                      <span className="text-[10px] font-bold text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded-full border border-sky-500/20">
-                        FLAGSHIP
-                      </span>
-                    )}
                   </div>
 
                   <h3 className="text-xl font-bold text-white tracking-tight mt-2 group-hover:text-sky-300 transition-colors">
@@ -93,10 +91,10 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
                 {/* Metrics Badges */}
                 <div className="pt-2">
                   <div className="grid grid-cols-2 gap-2 my-2 text-xs">
-                    {project.metrics.slice(0, 2).map((m, idx) => (
-                      <div key={idx} className="p-2.5 rounded-xl bg-slate-950/60 border border-white/[0.05]">
+                    {project.metrics.slice(0, 2).map((m, mIdx) => (
+                      <div key={mIdx} className="p-2.5 rounded-xl bg-slate-950/60 border border-white/[0.05]">
                         <div className="text-[10px] text-slate-400 font-medium">{m.label}</div>
-                        <div className="font-semibold text-white mt-0.5 truncate">{m.value}</div>
+                        <div className="font-semibold text-white mt-0.5 truncate text-xs">{m.value}</div>
                       </div>
                     ))}
                   </div>
@@ -132,7 +130,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-slate-400 hover:text-white transition-colors"
-                      title="Open Live Deployment"
+                      title="Open Live Application"
                     >
                       <ExternalLink className="w-4 h-4" />
                     </a>

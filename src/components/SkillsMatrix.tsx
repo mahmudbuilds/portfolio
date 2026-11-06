@@ -1,16 +1,16 @@
 import React from "react";
-import { Cpu, CheckCircle2 } from "lucide-react";
+import { Cpu, Check } from "lucide-react";
 import { skillCategoriesData } from "../data/portfolioData";
 
 export const SkillsMatrix: React.FC = () => {
   return (
-    <section id="skills" className="py-24 border-t border-white/[0.06] relative text-left">
+    <section id="skills" className="py-24 border-t border-white/[0.08] relative text-left">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="mb-12 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-xs font-semibold text-indigo-400">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-xs font-medium text-indigo-400">
             <Cpu className="w-3.5 h-3.5" />
-            <span>TECHNICAL CAPABILITIES</span>
+            <span>Technical Capabilities</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
             Core Competencies &amp; Stack
@@ -27,16 +27,13 @@ export const SkillsMatrix: React.FC = () => {
               key={idx}
               className="p-7 rounded-2xl bg-slate-900/40 border border-white/[0.08] hover:border-white/[0.16] transition-all space-y-5 backdrop-blur-sm"
             >
-              <div>
-                <h3 className="text-lg font-bold text-white tracking-tight flex items-center justify-between">
-                  <span>{category.name}</span>
-                  <span className="text-xs font-medium text-sky-400 bg-sky-500/10 px-2.5 py-0.5 rounded-full">
-                    {category.skills.filter((s) => s.level === "Core").length} Core Technologies
-                  </span>
+              <div className="flex items-center justify-between">
+                <h3 className="text-base font-bold text-white tracking-tight">
+                  {category.name}
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-400 mt-1.5 leading-relaxed">
-                  {category.description}
-                </p>
+                <span className="text-xs font-mono text-slate-400">
+                  {category.skills.length} Technologies
+                </span>
               </div>
 
               {/* Skills Chips */}
@@ -44,15 +41,9 @@ export const SkillsMatrix: React.FC = () => {
                 {category.skills.map((skill, sIdx) => (
                   <div
                     key={sIdx}
-                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-medium transition-all ${
-                      skill.level === "Core"
-                        ? "bg-sky-500/10 border-sky-500/30 text-sky-200"
-                        : skill.level === "Advanced"
-                        ? "bg-slate-900 border-white/10 text-slate-200"
-                        : "bg-slate-900/40 border-white/[0.06] text-slate-400"
-                    }`}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-white/[0.08] bg-slate-950/60 text-slate-200 text-xs font-medium hover:border-sky-500/40 hover:text-white transition-colors"
                   >
-                    {skill.highlight && <CheckCircle2 className="w-3.5 h-3.5 text-sky-400" />}
+                    <Check className="w-3 h-3 text-sky-400" />
                     <span>{skill.name}</span>
                   </div>
                 ))}

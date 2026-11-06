@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
 import { ProjectsSection } from "./components/ProjectsSection";
-import { InteractiveStudio } from "./components/InteractiveStudio";
+import { SystemsLab } from "./components/SystemsLab";
 import { SkillsMatrix } from "./components/SkillsMatrix";
 import { ExperienceMilestones } from "./components/ExperienceMilestones";
 import { ContactSection } from "./components/ContactSection";
@@ -16,7 +16,7 @@ export function App() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
-    <div className="min-h-screen bg-[#030712] text-[#f1f5f9] flex flex-col font-sans selection:bg-sky-500/25 selection:text-sky-200">
+    <div className="min-h-screen bg-[#04060b] text-[#f1f5f9] flex flex-col font-sans selection:bg-sky-500/25 selection:text-sky-200">
       {/* Top Floating Glassmorphic Navbar */}
       <Navbar onOpenResume={() => setIsResumeOpen(true)} />
 
@@ -28,7 +28,7 @@ export function App() {
           onSelectProject={(project) => setSelectedProject(project)}
         />
 
-        <InteractiveStudio />
+        <SystemsLab />
 
         <SkillsMatrix />
 
@@ -46,7 +46,7 @@ export function App() {
         onClose={() => setSelectedProject(null)}
       />
 
-      {/* Clean Executive Resume Modal */}
+      {/* Executive Resume Modal */}
       <ResumeViewerModal
         isOpen={isResumeOpen}
         onClose={() => setIsResumeOpen(false)}

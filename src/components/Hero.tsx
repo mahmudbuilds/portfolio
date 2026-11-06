@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ArrowRight, FileText, Sparkles, ShieldCheck, Activity, Layers, ExternalLink } from "lucide-react";
+import { ArrowRight, FileText, Cpu, ExternalLink, ShieldCheck, Database, Layers } from "lucide-react";
 import { developerBio } from "../data/portfolioData";
 
 interface HeroProps {
@@ -7,110 +7,113 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
-  const [activePreview, setActivePreview] = useState<"inventry" | "resumind" | "vesper">("inventry");
+  const [activePreview, setActivePreview] = useState<"inventry" | "resumind" | "auditor">("inventry");
 
   return (
-    <section className="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden text-left">
-      {/* Ambient background glows */}
+    <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden text-left">
+      {/* Subtle Ambient Background Gradients */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[450px] bg-gradient-to-tr from-sky-500/10 via-indigo-500/10 to-emerald-500/5 blur-[140px] rounded-full" />
-        <div className="absolute top-10 right-10 w-96 h-96 bg-sky-500/5 blur-[100px] rounded-full" />
-        <div className="absolute bottom-10 left-10 w-96 h-96 bg-indigo-500/5 blur-[120px] rounded-full" />
-        
-        {/* Subtle grid lines */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-tr from-sky-500/10 via-indigo-500/10 to-emerald-500/5 blur-[130px] rounded-full" />
         <div
-          className="absolute inset-0 opacity-[0.025]"
+          className="absolute inset-0 opacity-[0.02]"
           style={{
             backgroundImage: `radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0)`,
-            backgroundSize: "40px 40px",
+            backgroundSize: "32px 32px",
           }}
         />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col items-center text-center max-w-3xl mx-auto space-y-6">
-          {/* Status Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-white/10 text-xs font-medium text-slate-300 shadow-inner">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-slate-400">Available for high-impact roles &amp; contracts</span>
+          {/* Identity & Status */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-white/10 text-xs font-medium text-slate-300">
+            <span className="w-2 h-2 rounded-full bg-emerald-400" />
+            <span>Full-Stack &amp; Systems Engineer</span>
           </div>
 
-          {/* Main Headline */}
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white leading-[1.08]">
-            Crafting resilient cloud systems &amp; <span className="bg-gradient-to-r from-sky-400 via-indigo-300 to-emerald-400 bg-clip-text text-transparent">refined digital products.</span>
+          {/* Main Plain Headline */}
+          <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-white leading-[1.12]">
+            Building multi-tenant web platforms, decoupled APIs, and developer tooling.
           </h1>
 
-          {/* Subtitle */}
-          <p className="text-base sm:text-xl text-slate-300 leading-relaxed font-normal max-w-2xl">
-            I’m <strong className="text-white font-semibold">{developerBio.name}</strong> ({developerBio.handle}). Full-Stack Software Engineer building production-ready multi-tenant architectures, decoupled APIs, and intelligent developer tooling.
+          {/* Plain Human Description */}
+          <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl font-normal">
+            I’m <strong className="text-white font-semibold">{developerBio.name}</strong> ({developerBio.handle}). I engineer resilient full-stack systems with Next.js, Django REST Framework, and PostgreSQL. Creator of Inventry, ResuMind, and Code Auditor.
           </p>
 
-          {/* Action Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-3">
+          {/* Core Action Buttons */}
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <a
               href="#projects"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white hover:bg-slate-100 text-slate-950 font-semibold text-sm transition-all shadow-xl shadow-white/10 hover:shadow-white/20 active:scale-95 cursor-pointer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white hover:bg-slate-100 text-slate-950 font-semibold text-xs transition-all shadow-md active:scale-95 cursor-pointer"
             >
-              <span>Explore Flagship Work</span>
-              <ArrowRight className="w-4 h-4 text-slate-900" />
+              <span>View Featured Projects</span>
+              <ArrowRight className="w-3.5 h-3.5 text-slate-950" />
             </a>
 
             <button
               onClick={onOpenResume}
-              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-white/10 hover:border-white/20 text-slate-200 hover:text-white font-medium text-sm transition-all active:scale-95 cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-white/10 hover:border-white/20 text-slate-200 hover:text-white font-medium text-xs transition-all active:scale-95 cursor-pointer"
             >
-              <FileText className="w-4 h-4 text-sky-400" />
-              <span>View Executive CV</span>
+              <FileText className="w-3.5 h-3.5 text-sky-400" />
+              <span>Executive Resume</span>
             </button>
 
             <a
-              href="#showcase"
-              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-slate-900/50 hover:bg-slate-800/80 border border-white/10 hover:border-sky-500/30 text-slate-300 hover:text-white font-medium text-sm transition-all active:scale-95 cursor-pointer"
+              href="#systems-lab"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900/50 hover:bg-slate-800/80 border border-white/10 hover:border-sky-500/30 text-slate-300 hover:text-white font-medium text-xs transition-all active:scale-95 cursor-pointer"
             >
-              <Sparkles className="w-4 h-4 text-emerald-400" />
-              <span>Interactive Studio</span>
+              <Cpu className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Interactive Systems Lab</span>
             </a>
           </div>
 
-          {/* Quick Credibility Strip */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 w-full max-w-2xl text-left">
-            <div className="p-3.5 rounded-xl bg-slate-900/40 border border-white/[0.06]">
-              <div className="text-2xl font-bold text-white tracking-tight">5+</div>
-              <div className="text-xs text-slate-400 mt-0.5">Shipped Platforms</div>
+          {/* Concrete Engineering Facts Strip */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 w-full max-w-3xl text-left">
+            <div className="p-3.5 rounded-xl bg-slate-900/50 border border-white/[0.06]">
+              <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Shipped Systems</div>
+              <div className="text-xl font-bold text-white mt-1">6 Applications</div>
+              <div className="text-[11px] text-slate-400 mt-0.5">Production Deployments</div>
             </div>
-            <div className="p-3.5 rounded-xl bg-slate-900/40 border border-white/[0.06]">
-              <div className="text-2xl font-bold text-emerald-400 tracking-tight">Multi-Tenant</div>
-              <div className="text-xs text-slate-400 mt-0.5">RBAC Security</div>
+
+            <div className="p-3.5 rounded-xl bg-slate-900/50 border border-white/[0.06]">
+              <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Core Architecture</div>
+              <div className="text-xl font-bold text-sky-400 mt-1">Next.js + Django</div>
+              <div className="text-[11px] text-slate-400 mt-0.5">Decoupled RESTful APIs</div>
             </div>
-            <div className="p-3.5 rounded-xl bg-slate-900/40 border border-white/[0.06]">
-              <div className="text-2xl font-bold text-sky-400 tracking-tight">&lt;45ms</div>
-              <div className="text-xs text-slate-400 mt-0.5">Edge Latency</div>
+
+            <div className="p-3.5 rounded-xl bg-slate-900/50 border border-white/[0.06]">
+              <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Database Integrity</div>
+              <div className="text-xl font-bold text-emerald-400 mt-1">Row-Level Locks</div>
+              <div className="text-[11px] text-slate-400 mt-0.5">PostgreSQL Concurrency</div>
             </div>
-            <div className="p-3.5 rounded-xl bg-slate-900/40 border border-white/[0.06]">
-              <div className="text-2xl font-bold text-indigo-400 tracking-tight">60 FPS</div>
-              <div className="text-xs text-slate-400 mt-0.5">Tactile Interfaces</div>
+
+            <div className="p-3.5 rounded-xl bg-slate-900/50 border border-white/[0.06]">
+              <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Document Analysis</div>
+              <div className="text-xl font-bold text-indigo-400 mt-1">AST Parsing</div>
+              <div className="text-[11px] text-slate-400 mt-0.5">In-Browser Spatial Clustered</div>
             </div>
           </div>
         </div>
 
-        {/* Luxury Application Showcase Frame */}
-        <div className="mt-16 max-w-5xl mx-auto rounded-2xl bg-gradient-to-b from-white/[0.1] to-white/[0.02] p-[1px] shadow-2xl shadow-sky-500/5">
-          <div className="rounded-[15px] bg-slate-950/90 backdrop-blur-2xl overflow-hidden border border-white/[0.06]">
+        {/* Real Product Showcase Window Frame */}
+        <div className="mt-14 max-w-5xl mx-auto rounded-2xl bg-gradient-to-b from-white/[0.1] to-white/[0.02] p-[1px] shadow-2xl">
+          <div className="rounded-[15px] bg-[#07090e] overflow-hidden border border-white/[0.06]">
             {/* Window Topbar */}
-            <div className="px-4 py-3.5 bg-slate-900/60 border-b border-white/[0.06] flex flex-wrap items-center justify-between gap-3">
+            <div className="px-5 py-3.5 bg-slate-900/60 border-b border-white/[0.06] flex flex-wrap items-center justify-between gap-3">
               <div className="flex items-center gap-2">
                 <div className="flex items-center gap-1.5">
                   <div className="w-3 h-3 rounded-full bg-rose-500/80" />
                   <div className="w-3 h-3 rounded-full bg-amber-500/80" />
                   <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
                 </div>
-                <div className="h-4 w-px bg-white/10 mx-1" />
-                <span className="text-xs text-slate-400 font-medium hidden sm:inline">
-                  mahmud.systems // flagship_architecture_preview
+                <div className="h-4 w-px bg-white/10 mx-1.5" />
+                <span className="text-xs text-slate-400 font-mono hidden sm:inline">
+                  mahmudbuilds.systems // verified_flagship_preview
                 </span>
               </div>
 
-              {/* Product Switcher Tabs */}
+              {/* Product Tabs */}
               <div className="flex items-center gap-1 bg-black/40 p-1 rounded-lg border border-white/[0.08] text-xs">
                 <button
                   onClick={() => setActivePreview("inventry")}
@@ -120,7 +123,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
                       : "text-slate-400 hover:text-white"
                   }`}
                 >
-                  Inventry (Supply Chain)
+                  Inventry (Live Supply Chain)
                 </button>
                 <button
                   onClick={() => setActivePreview("resumind")}
@@ -130,35 +133,36 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
                       : "text-slate-400 hover:text-white"
                   }`}
                 >
-                  ResuMind (ATS Engine)
+                  ResuMind (AST Parser)
                 </button>
                 <button
-                  onClick={() => setActivePreview("vesper")}
+                  onClick={() => setActivePreview("auditor")}
                   className={`px-3 py-1 rounded-md transition-all cursor-pointer ${
-                    activePreview === "vesper"
+                    activePreview === "auditor"
                       ? "bg-sky-500 text-slate-950 font-semibold"
                       : "text-slate-400 hover:text-white"
                   }`}
                 >
-                  Vesper (Interview HUD)
+                  Code Auditor (Security)
                 </button>
               </div>
             </div>
 
-            {/* Window Content Preview */}
+            {/* Window Content */}
             <div className="p-6 md:p-8">
               {activePreview === "inventry" && (
                 <div className="space-y-6 text-left">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/[0.06]">
                     <div>
-                      <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                        <span>Inventry — Multi-Tenant Cloud Logistics</span>
-                        <span className="text-[11px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
-                          Production Live
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-lg font-bold text-white">Inventry</h3>
+                        <span className="text-slate-400 text-xs">— Multi-Tenant Supply Chain Platform</span>
+                        <span className="text-[10px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                          Production Deployed
                         </span>
-                      </h3>
+                      </div>
                       <p className="text-xs text-slate-400 mt-1">
-                        Next.js 16 App Router client decoupled from a high-performance Django REST Framework API with PostgreSQL.
+                        Decoupled Next.js 16 App Router on Vercel Edge with Django REST Framework API on Render and PostgreSQL on Neon.
                       </p>
                     </div>
 
@@ -168,12 +172,11 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 text-xs font-medium border border-sky-500/30 transition-colors self-start sm:self-auto"
                     >
-                      <span>Open Live Demo</span>
+                      <span>Open Live Application</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   </div>
 
-                  {/* Architecture Feature Cards */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="p-4 rounded-xl bg-slate-900/50 border border-white/[0.06] space-y-2">
                       <div className="flex items-center gap-2 text-sky-400 text-xs font-semibold">
@@ -181,27 +184,27 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
                         <span>Tenant Isolation</span>
                       </div>
                       <p className="text-xs text-slate-300 leading-relaxed">
-                        Data tenancy enforced at the ORM base manager level to prevent cross-organization queries.
+                        Data tenancy enforced at the ORM base manager level to guarantee zero cross-tenant query leaks.
                       </p>
                     </div>
 
                     <div className="p-4 rounded-xl bg-slate-900/50 border border-white/[0.06] space-y-2">
                       <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold">
-                        <Activity className="w-4 h-4" />
-                        <span>Stock Depletion Engine</span>
+                        <Database className="w-4 h-4" />
+                        <span>Row-Level Stock Locking</span>
                       </div>
                       <p className="text-xs text-slate-300 leading-relaxed">
-                        Row-level locked transactions preventing concurrent race conditions during rapid warehouse orders.
+                        Atomic transactions with row-level locks on stock counters serialize concurrent orders and prevent negative inventory.
                       </p>
                     </div>
 
                     <div className="p-4 rounded-xl bg-slate-900/50 border border-white/[0.06] space-y-2">
                       <div className="flex items-center gap-2 text-indigo-400 text-xs font-semibold">
                         <Layers className="w-4 h-4" />
-                        <span>Decoupled Deployment</span>
+                        <span>Decoupled API Contract</span>
                       </div>
                       <p className="text-xs text-slate-300 leading-relaxed">
-                        Frontend deployed on Vercel Edge with global proxy caching; backend deployed on Render with cloud PostgreSQL.
+                        Frontend deployed on Vercel Edge communicating with Django REST API over secure tokenized JWT authentication.
                       </p>
                     </div>
                   </div>
@@ -212,14 +215,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
                 <div className="space-y-6 text-left">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/[0.06]">
                     <div>
-                      <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                        <span>ResuMind — AI ATS Semantic Scoring Engine</span>
-                        <span className="text-[11px] font-semibold text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded-full border border-sky-500/20">
-                          Client-Side AST
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-lg font-bold text-white">ResuMind</h3>
+                        <span className="text-slate-400 text-xs">— Client-Side AST Document &amp; Resume Engine</span>
+                        <span className="text-[10px] font-semibold text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded-full border border-sky-500/20">
+                          Zero-Retention
                         </span>
-                      </h3>
+                      </div>
                       <p className="text-xs text-slate-400 mt-1">
-                        Zero-retention privacy engine evaluating resumes against job descriptions with multi-column PDF structural parsing.
+                        Processes multi-column PDF resumes in browser memory using pdfjs-dist coordinate clustering with zero server data storage.
                       </p>
                     </div>
 
@@ -229,81 +233,82 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 text-xs font-medium border border-sky-500/30 transition-colors self-start sm:self-auto"
                     >
-                      <span>View GitHub Repo</span>
+                      <span>View GitHub Repository</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="p-4 rounded-xl bg-slate-900/50 border border-white/[0.06] space-y-2">
-                      <div className="text-sky-400 text-xs font-semibold">0-100 Scoring Algorithm</div>
+                      <div className="text-sky-400 text-xs font-semibold">Spatial Coordinate Clustering</div>
                       <p className="text-xs text-slate-300 leading-relaxed">
-                        Deterministic scoring mimicking modern enterprise ATS filters (Workday, Greenhouse, Lever).
+                        Groups text fragments by horizontal line positions and vertical gutters, preventing multi-column text scrambling.
                       </p>
                     </div>
 
                     <div className="p-4 rounded-xl bg-slate-900/50 border border-white/[0.06] space-y-2">
-                      <div className="text-emerald-400 text-xs font-semibold">Bounding-Box PDF Parser</div>
+                      <div className="text-emerald-400 text-xs font-semibold">Zero Server Retention</div>
                       <p className="text-xs text-slate-300 leading-relaxed">
-                        Uses pdfjs-dist coordinate clustering to accurately read multi-column layouts without scrambling text.
+                        Evaluations execute entirely in client memory; resumes are never stored or transmitted to database disks.
                       </p>
                     </div>
 
                     <div className="p-4 rounded-xl bg-slate-900/50 border border-white/[0.06] space-y-2">
-                      <div className="text-indigo-400 text-xs font-semibold">Zero-Data Retention</div>
+                      <div className="text-indigo-400 text-xs font-semibold">Dedicated Web Worker</div>
                       <p className="text-xs text-slate-300 leading-relaxed">
-                        Evaluations run entirely in client memory; resumes are never stored on external database disks.
+                        Heavy PDF tokenization and AST parsing runs in a background Web Worker thread, keeping UI interaction responsive.
                       </p>
                     </div>
                   </div>
                 </div>
               )}
 
-              {activePreview === "vesper" && (
+              {activePreview === "auditor" && (
                 <div className="space-y-6 text-left">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-white/[0.06]">
                     <div>
-                      <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                        <span>Vesper — 60 FPS Technical Interview Copilot HUD</span>
-                        <span className="text-[11px] font-semibold text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded-full border border-indigo-500/20">
-                          React 19 + Motion
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-lg font-bold text-white">Code Auditor</h3>
+                        <span className="text-slate-400 text-xs">— Python AST Static Security Analyzer</span>
+                        <span className="text-[10px] font-semibold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">
+                          Static Analysis
                         </span>
-                      </h3>
+                      </div>
                       <p className="text-xs text-slate-400 mt-1">
-                        Hyper-tactile interface concept inspired by modern desktop copilots with sub-pixel typography tracking.
+                        Automated static analysis engine parsing Python abstract syntax trees to detect SQL injection, eval() calls, and insecure patterns.
                       </p>
                     </div>
 
                     <a
-                      href="https://github.com/mahmudbuilds/vesper"
+                      href="https://github.com/mahmudbuilds"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 text-xs font-medium border border-sky-500/30 transition-colors self-start sm:self-auto"
                     >
-                      <span>View GitHub Repo</span>
+                      <span>View GitHub Profile</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="p-4 rounded-xl bg-slate-900/50 border border-white/[0.06] space-y-2">
-                      <div className="text-sky-400 text-xs font-semibold">Fluid Kinetic Transitions</div>
+                      <div className="text-sky-400 text-xs font-semibold">AST Node Traversal</div>
                       <p className="text-xs text-slate-300 leading-relaxed">
-                        Spring-physics animations crafted with Motion for fluid micro-interactions and tactile feel.
+                        Utilizes Python’s native ast.NodeVisitor to inspect code structure without executing untrusted code.
                       </p>
                     </div>
 
                     <div className="p-4 rounded-xl bg-slate-900/50 border border-white/[0.06] space-y-2">
-                      <div className="text-emerald-400 text-xs font-semibold">Stealth HUD Architecture</div>
+                      <div className="text-emerald-400 text-xs font-semibold">CWE Vulnerability Mapping</div>
                       <p className="text-xs text-slate-300 leading-relaxed">
-                        High-density UI optimized for quick visual scanning with zero cognitive overload.
+                        Detects CWE-89 (SQL Injection) and CWE-95 (Code Injection) by verifying argument node types in function calls.
                       </p>
                     </div>
 
                     <div className="p-4 rounded-xl bg-slate-900/50 border border-white/[0.06] space-y-2">
-                      <div className="text-indigo-400 text-xs font-semibold">Sub-Pixel Typography</div>
+                      <div className="text-indigo-400 text-xs font-semibold">Remediation Diffs</div>
                       <p className="text-xs text-slate-300 leading-relaxed">
-                        Calibrated letter-spacing and hierarchy tested across Retina and high-DPI displays.
+                        Automatically generates parameterized code replacement diffs to assist engineers in patching security findings.
                       </p>
                     </div>
                   </div>
@@ -312,7 +317,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenResume }) => {
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );
