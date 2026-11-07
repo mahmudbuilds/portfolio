@@ -5,7 +5,7 @@ export const developerBio = {
   handle: "@mahmudbuilds",
   title: "Full-Stack Software Engineer",
   tagline: "Building clean, fast, and reliable web applications.",
-  bio: "Full-stack software engineer building reliable web applications and tools with React, Next.js, TypeScript, Python, and PostgreSQL. Creator of Inventry (warehouse logistics platform), ResuMind (client-side ATS resume analyzer), and Flow Batch Automator (high-throughput browser extension). Focused on clean code, great user experience, and practical software that solves real problems.",
+  bio: "Full-stack software engineer building reliable web applications and tools with React, Next.js, TypeScript, Python, and Convex. Creator of Resonance (AI voice generator & voice cloning platform), Inventry (warehouse logistics system), and Flow Batch Automator (Chrome automation extension). Focused on clean code, great user experience, and practical software that solves real problems.",
   location: "Lagos, Nigeria · Remote / Global",
   email: "mahxgithub@gmail.com",
   github: "https://github.com/mahmudbuilds",
@@ -15,6 +15,40 @@ export const developerBio = {
 };
 
 export const projectsData: Project[] = [
+  {
+    id: "resonance",
+    title: "Resonance",
+    tagline: "Next-generation AI voice generator, text-to-speech studio, and voice cloning platform",
+    description: "A full-stack AI audio platform that generates natural human voiceovers across 9+ languages, clones voices from live microphone recordings or file uploads, and provides real-time waveform previews.",
+    fullDescription: "Built with Next.js 16 (App Router), Convex real-time backend and file storage, Inworld AI neural TTS, Clerk authentication, and Wavesurfer.js. Includes character-level credit deduction, automated API key rotation with fallback, and live waveform visualization.",
+    category: "AI & Systems",
+    stack: ["Next.js 16", "Convex", "Inworld AI TTS", "Clerk", "Wavesurfer.js", "Tailwind CSS v4"],
+    features: [
+      "Neural Text-to-Speech across 9+ languages with pacing, emotion, and temperature controls",
+      "AI Voice Cloning using live microphone recordings or uploaded audio samples",
+      "Real-time backend powered by Convex for instant telemetry, mutations, and file storage",
+      "Automated API key rotation with seamless fallback and auto-cloning from cached audio",
+      "Interactive waveform audio previews and microphone recorder powered by Wavesurfer.js"
+    ],
+    metrics: [
+      { label: "Status", value: "Live & Deployed" },
+      { label: "AI Engine", value: "Inworld Neural TTS" },
+      { label: "Backend", value: "Convex Realtime" }
+    ],
+    architecture: {
+      clientArchitecture: "Next.js 16 App Router interface featuring an interactive studio, script editor, live microphone waveform recorder, and Clerk route protection.",
+      backendArchitecture: "Convex real-time serverless actions and queries executing neural speech synthesis with Inworld AI TTS and managing user credits.",
+      databaseAndStorage: "Convex real-time reactive database schema storing user credits, voice library rankings, audio files, and generation telemetry.",
+      securityAndAuth: "User authentication via Clerk with route proxy protection, session management, and server-side credit deduction validation.",
+      deploymentPipeline: "Deployed on Vercel with high-speed asset caching and automated continuous integration.",
+      keyTechnicalChallenge: "Preventing synthesis failures during traffic spikes while supporting real-time voice cloning and large audio buffer generation.",
+      solutionEngineered: "Engineered an automatic multi-key rotation and failover system across Inworld API keys, auto-cloning voices from cached samples when a fallback key engages."
+    },
+    liveUrl: "https://tryresonance.vercel.app",
+    githubUrl: "https://github.com/mahmudbuilds/resonance",
+    featured: true,
+    accentHex: "#f43f5e"
+  },
   {
     id: "inventry",
     title: "Inventry",
@@ -114,7 +148,7 @@ export const projectsData: Project[] = [
     },
     liveUrl: "https://github.com/mahmudbuilds/flow-batch-automator",
     githubUrl: "https://github.com/mahmudbuilds/flow-batch-automator",
-    featured: true,
+    featured: false,
     accentHex: "#f59e0b"
   },
   {
@@ -182,39 +216,6 @@ export const projectsData: Project[] = [
     githubUrl: "https://github.com/mahmudbuilds/vesper",
     featured: false,
     accentHex: "#818cf8"
-  },
-  {
-    id: "resonance",
-    title: "Resonance",
-    tagline: "Music and podcast streaming app with a live sound visualizer",
-    description: "A web audio player where you can listen to podcasts and music tracks, manage your playback queue, and see live sound wave animations as you listen.",
-    fullDescription: "Built with React and the browser's Web Audio API. The music keeps playing smoothly even as you click around different pages, and includes an animated sound frequency bar that dances to the beat.",
-    category: "Full-Stack",
-    stack: ["React", "TypeScript", "Web Audio API", "Tailwind CSS"],
-    features: [
-      "Music keeps playing without interruptions even when you browse between pages",
-      "Live audio sound wave visualizer rendered in real time",
-      "Podcast and song queue where you can add, skip, and reorder tracks",
-      "Instant scrubbing to jump to any part of the audio file"
-    ],
-    metrics: [
-      { label: "Audio Engine", value: "Web Audio" },
-      { label: "Visualizer", value: "Live Sound Wave" },
-      { label: "Playback", value: "Uninterrupted" }
-    ],
-    architecture: {
-      clientArchitecture: "React player with an audio manager that connects to a live sound wave canvas.",
-      backendArchitecture: "Fast media streaming that lets users skip to any second of a song instantly.",
-      databaseAndStorage: "Stores track titles, cover artwork, and playlist queues.",
-      securityAndAuth: "Safe cross-origin audio loading for reliable playback in all browsers.",
-      deploymentPipeline: "Hosted on Vercel with high-speed asset caching.",
-      keyTechnicalChallenge: "Making sure music doesn't stop or restart when the user navigates between different pages.",
-      solutionEngineered: "Kept the audio player running at the top level of the app so changing pages never interrupts playback."
-    },
-    liveUrl: "https://github.com/mahmudbuilds/resonance",
-    githubUrl: "https://github.com/mahmudbuilds/resonance",
-    featured: false,
-    accentHex: "#f43f5e"
   }
 ];
 
@@ -233,27 +234,29 @@ export const skillCategoriesData: SkillCategory[] = [
     name: "Frontend Development",
     skills: [
       { name: "React 19" },
-      { name: "Next.js 16" },
+      { name: "Next.js 16 (App Router)" },
       { name: "React Router 7" },
-      { name: "Tailwind CSS" },
+      { name: "Tailwind CSS v4" },
+      { name: "Wavesurfer.js & Audio Visualizers" },
       { name: "Vite" },
-      { name: "Shadow DOM & Web Components" },
-      { name: "Web Audio API" }
+      { name: "Shadow DOM & Web Components" }
     ]
   },
   {
-    name: "Backend & Systems",
+    name: "Backend & Cloud",
     skills: [
+      { name: "Convex (Realtime DB & Serverless)" },
       { name: "Python (Django REST)" },
       { name: "Node.js (Express)" },
+      { name: "Inworld AI Neural TTS" },
+      { name: "Clerk Authentication" },
       { name: "PostgreSQL Database" },
       { name: "Chrome Extension (Manifest V3)" },
-      { name: "REST APIs & JWT Auth" },
-      { name: "Sequelize ORM" }
+      { name: "REST APIs & JWT Auth" }
     ]
   },
   {
-    name: "Developer Tools & Cloud",
+    name: "Developer Tools & APIs",
     skills: [
       { name: "Git & GitHub" },
       { name: "Vercel Deployment" },
@@ -270,10 +273,11 @@ export const experienceMilestonesData: ExperienceMilestone[] = [
     year: "2024 – Present",
     role: "Full-Stack Software Engineer",
     company: "Personal Projects & Independent Engineering",
-    description: "Designed, built, and launched multiple full-stack web applications and browser automation systems, focusing on clean user experiences, reliable databases, and useful developer tools.",
+    description: "Designed, built, and launched multiple full-stack web applications, AI audio systems, and browser tools, focusing on clean user experiences, real-time databases, and useful developer tools.",
     highlights: [
+      "Engineered Resonance (tryresonance.vercel.app), a full-stack AI voice generator and voice cloning studio built with Next.js 16, Convex real-time backend, Clerk auth, and Inworld neural TTS with multi-key rotation.",
       "Built Inventry, a complete warehouse management system using Next.js 16, Python/Django, and PostgreSQL that tracks inventory in real time and prevents stock errors.",
-      "Engineered Flow Batch Automator, a Manifest V3 Chrome Extension featuring Shadow DOM isolation, MutationObserver, and the Native File System Access API for direct file streaming.",
+      "Engineered Flow Batch Automator, a Manifest V3 Chrome Extension featuring Shadow DOM isolation, MutationObserver, and the Native File System Access API for direct disk asset streaming.",
       "Created ResuMind, an in-browser privacy-first ATS resume scanner that evaluates PDF documents and calculates job description keyword match scores.",
       "Deployed all web applications to production with fast loading speeds, mobile responsiveness, and automated updates."
     ]
@@ -285,8 +289,7 @@ export const experienceMilestonesData: ExperienceMilestone[] = [
     description: "Built responsive websites, full-stack web applications, and database-driven tools with clean code and modern frameworks.",
     highlights: [
       "Constructed a full-stack e-commerce store with React, Node.js, and PostgreSQL featuring live product search and cart saving.",
-      "Built Resonance, a streaming audio web application with an animated sound wave visualizer that plays music seamlessly across pages.",
-      "Created modern, responsive user interfaces tested across desktop, tablet, and mobile screens."
+      "Built modern, responsive user interfaces tested across desktop, tablet, and mobile screens."
     ]
   }
 ];

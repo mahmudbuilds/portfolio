@@ -76,8 +76,8 @@ export function Header({ onOpenResume }: HeaderProps) {
         </div>
 
         <p className="text-sm sm:text-base text-zinc-300 leading-relaxed max-w-xl">
-          I build full-stack web applications and tools with React, Next.js, TypeScript, Python, and
-          PostgreSQL. Passionate about clean code, reliable backend architecture, and interfaces that
+          I build full-stack web applications, AI systems, and tools with React, Next.js, TypeScript, Python, and
+          Convex. Passionate about clean code, reliable backend architecture, and interfaces that
           feel fast, simple, and intuitive to use.
         </p>
       </div>
