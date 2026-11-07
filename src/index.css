@@ -2,22 +2,22 @@
 
 @layer base {
   :root {
-    --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-sans: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   }
 
   html {
     font-family: var(--font-sans);
-    background-color: #04060b;
-    color: #f8fafc;
+    background-color: #09090b;
+    color: #f4f4f5;
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    background-color: #04060b;
-    color: #f8fafc;
+    background-color: #09090b;
+    color: #f4f4f5;
     overflow-x: hidden;
   }
 
@@ -26,46 +26,27 @@
   }
 }
 
-/* Glassmorphic luxury effects */
-.glass-panel {
-  background: rgba(10, 14, 24, 0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.glass-panel-hover {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.glass-panel-hover:hover {
-  background: rgba(18, 24, 38, 0.75);
-  border-color: rgba(255, 255, 255, 0.16);
-  transform: translateY(-2px);
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), 0 0 25px -5px rgba(56, 189, 248, 0.06);
-}
-
-/* Custom Scrollbar */
+/* Refined Minimal Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #04060b;
+  background: #09090b;
 }
 ::-webkit-scrollbar-thumb {
-  background: #182030;
+  background: #27272a;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #28344c;
+  background: #3f3f46;
 }
 
-/* Print Styles for Resume */
+/* Print Styles for Clean Resume */
 @media print {
   body {
     background: #ffffff !important;
-    color: #0f172a !important;
+    color: #09090b !important;
   }
   .no-print {
     display: none !important;
