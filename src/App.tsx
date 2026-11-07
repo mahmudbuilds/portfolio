@@ -12,8 +12,8 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-[#09090b] text-zinc-100 selection:bg-zinc-800 selection:text-white antialiased font-sans">
-      {/* Central Editorial Container */}
-      <main className="max-w-2xl mx-auto px-5 sm:px-8 py-10 sm:py-20 space-y-16 sm:space-y-24">
+      {/* Central Editorial Container with mobile-optimized padding */}
+      <main className="max-w-2xl mx-auto px-4 sm:px-6 md:px-8 py-6 sm:py-16 md:py-20 space-y-12 sm:space-y-20">
         {/* Header & Introduction */}
         <Header onOpenResume={() => setIsResumeOpen(true)} />
 

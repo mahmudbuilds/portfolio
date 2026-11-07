@@ -78,42 +78,44 @@ ${skillCategoriesData
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-zinc-950/80 backdrop-blur-sm animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-6 bg-zinc-950/80 backdrop-blur-sm animate-in fade-in duration-200"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-3xl max-h-[90vh] flex flex-col rounded-xl bg-zinc-950 border border-zinc-800 shadow-2xl text-zinc-200 overflow-hidden"
+        className="relative w-full max-w-3xl max-h-[92vh] sm:max-h-[90vh] flex flex-col rounded-xl bg-zinc-950 border border-zinc-800 shadow-2xl text-zinc-200 overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Modal Toolbar */}
-        <div className="flex items-center justify-between px-5 py-3.5 border-b border-zinc-800 bg-zinc-900/50">
-          <div className="flex items-center gap-2">
-            <span className="font-mono text-xs text-zinc-400">resume.pdf</span>
-            <span className="text-[11px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">
+        {/* Modal Toolbar: Fully responsive for mobile screens */}
+        <div className="flex items-center justify-between px-3.5 sm:px-5 py-3 border-b border-zinc-800 bg-zinc-900/50 gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <span className="font-mono text-xs text-zinc-400">cv.pdf</span>
+            <span className="text-[10px] sm:text-[11px] px-1.5 sm:px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">
               Ready
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <button
               onClick={copyMarkdown}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-zinc-900 hover:bg-zinc-800 border border-zinc-700/80 text-xs font-medium text-zinc-300 hover:text-white transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 rounded-md bg-zinc-900 hover:bg-zinc-800 border border-zinc-700/80 text-xs font-medium text-zinc-300 hover:text-white transition-colors cursor-pointer"
             >
               {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-              <span>{copied ? "Copied Markdown" : "Copy Markdown"}</span>
+              <span className="hidden sm:inline">{copied ? "Copied Markdown" : "Copy Markdown"}</span>
+              <span className="sm:hidden">{copied ? "Copied" : "Copy"}</span>
             </button>
 
             <button
               onClick={handlePrint}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-zinc-100 hover:bg-white text-zinc-950 text-xs font-semibold transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md bg-zinc-100 hover:bg-white text-zinc-950 text-xs font-semibold transition-colors cursor-pointer"
             >
               <Printer className="w-3.5 h-3.5" />
-              <span>Print / Save PDF</span>
+              <span className="hidden sm:inline">Print / Save PDF</span>
+              <span className="sm:hidden">Print</span>
             </button>
 
             <button
               onClick={onClose}
-              className="p-1.5 rounded-md text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors cursor-pointer ml-1"
+              className="p-1.5 rounded-md text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors cursor-pointer"
               aria-label="Close modal"
             >
               <X className="w-4 h-4" />
@@ -122,16 +124,16 @@ ${skillCategoriesData
         </div>
 
         {/* Printable & Scrollable Resume Content */}
-        <div className="flex-1 overflow-y-auto p-6 sm:p-10 space-y-8 font-sans text-sm leading-relaxed">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-8 md:p-10 space-y-6 sm:space-y-8 font-sans text-xs sm:text-sm leading-relaxed">
           {/* Header */}
-          <div className="border-b border-zinc-800 pb-6 space-y-2">
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+          <div className="border-b border-zinc-800 pb-5 sm:pb-6 space-y-1.5 sm:space-y-2">
+            <h1 className="text-xl sm:text-3xl font-bold tracking-tight text-white">
               {developerBio.name}
             </h1>
-            <p className="text-base font-medium text-zinc-300">
+            <p className="text-sm sm:text-base font-medium text-zinc-300">
               {developerBio.title}
             </p>
-            <div className="flex items-center gap-4 flex-wrap text-xs text-zinc-400 pt-1 font-mono">
+            <div className="flex items-center gap-3 sm:gap-4 flex-wrap text-xs text-zinc-400 pt-1 font-mono">
               <span className="flex items-center gap-1">
                 <Mail className="w-3.5 h-3.5" />
                 {developerBio.email}
@@ -176,7 +178,7 @@ ${skillCategoriesData
               {projectsData.map((project) => (
                 <div key={project.id} className="space-y-1.5">
                   <div className="flex items-baseline justify-between flex-wrap gap-2">
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 flex-wrap">
                       <span className="font-semibold text-zinc-100">{project.title}</span>
                       <span className="text-xs text-zinc-400">— {project.tagline}</span>
                     </div>
