@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { X, Printer, Copy, Check, Mail, ExternalLink, Sparkles } from "lucide-react";
+import { X, Printer, Copy, Check, Mail, ExternalLink } from "lucide-react";
 import { GithubIcon } from "./SocialIcons";
 import { developerBio, projectsData, skillCategoriesData, experienceMilestonesData } from "../data/portfolioData";
 
@@ -25,19 +25,19 @@ Email: ${developerBio.email} | GitHub: ${developerBio.github} | X: ${developerBi
 
 ---
 
-## Executive Summary
+## Summary
 ${developerBio.bio}
 
 ---
 
-## Flagship Systems & Architectures
+## Featured Projects
 ${projectsData
   .map(
     (p) => `
 ### ${p.title} — ${p.tagline}
 - **Stack:** ${p.stack.join(", ")}
 - **Overview:** ${p.description}
-- **Key Highlights:**
+- **Key Features:**
 ${p.features.map((f) => `  * ${f}`).join("\n")}
 - **GitHub:** ${p.githubUrl} ${p.liveUrl ? `| **Live:** ${p.liveUrl}` : ""}
 `
@@ -46,19 +46,19 @@ ${p.features.map((f) => `  * ${f}`).join("\n")}
 
 ---
 
-## Technical Radar
+## Skills
 ${skillCategoriesData
   .map(
     (cat) => `
 ### ${cat.name}
-${cat.skills.map((s) => `${s.name} (${s.level})`).join(" • ")}
+${cat.skills.map((s) => s.name).join(" • ")}
 `
   )
   .join("\n")}
 
 ---
 
-## Engineering Milestones
+## Experience & Milestones
 ${experienceMilestonesData
   .map(
     (m) => `
@@ -89,9 +89,9 @@ ${m.highlights.map((h) => `- ${h}`).join("\n")}
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-semibold text-white text-sm">Executive Portfolio &amp; Resume</span>
+                <span className="font-semibold text-white text-sm">Resume Preview</span>
                 <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">
-                  Verified Active
+                  Active
                 </span>
               </div>
               <p className="text-xs text-slate-400">Mahmud • {developerBio.title}</p>
@@ -121,7 +121,7 @@ ${m.highlights.map((h) => `- ${h}`).join("\n")}
               ) : (
                 <>
                   <Copy className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">Copy Markdown</span>
+                  <span className="hidden sm:inline">Copy Text</span>
                 </>
               )}
             </button>
@@ -163,26 +163,25 @@ ${m.highlights.map((h) => `- ${h}`).join("\n")}
               </a>
               <span className="flex items-center gap-1.5 text-slate-400">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                Available for Senior / Lead Full-Stack &amp; AI Roles
+                Available for full-time roles &amp; projects
               </span>
             </div>
           </div>
 
           {/* Summary */}
           <div className="space-y-2">
-            <h2 className="text-xs font-semibold tracking-wider text-sky-400 uppercase flex items-center gap-1.5">
-              <Sparkles className="w-3 h-3" />
-              <span>Executive Summary</span>
+            <h2 className="text-xs font-semibold tracking-wider text-sky-400 uppercase">
+              Summary
             </h2>
             <p className="text-sm text-slate-300 leading-relaxed font-normal">
               {developerBio.bio}
             </p>
           </div>
 
-          {/* Flagship Architectures */}
+          {/* Featured Projects */}
           <div className="space-y-4">
             <h2 className="text-xs font-semibold tracking-wider text-sky-400 uppercase">
-              Flagship Production Systems
+              Featured Projects
             </h2>
 
             <div className="space-y-3">
@@ -196,7 +195,7 @@ ${m.highlights.map((h) => `- ${h}`).join("\n")}
                     <div className="flex items-center gap-3 text-xs">
                       {project.liveUrl && (
                         <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-sky-400 hover:text-sky-300 font-medium inline-flex items-center gap-1">
-                          <span>Live Demo</span>
+                          <span>Live App</span>
                           <ExternalLink className="w-3 h-3" />
                         </a>
                       )}
@@ -228,10 +227,10 @@ ${m.highlights.map((h) => `- ${h}`).join("\n")}
             </div>
           </div>
 
-          {/* Technical Radar */}
+          {/* Skills */}
           <div className="space-y-3">
             <h2 className="text-xs font-semibold tracking-wider text-sky-400 uppercase">
-              Technical Competencies &amp; Radar
+              Technical Skills
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               {skillCategoriesData.map((cat, i) => (
@@ -249,10 +248,10 @@ ${m.highlights.map((h) => `- ${h}`).join("\n")}
             </div>
           </div>
 
-          {/* Timeline Milestones */}
+          {/* Milestones */}
           <div className="space-y-4">
             <h2 className="text-xs font-semibold tracking-wider text-sky-400 uppercase">
-              Engineering Experience &amp; Milestones
+              Experience &amp; Milestones
             </h2>
 
             <div className="space-y-3">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FileText, ArrowUpRight, Menu, X, Cpu } from "lucide-react";
+import { FileText, ArrowUpRight, Menu, X, Play } from "lucide-react";
 import { GithubIcon } from "./SocialIcons";
 import { developerBio } from "../data/portfolioData";
 
@@ -25,7 +25,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
         <div
           className={`flex items-center justify-between px-5 py-3 rounded-2xl transition-all duration-300 ${
             scrolled
-              ? "bg-[#05070d]/85 backdrop-blur-xl border border-white/[0.08] shadow-2xl shadow-black/60"
+              ? "bg-[#05070d]/90 backdrop-blur-xl border border-white/[0.08] shadow-2xl shadow-black/60"
               : "bg-slate-900/40 backdrop-blur-md border border-white/[0.05]"
           }`}
         >
@@ -45,7 +45,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
                 {developerBio.name}
               </span>
               <span className="text-[10px] text-slate-400 font-normal">
-                Full-Stack &amp; Systems
+                Full-Stack Developer
               </span>
             </div>
           </a>
@@ -60,16 +60,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
             </a>
             <a
               href="#systems-lab"
-              className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/[0.05] transition-all flex items-center gap-1.5 text-sky-400"
+              className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/[0.05] transition-all flex items-center gap-1.5 text-sky-400 font-semibold"
             >
-              <Cpu className="w-3 h-3" />
-              <span>Systems Lab</span>
+              <Play className="w-3 h-3 fill-current" />
+              <span>Interactive Demos</span>
             </a>
             <a
               href="#skills"
               className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/[0.05] transition-all"
             >
-              Stack &amp; Skills
+              Skills
             </a>
             <a
               href="#experience"
@@ -143,29 +143,29 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
               onClick={() => setMobileMenuOpen(false)}
               className="p-2.5 rounded-xl hover:bg-white/[0.05] hover:text-white transition-colors"
             >
-              Featured Projects
+              Projects
             </a>
             <a
               href="#systems-lab"
               onClick={() => setMobileMenuOpen(false)}
-              className="p-2.5 rounded-xl hover:bg-white/[0.05] hover:text-white transition-colors text-sky-400 flex items-center gap-1.5"
+              className="p-2.5 rounded-xl hover:bg-white/[0.05] hover:text-white transition-colors text-sky-400 flex items-center gap-1.5 font-semibold"
             >
-              <Cpu className="w-3.5 h-3.5" />
-              <span>Interactive Systems Lab</span>
+              <Play className="w-3.5 h-3.5 fill-current" />
+              <span>Interactive Demos</span>
             </a>
             <a
               href="#skills"
               onClick={() => setMobileMenuOpen(false)}
               className="p-2.5 rounded-xl hover:bg-white/[0.05] hover:text-white transition-colors"
             >
-              Stack &amp; Skills
+              Skills
             </a>
             <a
               href="#experience"
               onClick={() => setMobileMenuOpen(false)}
               className="p-2.5 rounded-xl hover:bg-white/[0.05] hover:text-white transition-colors"
             >
-              Engineering Milestones
+              Milestones
             </a>
             <a
               href="#contact"
@@ -185,7 +185,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenResume }) => {
               className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/[0.05] border border-white/10 text-slate-200 text-xs font-medium cursor-pointer"
             >
               <FileText className="w-4 h-4 text-sky-400" />
-              <span>View Executive Resume</span>
+              <span>View Resume</span>
             </button>
 
             <a

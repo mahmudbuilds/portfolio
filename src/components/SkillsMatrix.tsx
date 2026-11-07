@@ -1,5 +1,5 @@
 import React from "react";
-import { Cpu, Check } from "lucide-react";
+import { Wrench, Check } from "lucide-react";
 import { skillCategoriesData } from "../data/portfolioData";
 
 export const SkillsMatrix: React.FC = () => {
@@ -9,14 +9,14 @@ export const SkillsMatrix: React.FC = () => {
         {/* Section Header */}
         <div className="mb-12 space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-xs font-medium text-indigo-400">
-            <Cpu className="w-3.5 h-3.5" />
-            <span>Technical Capabilities</span>
+            <Wrench className="w-3.5 h-3.5" />
+            <span>Developer Skills</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-            Core Competencies &amp; Stack
+            Skills &amp; Technologies
           </h2>
-          <p className="text-sm sm:text-base text-slate-400 max-w-xl">
-            A comprehensive matrix of technical domains where I build production-grade software.
+          <p className="text-sm sm:text-base text-slate-300 max-w-xl">
+            Technologies, frameworks, and tools I use to design and build web applications.
           </p>
         </div>
 
@@ -31,8 +31,8 @@ export const SkillsMatrix: React.FC = () => {
                 <h3 className="text-base font-bold text-white tracking-tight">
                   {category.name}
                 </h3>
-                <span className="text-xs font-mono text-slate-400">
-                  {category.skills.length} Technologies
+                <span className="text-xs text-slate-400">
+                  {category.skills.length} Skills
                 </span>
               </div>
 

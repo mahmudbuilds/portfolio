@@ -24,7 +24,7 @@ export const Footer: React.FC = () => {
             </div>
             <span className="hidden sm:inline text-slate-600">•</span>
             <span className="text-slate-400">
-              Full-Stack &amp; AI Systems Engineer
+              Full-Stack Web Developer
             </span>
             <span className="hidden sm:inline text-slate-600">•</span>
             <span className="text-slate-500">

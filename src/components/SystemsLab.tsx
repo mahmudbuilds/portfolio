@@ -1,181 +1,109 @@
 import React, { useState } from "react";
-import { Play, RotateCcw, AlertTriangle, CheckCircle, ShieldAlert, Cpu, Database, Network } from "lucide-react";
+import { Play, RotateCcw, AlertCircle, CheckCircle2, ShieldCheck, ShoppingCart, FileSearch, Lock } from "lucide-react";
 
 export const SystemsLab: React.FC = () => {
-  const [activeLab, setActiveLab] = useState<"concurrency" | "ast" | "topology">("concurrency");
+  const [activeTab, setActiveTab] = useState<"inventory" | "resume" | "security">("inventory");
 
-  // --- Lab 1: Concurrency Simulator State ---
-  const [lockingEnabled, setLockingEnabled] = useState(true);
-  const [simulationState, setSimulationState] = useState<"idle" | "running" | "completed">("idle");
-  const [stockHistory, setStockHistory] = useState<number[]>([6]);
-  const [orderALog, setOrderALog] = useState<string>("Ready to dispatch Order A (qty: 5)");
-  const [orderBLog, setOrderBLog] = useState<string>("Ready to dispatch Order B (qty: 5)");
-  const [finalResult, setFinalResult] = useState<string | null>(null);
+  // --- Demo 1: Inventry Stock Demo State ---
+  const [hasProtection, setHasProtection] = useState(true);
+  const [orderStatus, setOrderStatus] = useState<"idle" | "running" | "done">("idle");
+  const [stockCount, setStockCount] = useState<number>(6);
+  const [customer1Message, setCustomer1Message] = useState<string>("Ready to order 5 items");
+  const [customer2Message, setCustomer2Message] = useState<string>("Ready to order 5 items");
+  const [summaryMessage, setSummaryMessage] = useState<string | null>(null);
 
-  const runConcurrencySim = () => {
-    setSimulationState("running");
-    setStockHistory([6]);
-    setFinalResult(null);
-
-    setOrderALog("Order A (qty: 5): Requesting lock on item #42...");
-    setOrderBLog("Order B (qty: 5): Requesting lock on item #42...");
+  const runOrderTest = () => {
+    setOrderStatus("running");
+    setCustomer1Message("Placing order for 5 items...");
+    setCustomer2Message("Placing order for 5 items at the exact same moment...");
 
     setTimeout(() => {
-      if (lockingEnabled) {
-        // Safe with row-level locking
-        setOrderALog("Order A: [Lock Acquired] Stock = 6. Deducting 5 -> Stock = 1. Committing.");
-        setOrderBLog("Order B: [Waiting for Lock release on item #42]...");
-        setStockHistory([6, 1]);
-
-        setTimeout(() => {
-          setOrderBLog("Order B: [Lock Acquired] Stock = 1. Requested 5 -> Fails check. ROLLBACK (409 Conflict).");
-          setSimulationState("completed");
-          setFinalResult("Safe: Atomic transaction prevented overselling. Stock correctly remains at 1.");
-        }, 1100);
+      if (hasProtection) {
+        setStockCount(1);
+        setCustomer1Message("✅ Order #1 Confirmed: 5 items allocated. Stock left: 1.");
+        setCustomer2Message("❌ Order #2 Stopped: Only 1 item left in warehouse! Customer notified safely.");
+        setSummaryMessage("Success: The app processed orders one by one, preventing the business from selling items it doesn't have.");
       } else {
-        // Race condition bug without locking
-        setOrderALog("Order A: [No Lock] Reads Stock = 6. Deducting 5 -> writes 1.");
-        setOrderBLog("Order B: [No Lock] Reads Stock = 6 concurrently! Deducting 5 -> writes 1 - 5 = -4!");
-        setStockHistory([6, 1, -4]);
-        setSimulationState("completed");
-        setFinalResult("CRITICAL BUG: Race condition allowed negative inventory (-4 units sold).");
+        setStockCount(-4);
+        setCustomer1Message("⚠️ Order #1 Confirmed: 5 items sold.");
+        setCustomer2Message("⚠️ Order #2 Confirmed: 5 items sold! Stock is now -4 (Oversold by 4 items!)");
+        setSummaryMessage("Mistake: Without protection, both customers were told 'yes', leaving the warehouse with negative inventory.");
       }
-    }, 900);
+      setOrderStatus("done");
+    }, 800);
   };
 
-  const resetConcurrencySim = () => {
-    setSimulationState("idle");
-    setStockHistory([6]);
-    setOrderALog("Ready to dispatch Order A (qty: 5)");
-    setOrderBLog("Ready to dispatch Order B (qty: 5)");
-    setFinalResult(null);
+  const resetOrderTest = () => {
+    setOrderStatus("idle");
+    setStockCount(6);
+    setCustomer1Message("Ready to order 5 items");
+    setCustomer2Message("Ready to order 5 items");
+    setSummaryMessage(null);
   };
 
-  // --- Lab 2: AST Security Scanner State ---
-  const [selectedSnippet, setSelectedSnippet] = useState<"sql_injection" | "eval_rce" | "safe_query">("sql_injection");
-  const [astAnalysisState, setAstAnalysisState] = useState<"idle" | "analyzing" | "analyzed">("analyzed");
+  // --- Demo 2: ResuMind Keyword Matcher State ---
+  const [selectedRole, setSelectedRole] = useState<"frontend" | "backend" | "fullstack">("fullstack");
 
-  const snippets = {
-    sql_injection: {
-      name: "SQL String Interpolation (Vulnerable)",
-      code: `def get_user_by_email(request):\n    user_email = request.GET.get('email')\n    # Insecure: String formatting inside SQL execute\n    query = f"SELECT * FROM users WHERE email = '{user_email}'"\n    cursor.execute(query)\n    return cursor.fetchone()`,
-      astTree: [
-        { node: "Module", type: "root", desc: "Top-level Python file scope" },
-        { node: "FunctionDef (get_user_by_email)", type: "func", desc: "Function definition with request argument" },
-        { node: "Assign (query)", type: "assign", desc: "Variable assignment with JoinedStr (f-string)" },
-        {
-          node: "Call -> cursor.execute(query)",
-          type: "vulnerable",
-          cwe: "CWE-89: SQL Injection",
-          reason: "SQL query string derived from JoinedStr dynamic interpolation rather than parameterized arguments."
-        }
-      ],
-      remediation: `cursor.execute("SELECT * FROM users WHERE email = %s", [user_email])`
+  const roles = {
+    fullstack: {
+      title: "Full-Stack Engineer Role",
+      matchScore: 92,
+      matched: ["React", "Next.js", "Python", "PostgreSQL", "REST APIs", "Git"],
+      missing: ["Docker", "Redis"],
+      tip: "ResuMind scanned the resume in 0.2 seconds in your browser. Adding 'Docker' will push the match score to 98%."
     },
-    eval_rce: {
-      name: "Dynamic eval() Execution (Vulnerable)",
-      code: `def calculate_discount(request):\n    formula = request.POST.get('custom_rule')\n    # Insecure: executing user-supplied string\n    result = eval(formula)\n    return JsonResponse({'discount': result})`,
-      astTree: [
-        { node: "Module", type: "root", desc: "Top-level Python file scope" },
-        { node: "FunctionDef (calculate_discount)", type: "func", desc: "Function definition" },
-        {
-          node: "Call -> eval(formula)",
-          type: "vulnerable",
-          cwe: "CWE-95: Improper Neutralization (RCE)",
-          reason: "Direct invocation of eval() on unvalidated HTTP POST payload."
-        }
-      ],
-      remediation: `import ast\nresult = ast.literal_eval(formula) # Or a restricted math parser`
+    frontend: {
+      title: "Frontend Developer Role",
+      matchScore: 96,
+      matched: ["React", "JavaScript", "TypeScript", "Tailwind CSS", "HTML5", "Responsive Design"],
+      missing: ["GraphQL"],
+      tip: "Great match! All core frontend requirements are clearly present on the resume."
     },
-    safe_query: {
-      name: "Parameterized SQL Query (Secure)",
-      code: `def get_user_by_email(request):\n    user_email = request.GET.get('email')\n    # Secure: Parameters passed separately to database adapter\n    query = "SELECT * FROM users WHERE email = %s"\n    cursor.execute(query, [user_email])\n    return cursor.fetchone()`,
-      astTree: [
-        { node: "Module", type: "root", desc: "Top-level Python file scope" },
-        { node: "FunctionDef (get_user_by_email)", type: "func", desc: "Function definition" },
-        { node: "Assign (query)", type: "assign", desc: "Constant string without variable interpolation" },
-        {
-          node: "Call -> cursor.execute(query, [user_email])",
-          type: "safe",
-          cwe: "Pass: Secure Parameterization",
-          reason: "Database driver treats user_email strictly as literal data, preventing query hijacking."
-        }
-      ],
-      remediation: "No remediation required. Parameterized binding correctly implemented."
+    backend: {
+      title: "Backend Developer Role",
+      matchScore: 88,
+      matched: ["Python", "Django", "PostgreSQL", "Database Design", "User Authentication"],
+      missing: ["Microservices", "Kubernetes"],
+      tip: "Strong match on relational databases and Python frameworks."
     }
   };
 
-  const handleRunAstAnalysis = () => {
-    setAstAnalysisState("analyzing");
-    setTimeout(() => {
-      setAstAnalysisState("analyzed");
-    }, 400);
-  };
+  const currentRole = roles[selectedRole];
 
-  // --- Lab 3: Topology Inspector State ---
-  const [selectedRoute, setSelectedRoute] = useState<"read_inventory" | "write_order" | "cross_tenant">("read_inventory");
+  // --- Demo 3: Code Auditor Security State ---
+  const [selectedSecurityExample, setSelectedSecurityExample] = useState<"sql_leak" | "dangerous_command" | "safe_example">("sql_leak");
 
-  const topologyRoutes = {
-    read_inventory: {
-      method: "GET",
-      path: "/api/v1/warehouses/alpha/stock",
-      tenant: "org_acme_corp",
-      statusCode: 200,
-      statusText: "200 OK",
-      latencyMs: "38ms",
-      flow: [
-        { step: "Client Request", desc: "Next.js 16 Edge proxy validates cached session token" },
-        { step: "API Middleware", desc: "Django REST extracts tenant 'org_acme_corp' from JWT claims" },
-        { step: "Database Query", desc: "PostgreSQL index scan: WHERE tenant_id = 'org_acme_corp'" }
-      ],
-      response: {
-        warehouse: "Warehouse Alpha",
-        total_skus: 412,
-        active_allocations: 18,
-        server_timing: "edge: 4ms, api: 21ms, db: 13ms"
-      }
+  const securityExamples = {
+    sql_leak: {
+      title: "Common Mistake: SQL Injection",
+      isVulnerable: true,
+      whatHappened: "User input is directly glued into a database query.",
+      risk: "A malicious user could type ' OR 1=1; -- into a search box to see private customer passwords or wipe the database.",
+      badCode: `query = f"SELECT * FROM users WHERE email = '{user_input}'"`,
+      goodCode: `query = "SELECT * FROM users WHERE email = %s", [user_input]`,
+      howItHelps: "Code Auditor flags this immediately and shows the developer how to pass the email as safe data instead of executable code."
     },
-    write_order: {
-      method: "POST",
-      path: "/api/v1/orders/dispatch",
-      tenant: "org_acme_corp",
-      statusCode: 201,
-      statusText: "201 Created",
-      latencyMs: "64ms",
-      flow: [
-        { step: "Client Request", desc: "Order payload validated against JSON schema" },
-        { step: "API Transaction", desc: "Django opens transaction.atomic() with select_for_update()" },
-        { step: "Database Write", desc: "Neon PostgreSQL updates inventory ledger and records audit event" }
-      ],
-      response: {
-        order_id: "ord_918204",
-        status: "CONFIRMED",
-        units_allocated: 5,
-        remaining_stock: 1,
-        transaction_hash: "tx_0x9a8f11c"
-      }
+    dangerous_command: {
+      title: "Common Mistake: Running Unsafe Commands",
+      isVulnerable: true,
+      whatHappened: "The app runs a command string entered by a visitor.",
+      risk: "An attacker could upload a dangerous file or run a script on your server.",
+      badCode: `result = eval(user_text)  # Runs any command the user typed`,
+      goodCode: `result = safe_math_parser(user_text)  # Only allows numbers`,
+      howItHelps: "Code Auditor warns developers to replace raw eval() calls with safe, restricted functions."
     },
-    cross_tenant: {
-      method: "GET",
-      path: "/api/v1/warehouses/apex_logistics/stock",
-      tenant: "org_acme_corp (Mismatched)",
-      statusCode: 403,
-      statusText: "403 Forbidden",
-      latencyMs: "19ms",
-      flow: [
-        { step: "Client Request", desc: "Client attempts to request resources belonging to apex_logistics" },
-        { step: "Tenant Guard", desc: "TenantFilteredManager detects tenant_id mismatch" },
-        { step: "Early Termination", desc: "Request rejected before any database read occurs" }
-      ],
-      response: {
-        error: "Forbidden",
-        detail: "Tenant isolation policy rejects cross-organization resource access.",
-        code: "TENANT_ACCESS_DENIED"
-      }
+    safe_example: {
+      title: "Best Practice: Safe Protected Code",
+      isVulnerable: false,
+      whatHappened: "User input is kept separate from database instructions.",
+      risk: "No risk detected. The database driver safely treats the input strictly as plain text.",
+      badCode: `# This code is already clean and safe`,
+      goodCode: `cursor.execute("SELECT * FROM items WHERE id = %s", [item_id])`,
+      howItHelps: "Code Auditor passes this code with zero security warnings."
     }
   };
 
-  const routeData = topologyRoutes[selectedRoute];
+  const currentSecurity = securityExamples[selectedSecurityExample];
 
   return (
     <section id="systems-lab" className="py-24 border-t border-white/[0.08] relative text-left">
@@ -184,386 +112,351 @@ export const SystemsLab: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div className="space-y-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-xs font-medium text-sky-400">
-              <Cpu className="w-3.5 h-3.5" />
-              <span>Interactive Architecture Lab</span>
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span>Interactive App Demos</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-              Systems &amp; Architecture Playground
+              Try Out How the Apps Work
             </h2>
-            <p className="text-sm sm:text-base text-slate-400 max-w-xl">
-              Inspect interactive simulations of the concurrency algorithms, AST static analysis, and multi-tenant pipelines running in my systems.
+            <p className="text-sm sm:text-base text-slate-300 max-w-xl">
+              Simple interactive previews showing the real features built into Inventry, ResuMind, and Code Auditor.
             </p>
           </div>
 
-          {/* Lab Switcher Tabs */}
+          {/* Simple Tab Switcher */}
           <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-900/90 border border-white/[0.08] text-xs">
             <button
-              onClick={() => setActiveLab("concurrency")}
+              onClick={() => setActiveTab("inventory")}
               className={`px-3.5 py-2 rounded-lg font-medium transition-all cursor-pointer ${
-                activeLab === "concurrency"
-                  ? "bg-sky-500 text-slate-950 shadow"
+                activeTab === "inventory"
+                  ? "bg-sky-500 text-slate-950 shadow font-semibold"
                   : "text-slate-400 hover:text-white"
               }`}
             >
-              Concurrency &amp; Locks
+              1. Inventry (Stock Demo)
             </button>
             <button
-              onClick={() => setActiveLab("ast")}
+              onClick={() => setActiveTab("resume")}
               className={`px-3.5 py-2 rounded-lg font-medium transition-all cursor-pointer ${
-                activeLab === "ast"
-                  ? "bg-sky-500 text-slate-950 shadow"
+                activeTab === "resume"
+                  ? "bg-sky-500 text-slate-950 shadow font-semibold"
                   : "text-slate-400 hover:text-white"
               }`}
             >
-              AST Security Analyzer
+              2. ResuMind (Resume Scanner)
             </button>
             <button
-              onClick={() => setActiveLab("topology")}
+              onClick={() => setActiveTab("security")}
               className={`px-3.5 py-2 rounded-lg font-medium transition-all cursor-pointer ${
-                activeLab === "topology"
-                  ? "bg-sky-500 text-slate-950 shadow"
+                activeTab === "security"
+                  ? "bg-sky-500 text-slate-950 shadow font-semibold"
                   : "text-slate-400 hover:text-white"
               }`}
             >
-              Decoupled Pipeline
+              3. Code Auditor (Bug Detector)
             </button>
           </div>
         </div>
 
-        {/* --- LAB 1: Concurrency & Database Locking --- */}
-        {activeLab === "concurrency" && (
-          <div className="rounded-2xl bg-slate-900/40 border border-white/[0.08] p-6 sm:p-8 space-y-8 backdrop-blur-xl">
+        {/* --- DEMO 1: Inventry Stock Tracker --- */}
+        {activeTab === "inventory" && (
+          <div className="rounded-2xl bg-slate-900/40 border border-white/[0.08] p-6 sm:p-8 space-y-7 backdrop-blur-xl">
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-white/[0.08]">
               <div>
-                <h3 className="text-lg font-semibold text-white flex items-center gap-2">
-                  <span>Inventry: Row-Level Concurrency &amp; Race Condition Engine</span>
+                <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                  <ShoppingCart className="w-5 h-5 text-sky-400" />
+                  <span>Inventry: How it prevents selling items you don't have</span>
                 </h3>
-                <p className="text-xs text-slate-400 mt-1 max-w-2xl">
-                  Simulate two warehouse operators attempting to allocate 5 units simultaneously when only 6 are in stock. Toggle database row-level locking to observe how <code className="text-sky-300">select_for_update()</code> prevents inventory overselling.
+                <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl">
+                  <strong>The Situation:</strong> A warehouse has only 6 items left. Two buyers both click "Buy 5 items" at the exact same second. Watch what happens:
                 </p>
               </div>
 
-              {/* Mode Toggle & Run Action */}
               <div className="flex flex-wrap items-center gap-3">
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950 border border-white/[0.08] text-xs text-slate-300">
-                  <span>Locking:</span>
-                  <button
-                    onClick={() => {
-                      setLockingEnabled(!lockingEnabled);
-                      resetConcurrencySim();
-                    }}
-                    className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-colors cursor-pointer ${
-                      lockingEnabled
-                        ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-                        : "bg-rose-500/20 text-rose-400 border border-rose-500/30"
-                    }`}
-                  >
-                    {lockingEnabled ? "Active (SELECT FOR UPDATE)" : "Disabled (Race Bug)"}
-                  </button>
-                </div>
-
                 <button
-                  onClick={runConcurrencySim}
-                  disabled={simulationState === "running"}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 disabled:opacity-50 text-slate-950 font-semibold text-xs transition-all shadow-md cursor-pointer active:scale-95"
+                  onClick={() => {
+                    setHasProtection(!hasProtection);
+                    resetOrderTest();
+                  }}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-colors cursor-pointer ${
+                    hasProtection
+                      ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30"
+                      : "bg-rose-500/10 text-rose-400 border-rose-500/30"
+                  }`}
                 >
-                  <Play className="w-3.5 h-3.5 fill-current" />
-                  <span>Run Concurrent Orders</span>
+                  {hasProtection ? "Protection: On (Safe)" : "Protection: Off (Bug)"}
                 </button>
 
                 <button
-                  onClick={resetConcurrencySim}
+                  onClick={runOrderTest}
+                  disabled={orderStatus === "running"}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 disabled:opacity-50 text-slate-950 font-semibold text-xs transition-all shadow-md cursor-pointer active:scale-95"
+                >
+                  <Play className="w-3.5 h-3.5 fill-current" />
+                  <span>Place Both Orders Now</span>
+                </button>
+
+                <button
+                  onClick={resetOrderTest}
                   className="p-2 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-slate-400 hover:text-white transition-colors cursor-pointer"
-                  title="Reset Simulation"
+                  title="Reset"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
 
-            {/* Visual Concurrency Ledger */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Operator A */}
-              <div className="p-5 rounded-xl bg-slate-950/60 border border-white/[0.06] space-y-3">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="font-semibold text-sky-400">Operator Thread A</span>
-                  <span className="text-slate-500 font-mono">PID: 8812</span>
-                </div>
-                <div className="text-xs text-slate-300">
-                  Action: <strong className="text-white">Order 5 units</strong> of SKU-42
-                </div>
-                <div className="p-3 rounded-lg bg-black/40 border border-white/[0.04] text-[11px] font-mono text-slate-300 min-h-[64px] flex items-center">
-                  {orderALog}
+            {/* Visual Orders Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {/* Customer 1 */}
+              <div className="p-5 rounded-xl bg-slate-950/60 border border-white/[0.06] space-y-2">
+                <div className="text-xs font-semibold text-sky-400">Customer 1</div>
+                <div className="text-sm font-medium text-white">Ordering 5 items</div>
+                <div className="p-3 rounded-lg bg-black/40 border border-white/[0.04] text-xs text-slate-300 min-h-[56px] flex items-center">
+                  {customer1Message}
                 </div>
               </div>
 
-              {/* Warehouse Inventory State */}
-              <div className="p-5 rounded-xl bg-slate-950/60 border border-white/[0.06] space-y-3 text-center">
+              {/* Warehouse Inventory Stock */}
+              <div className="p-5 rounded-xl bg-slate-950/60 border border-white/[0.06] space-y-2 text-center">
                 <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                  PostgreSQL Neon Stock Balance
+                  Warehouse Stock Level
                 </div>
-                <div className="py-2">
+                <div className="py-1">
                   <span
                     className={`text-4xl font-extrabold font-mono transition-colors ${
-                      stockHistory[stockHistory.length - 1] < 0
-                        ? "text-rose-400 animate-pulse"
-                        : "text-emerald-400"
+                      stockCount < 0 ? "text-rose-400 animate-pulse" : "text-emerald-400"
                     }`}
                   >
-                    {stockHistory[stockHistory.length - 1]}
+                    {stockCount}
                   </span>
-                  <span className="text-xs text-slate-500 ml-2">units remaining</span>
+                  <span className="text-xs text-slate-400 ml-2">units in warehouse</span>
                 </div>
-                <div className="text-[11px] text-slate-400">
-                  Initial stock: 6 units • Target SKU: #42
+                <div className="text-[11px] text-slate-500">
+                  Initial stock started at 6 units
                 </div>
               </div>
 
-              {/* Operator B */}
-              <div className="p-5 rounded-xl bg-slate-950/60 border border-white/[0.06] space-y-3">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="font-semibold text-indigo-400">Operator Thread B</span>
-                  <span className="text-slate-500 font-mono">PID: 8819</span>
-                </div>
-                <div className="text-xs text-slate-300">
-                  Action: <strong className="text-white">Order 5 units</strong> of SKU-42
-                </div>
-                <div className="p-3 rounded-lg bg-black/40 border border-white/[0.04] text-[11px] font-mono text-slate-300 min-h-[64px] flex items-center">
-                  {orderBLog}
+              {/* Customer 2 */}
+              <div className="p-5 rounded-xl bg-slate-950/60 border border-white/[0.06] space-y-2">
+                <div className="text-xs font-semibold text-indigo-400">Customer 2</div>
+                <div className="text-sm font-medium text-white">Ordering 5 items</div>
+                <div className="p-3 rounded-lg bg-black/40 border border-white/[0.04] text-xs text-slate-300 min-h-[56px] flex items-center">
+                  {customer2Message}
                 </div>
               </div>
             </div>
 
-            {/* Simulation Diagnostic Output */}
-            {finalResult && (
+            {summaryMessage && (
               <div
-                className={`p-4 rounded-xl text-xs flex items-center gap-3 border ${
-                  lockingEnabled
+                className={`p-4 rounded-xl text-xs sm:text-sm flex items-center gap-3 border ${
+                  hasProtection
                     ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-300"
                     : "bg-rose-500/10 border-rose-500/20 text-rose-300"
                 }`}
               >
-                {lockingEnabled ? (
-                  <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                {hasProtection ? (
+                  <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0" />
                 ) : (
-                  <AlertTriangle className="w-4 h-4 text-rose-400 flex-shrink-0" />
+                  <AlertCircle className="w-5 h-5 text-rose-400 flex-shrink-0" />
                 )}
-                <span>{finalResult}</span>
+                <span>{summaryMessage}</span>
               </div>
             )}
-
-            {/* Django Implementation Code */}
-            <div className="space-y-2">
-              <div className="text-xs font-semibold text-slate-400 flex items-center gap-2">
-                <Database className="w-3.5 h-3.5 text-sky-400" />
-                <span>Production Django ORM Implementation (Inventry)</span>
-              </div>
-              <div className="p-4 rounded-xl bg-[#03060c] border border-white/[0.06] font-mono text-xs text-slate-300 overflow-x-auto leading-relaxed">
-                <pre>{`from django.db import transaction
-from rest_framework.exceptions import ValidationError
-
-@transaction.atomic
-def allocate_warehouse_stock(item_id, requested_qty, tenant):
-    # Acquires exclusive row-level database lock on this specific inventory row
-    item = InventoryItem.objects.select_for_update().get(id=item_id, tenant=tenant)
-    
-    if item.stock < requested_qty:
-        raise ValidationError({"error": "Insufficient inventory available."})
-        
-    item.stock -= requested_qty
-    item.save()
-    
-    AuditLog.objects.create(tenant=tenant, action="STOCK_ALLOCATED", item=item, qty=requested_qty)
-    return item.stock`}</pre>
-              </div>
-            </div>
           </div>
         )}
 
-        {/* --- LAB 2: AST Security Scanner --- */}
-        {activeLab === "ast" && (
-          <div className="rounded-2xl bg-slate-900/40 border border-white/[0.08] p-6 sm:p-8 space-y-8 backdrop-blur-xl">
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-white/[0.08]">
-              <div>
-                <h3 className="text-lg font-semibold text-white">
-                  Code Auditor: Python Abstract Syntax Tree (AST) Security Scanner
-                </h3>
-                <p className="text-xs text-slate-400 mt-1 max-w-2xl">
-                  Inspect how Python’s native <code className="text-sky-300">ast.NodeVisitor</code> detects dangerous function calls and SQL string interpolation vulnerabilities without executing untrusted code.
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={handleRunAstAnalysis}
-                  disabled={astAnalysisState === "analyzing"}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 disabled:opacity-50 text-slate-950 font-semibold text-xs transition-all shadow-md cursor-pointer"
-                >
-                  <Cpu className={`w-3.5 h-3.5 ${astAnalysisState === "analyzing" ? "animate-spin" : ""}`} />
-                  <span>{astAnalysisState === "analyzing" ? "Parsing Syntax Nodes..." : "Parse AST Tree"}</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Snippet Picker */}
-            <div className="flex flex-wrap gap-2">
-              {(Object.keys(snippets) as Array<keyof typeof snippets>).map((key) => (
-                <button
-                  key={key}
-                  onClick={() => setSelectedSnippet(key)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
-                    selectedSnippet === key
-                      ? "bg-sky-500/20 text-sky-300 border border-sky-500/30"
-                      : "bg-white/[0.03] text-slate-400 hover:text-white border border-white/[0.05]"
-                  }`}
-                >
-                  {snippets[key].name}
-                </button>
-              ))}
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Left: Input Python Code */}
-              <div className="space-y-3">
-                <span className="text-xs font-semibold text-slate-400">Analyzed Python Source Code</span>
-                <div className="p-4 rounded-xl bg-[#03060c] border border-white/[0.06] font-mono text-xs text-slate-300 overflow-x-auto min-h-[190px]">
-                  <pre>{snippets[selectedSnippet].code}</pre>
-                </div>
-
-                <div className="p-3.5 rounded-xl bg-slate-950/60 border border-white/[0.06] space-y-1">
-                  <div className="text-[11px] font-semibold text-slate-400">Security Recommendation / Fix:</div>
-                  <div className="font-mono text-xs text-emerald-400 break-all">
-                    {snippets[selectedSnippet].remediation}
-                  </div>
-                </div>
-              </div>
-
-              {/* Right: Parsed AST Nodes */}
-              <div className="space-y-3">
-                <span className="text-xs font-semibold text-slate-400">Traversed AST Syntax Nodes</span>
-                <div className="space-y-2 min-h-[190px]">
-                  {snippets[selectedSnippet].astTree.map((item, idx) => (
-                    <div
-                      key={idx}
-                      className={`p-3 rounded-xl border text-xs transition-all ${
-                        item.type === "vulnerable"
-                          ? "bg-rose-500/10 border-rose-500/30 text-rose-200"
-                          : item.type === "safe"
-                          ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-200"
-                          : "bg-slate-950/60 border-white/[0.06] text-slate-300"
-                      }`}
-                    >
-                      <div className="flex items-center justify-between font-mono font-medium">
-                        <span className="flex items-center gap-1.5">
-                          {item.type === "vulnerable" && <ShieldAlert className="w-3.5 h-3.5 text-rose-400" />}
-                          {item.type === "safe" && <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />}
-                          <span>{item.node}</span>
-                        </span>
-                        {item.cwe && (
-                          <span
-                            className={`text-[10px] px-2 py-0.5 rounded font-mono ${
-                              item.type === "vulnerable"
-                                ? "bg-rose-500/20 text-rose-300"
-                                : "bg-emerald-500/20 text-emerald-300"
-                            }`}
-                          >
-                            {item.cwe}
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-[11px] text-slate-400 mt-1">{item.desc || item.reason}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* --- LAB 3: Decoupled Topology & Live Pipeline --- */}
-        {activeLab === "topology" && (
-          <div className="rounded-2xl bg-slate-900/40 border border-white/[0.08] p-6 sm:p-8 space-y-8 backdrop-blur-xl">
+        {/* --- DEMO 2: ResuMind Resume Scanner --- */}
+        {activeTab === "resume" && (
+          <div className="rounded-2xl bg-slate-900/40 border border-white/[0.08] p-6 sm:p-8 space-y-7 backdrop-blur-xl">
             <div className="pb-6 border-b border-white/[0.08]">
-              <h3 className="text-lg font-semibold text-white">
-                Decoupled Cloud Architecture &amp; Multi-Tenant Routing
+              <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                <FileSearch className="w-5 h-5 text-sky-400" />
+                <span>ResuMind: How it scans resumes and finds missing skills</span>
               </h3>
-              <p className="text-xs text-slate-400 mt-1 max-w-2xl">
-                Observe how incoming client requests flow across Vercel Edge, Django REST Framework on Render, and PostgreSQL on Neon with cryptographic tenant context validation.
+              <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl">
+                Choose a job role below to see how ResuMind analyzes a resume, matches relevant keywords, and points out what’s missing — all inside your browser without saving your file.
               </p>
             </div>
 
-            {/* Route Selector */}
+            {/* Role Buttons */}
             <div className="flex flex-wrap gap-2">
               <button
-                onClick={() => setSelectedRoute("read_inventory")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
-                  selectedRoute === "read_inventory"
-                    ? "bg-sky-500/20 text-sky-300 border border-sky-500/30"
-                    : "bg-white/[0.03] text-slate-400 hover:text-white border border-white/[0.05]"
+                onClick={() => setSelectedRole("fullstack")}
+                className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                  selectedRole === "fullstack"
+                    ? "bg-sky-500 text-slate-950 shadow"
+                    : "bg-white/[0.04] text-slate-300 hover:text-white border border-white/[0.06]"
                 }`}
               >
-                GET /warehouses/alpha/stock (Normal Read)
+                Full-Stack Engineer Role
               </button>
               <button
-                onClick={() => setSelectedRoute("write_order")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
-                  selectedRoute === "write_order"
-                    ? "bg-sky-500/20 text-sky-300 border border-sky-500/30"
-                    : "bg-white/[0.03] text-slate-400 hover:text-white border border-white/[0.05]"
+                onClick={() => setSelectedRole("frontend")}
+                className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                  selectedRole === "frontend"
+                    ? "bg-sky-500 text-slate-950 shadow"
+                    : "bg-white/[0.04] text-slate-300 hover:text-white border border-white/[0.06]"
                 }`}
               >
-                POST /orders/dispatch (Atomic Write)
+                Frontend Developer Role
               </button>
               <button
-                onClick={() => setSelectedRoute("cross_tenant")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all cursor-pointer ${
-                  selectedRoute === "cross_tenant"
-                    ? "bg-rose-500/20 text-rose-300 border border-rose-500/30"
-                    : "bg-white/[0.03] text-slate-400 hover:text-white border border-white/[0.05]"
+                onClick={() => setSelectedRole("backend")}
+                className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                  selectedRole === "backend"
+                    ? "bg-sky-500 text-slate-950 shadow"
+                    : "bg-white/[0.04] text-slate-300 hover:text-white border border-white/[0.06]"
                 }`}
               >
-                GET /warehouses/apex/stock (Cross-Tenant Block)
+                Backend Developer Role
               </button>
             </div>
 
-            {/* Architecture Steps Flow */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {routeData.flow.map((f, i) => (
-                <div key={i} className="p-4 rounded-xl bg-slate-950/60 border border-white/[0.06] space-y-2">
-                  <div className="flex items-center gap-2 text-xs font-semibold text-sky-400">
-                    <span className="w-5 h-5 rounded-full bg-sky-500/10 flex items-center justify-center text-[10px]">
-                      {i + 1}
-                    </span>
-                    <span>{f.step}</span>
-                  </div>
-                  <p className="text-xs text-slate-300 leading-relaxed">{f.desc}</p>
+            {/* Results Card */}
+            <div className="p-6 rounded-xl bg-slate-950/60 border border-white/[0.06] space-y-5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <div className="text-xs text-slate-400 font-medium">Target Job Description:</div>
+                  <div className="text-base font-bold text-white mt-0.5">{currentRole.title}</div>
                 </div>
-              ))}
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-slate-400">Match Score:</span>
+                  <span className="text-xl font-bold text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-lg border border-emerald-500/20">
+                    {currentRole.matchScore}% Match
+                  </span>
+                </div>
+              </div>
+
+              {/* Matched Skills */}
+              <div className="space-y-2">
+                <div className="text-xs font-semibold text-emerald-400 flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span>Skills Found on Resume:</span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {currentRole.matched.map((skill, idx) => (
+                    <span
+                      key={idx}
+                      className="px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 text-xs font-medium"
+                    >
+                      ✓ {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Missing Skills */}
+              <div className="space-y-2">
+                <div className="text-xs font-semibold text-sky-400 flex items-center gap-1.5">
+                  <AlertCircle className="w-3.5 h-3.5" />
+                  <span>Recommended Skills to Add to Resume:</span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {currentRole.missing.map((skill, idx) => (
+                    <span
+                      key={idx}
+                      className="px-2.5 py-1 rounded-lg bg-sky-500/10 text-sky-300 border border-sky-500/20 text-xs font-medium"
+                    >
+                      + {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="p-3.5 rounded-lg bg-white/[0.02] border border-white/[0.04] text-xs text-slate-300">
+                <strong>Quick Tip:</strong> {currentRole.tip}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* --- DEMO 3: Code Auditor Security Checker --- */}
+        {activeTab === "security" && (
+          <div className="rounded-2xl bg-slate-900/40 border border-white/[0.08] p-6 sm:p-8 space-y-7 backdrop-blur-xl">
+            <div className="pb-6 border-b border-white/[0.08]">
+              <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                <Lock className="w-5 h-5 text-sky-400" />
+                <span>Code Auditor: How it catches security bugs before they go live</span>
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl">
+                Choose an example to see how Code Auditor scans code, explains what the risk is in plain English, and provides the safe fix.
+              </p>
             </div>
 
-            {/* Live Response Payload Inspector */}
-            <div className="space-y-2">
-              <div className="flex items-center justify-between text-xs font-semibold text-slate-400">
-                <span className="flex items-center gap-2">
-                  <Network className="w-3.5 h-3.5 text-sky-400" />
-                  <span>Telemetry &amp; JSON Payload Inspector</span>
-                </span>
-                <span className="flex items-center gap-2">
-                  <span
-                    className={`px-2 py-0.5 rounded text-[10px] font-mono font-semibold ${
-                      routeData.statusCode === 200 || routeData.statusCode === 201
-                        ? "bg-emerald-500/20 text-emerald-400"
-                        : "bg-rose-500/20 text-rose-400"
-                    }`}
-                  >
-                    {routeData.statusText}
-                  </span>
-                  <span className="font-mono text-slate-400 text-[11px]">{routeData.latencyMs}</span>
+            {/* Example Selector */}
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => setSelectedSecurityExample("sql_leak")}
+                className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                  selectedSecurityExample === "sql_leak"
+                    ? "bg-sky-500 text-slate-950 shadow"
+                    : "bg-white/[0.04] text-slate-300 hover:text-white border border-white/[0.06]"
+                }`}
+              >
+                1. SQL Injection Risk
+              </button>
+              <button
+                onClick={() => setSelectedSecurityExample("dangerous_command")}
+                className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                  selectedSecurityExample === "dangerous_command"
+                    ? "bg-sky-500 text-slate-950 shadow"
+                    : "bg-white/[0.04] text-slate-300 hover:text-white border border-white/[0.06]"
+                }`}
+              >
+                2. Dangerous Command Execution
+              </button>
+              <button
+                onClick={() => setSelectedSecurityExample("safe_example")}
+                className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                  selectedSecurityExample === "safe_example"
+                    ? "bg-sky-500 text-slate-950 shadow"
+                    : "bg-white/[0.04] text-slate-300 hover:text-white border border-white/[0.06]"
+                }`}
+              >
+                3. Clean &amp; Safe Code Example
+              </button>
+            </div>
+
+            {/* Example Card */}
+            <div className="p-6 rounded-xl bg-slate-950/60 border border-white/[0.06] space-y-5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <h4 className="text-base font-bold text-white">{currentSecurity.title}</h4>
+                <span
+                  className={`text-xs px-3 py-1 rounded-full font-semibold self-start sm:self-auto ${
+                    currentSecurity.isVulnerable
+                      ? "bg-rose-500/15 text-rose-300 border border-rose-500/30"
+                      : "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30"
+                  }`}
+                >
+                  {currentSecurity.isVulnerable ? "⚠️ Vulnerability Detected" : "✓ Passed Clean"}
                 </span>
               </div>
 
-              <div className="p-4 rounded-xl bg-[#03060c] border border-white/[0.06] font-mono text-xs text-slate-300 overflow-x-auto">
-                <pre>{JSON.stringify(routeData.response, null, 2)}</pre>
+              <div className="space-y-3 text-xs sm:text-sm text-slate-300">
+                <div>
+                  <strong className="text-white">What's happening:</strong> {currentSecurity.whatHappened}
+                </div>
+                <div>
+                  <strong className="text-white">The Risk:</strong> {currentSecurity.risk}
+                </div>
+              </div>
+
+              {/* Code comparison */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+                <div className="p-4 rounded-xl bg-rose-500/5 border border-rose-500/20 space-y-1.5">
+                  <div className="text-[11px] font-sans font-semibold text-rose-400">Unsafe Code:</div>
+                  <div className="text-rose-200 overflow-x-auto">{currentSecurity.badCode}</div>
+                </div>
+
+                <div className="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/20 space-y-1.5">
+                  <div className="text-[11px] font-sans font-semibold text-emerald-400">Safe Solution:</div>
+                  <div className="text-emerald-200 overflow-x-auto">{currentSecurity.goodCode}</div>
+                </div>
+              </div>
+
+              <div className="p-3.5 rounded-lg bg-white/[0.02] border border-white/[0.04] text-xs text-slate-300">
+                <strong>Why this matters:</strong> {currentSecurity.howItHelps}
               </div>
             </div>
           </div>

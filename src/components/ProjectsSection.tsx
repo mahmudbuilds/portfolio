@@ -23,13 +23,13 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
           <div className="space-y-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-medium text-emerald-400">
               <Layers className="w-3.5 h-3.5" />
-              <span>Production Applications</span>
+              <span>Portfolio Projects</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-              Featured Software Systems
+              Featured Web Apps &amp; Projects
             </h2>
-            <p className="text-sm sm:text-base text-slate-400 max-w-xl">
-              Production architectures engineered with Next.js 16, Django REST Framework, PostgreSQL, and AST parsing engines.
+            <p className="text-sm sm:text-base text-slate-300 max-w-xl">
+              Web applications, tools, and platforms I've built using React, Next.js, Python, and PostgreSQL.
             </p>
           </div>
 
@@ -119,7 +119,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
                   onClick={() => onSelectProject(project)}
                   className="inline-flex items-center gap-1.5 text-sky-400 hover:text-sky-300 transition-colors cursor-pointer group/btn"
                 >
-                  <span>System Architecture</span>
+                  <span>View Project Details</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
                 </button>
 
@@ -130,7 +130,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ onSelectProjec
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-slate-400 hover:text-white transition-colors"
-                      title="Open Live Application"
+                      title="Open Live App"
                     >
                       <ExternalLink className="w-4 h-4" />
                     </a>

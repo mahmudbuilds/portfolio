@@ -31,7 +31,7 @@ export const ContactSection: React.FC = () => {
             </h2>
 
             <p className="text-sm sm:text-base text-slate-300 max-w-lg mx-auto leading-relaxed">
-              Open to senior full-stack engineering roles, multi-tenant cloud architectures, and select technical contracts.
+              Open to full-time developer roles, freelance opportunities, and collaborative software projects.
             </p>
           </div>
 

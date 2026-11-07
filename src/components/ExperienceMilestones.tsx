@@ -10,13 +10,13 @@ export const ExperienceMilestones: React.FC = () => {
         <div className="mb-12 space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-xs font-medium text-amber-400">
             <Calendar className="w-3.5 h-3.5" />
-            <span>Engineering Track Record</span>
+            <span>Work &amp; Experience</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-            Engineering Milestones
+            Experience &amp; Milestones
           </h2>
-          <p className="text-sm sm:text-base text-slate-400 max-w-xl">
-            A chronological timeline of systems delivered, architectures scaled, and continuous engineering growth.
+          <p className="text-sm sm:text-base text-slate-300 max-w-xl">
+            A timeline of web applications built, frameworks mastered, and engineering milestones.
           </p>
         </div>
 
@@ -37,7 +37,7 @@ export const ExperienceMilestones: React.FC = () => {
                   </span>
                 </div>
 
-                <span className="text-xs font-mono font-medium text-slate-300 bg-white/[0.05] border border-white/10 px-3 py-1 rounded-full self-start sm:self-auto">
+                <span className="text-xs font-medium text-slate-300 bg-white/[0.05] border border-white/10 px-3 py-1 rounded-full self-start sm:self-auto">
                   {milestone.year}
                 </span>
               </div>
