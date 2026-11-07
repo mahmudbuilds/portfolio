@@ -15,15 +15,15 @@ export function ProjectsSection() {
   }, [activeCategory]);
 
   return (
-    <section id="projects" className="space-y-6 scroll-mt-12">
+    <section id="projects" className="space-y-6 sm:space-y-8 scroll-mt-16">
       {/* Section Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4 pb-2 border-b border-zinc-800/80">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4 pb-3 border-b border-zinc-800/80">
         <div>
-          <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-zinc-100">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-zinc-100">
             Selected Work
           </h2>
           <p className="text-xs sm:text-sm text-zinc-400 mt-1">
-            Production web apps, browser tools, and client-side systems.
+            Production web applications, neural AI audio tools, and browser systems.
           </p>
         </div>
 
@@ -33,29 +33,40 @@ export function ProjectsSection() {
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
-              className={`px-2.5 py-1.5 sm:py-1 rounded-md text-xs font-mono transition-colors cursor-pointer shrink-0 whitespace-nowrap min-h-[34px] sm:min-h-0 flex items-center ${
+              className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all cursor-pointer shrink-0 whitespace-nowrap min-h-[34px] flex items-center ${
                 activeCategory === category
-                  ? "bg-zinc-100 text-zinc-950 font-medium"
-                  : "bg-zinc-900/60 text-zinc-400 hover:text-zinc-200 border border-zinc-800"
+                  ? "bg-zinc-100 text-zinc-950 font-semibold shadow-xs"
+                  : "bg-zinc-900/60 text-zinc-400 hover:text-zinc-200 border border-zinc-800 hover:border-zinc-700"
               }`}
             >
               {category === "All"
                 ? `All (${projectsData.length})`
                 : category === "AI & Systems"
-                ? "Systems"
+                ? "AI & Systems"
                 : category === "Frontend Concepts"
-                ? "Frontend"
+                ? "Frontend Concepts"
                 : category}
             </button>
           ))}
         </div>
       </div>
 
-      {/* Projects List */}
-      <div className="space-y-4">
-        {filteredProjects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
+      {/* Projects Responsive Grid: 1 col on mobile, 2 cols on tablet/desktop */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+        {filteredProjects.map((project) => {
+          const isStarProject = activeCategory === "All" && project.id === "resonance";
+          return (
+            <div
+              key={project.id}
+              className={isStarProject ? "md:col-span-2" : "col-span-1"}
+            >
+              <ProjectCard
+                project={project}
+                featuredSpotlight={isStarProject}
+              />
+            </div>
+          );
+        })}
       </div>
     </section>
   );

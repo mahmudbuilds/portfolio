@@ -17,65 +17,77 @@ export function Header({ onOpenResume }: HeaderProps) {
   };
 
   return (
-    <header className="space-y-6 sm:space-y-8 pt-2 sm:pt-6">
-      {/* Top Utility Bar: Cleanly stacks on mobile, side-by-side on tablet/desktop */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
-        {/* Availability Badge */}
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium w-fit shrink-0">
-          <span className="relative flex h-2 w-2 shrink-0">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+    <header className="space-y-6 sm:space-y-8 pt-2 sm:pt-4">
+      {/* Top Utility Bar: Structured across all viewports */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 sm:pb-5 border-b border-zinc-800/80">
+        {/* Left: Brand Identity + Availability Badge */}
+        <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+          <span className="font-mono text-xs font-semibold tracking-wider text-zinc-200">
+            mahmud.build
           </span>
-          <span className="whitespace-nowrap">Available for engineering roles</span>
+          <span className="text-zinc-700 hidden md:inline">/</span>
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium w-fit shrink-0">
+            <span className="relative flex h-2 w-2 shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span className="whitespace-nowrap">Available for engineering roles</span>
+          </div>
         </div>
 
-        {/* Minimal Navigation */}
-        <nav className="flex items-center gap-4 text-zinc-400 font-mono text-xs">
+        {/* Right: Clean Navigation */}
+        <nav className="flex items-center gap-1 sm:gap-1.5 text-zinc-400 font-mono text-[11px] sm:text-xs overflow-x-auto no-scrollbar py-0.5">
           <a
             href="#projects"
-            className="hover:text-zinc-100 transition-colors py-1"
+            className="px-2 sm:px-2.5 py-1 rounded-md hover:text-zinc-100 hover:bg-zinc-900/60 transition-colors"
           >
-            projects
+            work
           </a>
           <a
             href="#experience"
-            className="hover:text-zinc-100 transition-colors py-1"
+            className="px-2 sm:px-2.5 py-1 rounded-md hover:text-zinc-100 hover:bg-zinc-900/60 transition-colors"
           >
             experience
           </a>
           <a
             href="#stack"
-            className="hover:text-zinc-100 transition-colors py-1"
+            className="px-2 sm:px-2.5 py-1 rounded-md hover:text-zinc-100 hover:bg-zinc-900/60 transition-colors"
           >
             stack
           </a>
+          <a
+            href="#approach"
+            className="px-2 sm:px-2.5 py-1 rounded-md hover:text-zinc-100 hover:bg-zinc-900/60 transition-colors"
+          >
+            approach
+          </a>
           <button
             onClick={onOpenResume}
-            className="text-zinc-300 hover:text-white transition-colors cursor-pointer py-1"
+            className="px-2 sm:px-2.5 py-1 rounded-md bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-zinc-200 hover:text-white transition-colors cursor-pointer"
           >
             cv.pdf
           </button>
         </nav>
       </div>
 
-      {/* Identity & Bio */}
-      <div className="space-y-3 sm:space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-2">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-zinc-100">
+      {/* Identity & Hero Content */}
+      <div className="space-y-4 sm:space-y-5">
+        <div className="space-y-1.5 sm:space-y-2">
+          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-zinc-100">
               {developerBio.name}
             </h1>
-            <p className="text-base sm:text-lg text-zinc-400 mt-0.5 font-normal">
-              {developerBio.title}
-            </p>
+            <div className="flex items-center gap-1.5 text-xs sm:text-sm text-zinc-500 font-mono pt-1 sm:pt-0">
+              <MapPin className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+              <span>Lagos, Nigeria · Working Worldwide</span>
+            </div>
           </div>
-          <div className="flex items-center gap-1.5 text-xs text-zinc-500 font-mono pt-1 sm:pt-0">
-            <MapPin className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
-            <span>Lagos · Working Worldwide</span>
-          </div>
+          <p className="text-lg sm:text-xl lg:text-2xl text-zinc-400 font-normal">
+            {developerBio.title}
+          </p>
         </div>
 
-        <p className="text-sm sm:text-base text-zinc-300 leading-relaxed max-w-xl">
+        <p className="text-sm sm:text-base md:text-lg text-zinc-300 leading-relaxed max-w-3xl">
           I build full-stack web applications, AI systems, and tools with React, Next.js, TypeScript, Python, and
           Convex. Passionate about clean code, reliable backend architecture, and interfaces that
           feel fast, simple, and intuitive to use.
@@ -92,7 +104,7 @@ export function Header({ onOpenResume }: HeaderProps) {
           {copied ? (
             <>
               <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span className="text-emerald-400">Copied!</span>
+              <span className="text-emerald-400 font-medium">Copied Email!</span>
             </>
           ) : (
             <>
@@ -109,7 +121,7 @@ export function Header({ onOpenResume }: HeaderProps) {
           className="inline-flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-zinc-200 text-xs sm:text-sm font-medium transition-all cursor-pointer shadow-sm active:scale-[0.98] min-h-[40px]"
         >
           <FileText className="w-4 h-4 text-zinc-400 shrink-0" />
-          <span>Resume</span>
+          <span>Resume / CV</span>
         </button>
 
         {/* GitHub Link */}
@@ -135,6 +147,22 @@ export function Header({ onOpenResume }: HeaderProps) {
           <span>Twitter</span>
           <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
         </a>
+      </div>
+
+      {/* Focus Area Strip: Adds purposeful structure and density on larger viewports */}
+      <div className="hidden sm:grid sm:grid-cols-3 gap-2.5 sm:gap-3 pt-3 border-t border-zinc-900 text-xs font-mono text-zinc-400">
+        <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-zinc-900/20 border border-zinc-850">
+          <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0" />
+          <span>AI Voice & Neural Audio</span>
+        </div>
+        <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-zinc-900/20 border border-zinc-850">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+          <span>Full-Stack Next.js & Python</span>
+        </div>
+        <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-zinc-900/20 border border-zinc-850">
+          <span className="w-1.5 h-1.5 rounded-full bg-sky-500 shrink-0" />
+          <span>Chrome Manifest V3 Systems</span>
+        </div>
       </div>
     </header>
   );

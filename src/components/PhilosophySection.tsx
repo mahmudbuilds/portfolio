@@ -21,31 +21,36 @@ export function PhilosophySection() {
   ];
 
   return (
-    <section className="space-y-6">
+    <section id="approach" className="space-y-6 sm:space-y-8 scroll-mt-16">
       {/* Section Header */}
-      <div className="pb-2 border-b border-zinc-800/80">
-        <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-zinc-100">
+      <div className="pb-3 border-b border-zinc-800/80">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-zinc-100">
           Engineering Approach
         </h2>
-        <p className="text-sm text-zinc-400 mt-1">
-          Guiding principles that shape how I design systems and write software.
+        <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+          Guiding principles that shape how I design systems, structure architectures, and write software.
         </p>
       </div>
 
-      {/* Principles List */}
-      <div className="grid grid-cols-1 gap-4">
+      {/* Principles Grid: 1 col on mobile, 3 cols on tablet/desktop */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
         {principles.map((principle) => (
           <div
             key={principle.number}
-            className="flex items-start gap-4 p-4 sm:p-5 rounded-xl border border-zinc-800/70 bg-zinc-900/20"
+            className="p-5 sm:p-6 rounded-2xl border border-zinc-800/80 bg-zinc-900/35 hover:bg-zinc-900/60 hover:border-zinc-700/80 transition-all duration-200 flex flex-col justify-between"
           >
-            <span className="text-xs font-mono text-zinc-500 font-semibold mt-0.5 select-none">
-              {principle.number}
-            </span>
-            <div className="space-y-1">
-              <h3 className="text-sm sm:text-base font-semibold text-zinc-200">
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <span className="px-2 py-0.5 rounded text-xs font-mono font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20">
+                  {principle.number}
+                </span>
+                <span className="text-[11px] font-mono text-zinc-500">Core Value</span>
+              </div>
+
+              <h3 className="text-base font-semibold text-zinc-100 mb-2">
                 {principle.title}
               </h3>
+
               <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
                 {principle.description}
               </p>

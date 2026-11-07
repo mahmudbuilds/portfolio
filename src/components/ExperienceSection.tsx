@@ -2,53 +2,61 @@ import { experienceMilestonesData } from "../data/portfolioData";
 
 export function ExperienceSection() {
   return (
-    <section id="experience" className="space-y-6 scroll-mt-12">
+    <section id="experience" className="space-y-6 sm:space-y-8 scroll-mt-16">
       {/* Section Header */}
-      <div className="pb-2 border-b border-zinc-800/80">
-        <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-zinc-100">
+      <div className="pb-3 border-b border-zinc-800/80">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-zinc-100">
           Experience & Milestones
         </h2>
-        <p className="text-sm text-zinc-400 mt-1">
-          Where I have built software, solved technical bottlenecks, and delivered products.
+        <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+          Where I have built software, solved technical bottlenecks, and delivered products to production.
         </p>
       </div>
 
-      {/* Experience Timeline */}
-      <div className="space-y-8">
+      {/* Experience Milestones: Responsive dual-column layout on desktop, clean timeline on mobile */}
+      <div className="space-y-8 sm:space-y-10">
         {experienceMilestonesData.map((milestone, idx) => (
-          <div key={idx} className="relative pl-6 sm:pl-8 border-l border-zinc-800 space-y-3">
-            {/* Timeline Dot */}
-            <div className="absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full bg-zinc-600 border-2 border-zinc-950" />
-
-            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-              <div>
-                <h3 className="text-base sm:text-lg font-semibold text-zinc-100">
-                  {milestone.role}
-                </h3>
-                <p className="text-sm text-zinc-400 font-medium">
-                  {milestone.company}
-                </p>
-              </div>
-              <span className="text-xs font-mono text-zinc-500">
+          <div
+            key={idx}
+            className="flex flex-col md:flex-row md:items-start gap-4 md:gap-8 pt-4 first:pt-0"
+          >
+            {/* Left Column: Timeline & Company Metadata */}
+            <div className="md:w-64 shrink-0 space-y-1.5">
+              <span className="inline-block px-2.5 py-1 rounded-md bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300 font-medium">
                 {milestone.year}
               </span>
+              <p className="text-sm font-semibold text-zinc-200">
+                {milestone.company}
+              </p>
+              <p className="text-xs text-zinc-500 font-mono">
+                Full-Stack & Systems
+              </p>
             </div>
 
-            <p className="text-sm text-zinc-400 leading-relaxed">
-              {milestone.description}
-            </p>
+            {/* Right Column: Role Title, Summary & Key Deliverables */}
+            <div className="flex-1 space-y-3 pb-6 border-b border-zinc-900 last:border-b-0 last:pb-0">
+              <div>
+                <h3 className="text-base sm:text-lg md:text-xl font-semibold text-zinc-100">
+                  {milestone.role}
+                </h3>
+              </div>
 
-            <ul className="space-y-2 pt-1">
-              {milestone.highlights.map((highlight, hIdx) => (
-                <li
-                  key={hIdx}
-                  className="text-xs sm:text-sm text-zinc-400 flex items-start gap-2.5 leading-relaxed"
-                >
-                  <span className="text-zinc-600 select-none mt-1">›</span>
-                  <span>{highlight}</span>
-                </li>
-              ))}
-            </ul>
+              <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                {milestone.description}
+              </p>
+
+              <ul className="space-y-2 pt-1">
+                {milestone.highlights.map((highlight, hIdx) => (
+                  <li
+                    key={hIdx}
+                    className="text-xs sm:text-sm text-zinc-400 flex items-start gap-2.5 leading-relaxed"
+                  >
+                    <span className="text-emerald-500 select-none mt-1 shrink-0 text-xs">›</span>
+                    <span>{highlight}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         ))}
       </div>

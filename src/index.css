@@ -17,13 +17,27 @@
 
   body {
     background-color: #09090b;
+    background-image: 
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(120, 119, 198, 0.12), transparent 70%),
+      radial-gradient(ellipse 60% 40% at 80% 60%, rgba(16, 185, 129, 0.03), transparent 60%);
+    background-attachment: fixed;
     color: #f4f4f5;
     overflow-x: hidden;
+    min-height: 100vh;
   }
 
   pre, code, kbd, samp {
     font-family: var(--font-mono);
   }
+}
+
+/* Hide scrollbar for clean filter pill strips */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Refined Minimal Scrollbar */

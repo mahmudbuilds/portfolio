@@ -13,19 +13,21 @@ export function ContactFooter() {
   };
 
   return (
-    <footer id="contact" className="space-y-8 sm:space-y-12 pt-6 sm:pt-8 border-t border-zinc-800/80">
-      {/* Contact Callout */}
-      <div className="space-y-3 sm:space-y-4">
-        <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-zinc-100">
-          Let's Connect
-        </h2>
-        <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed max-w-lg">
-          I'm currently open for full-time engineering opportunities and exciting projects.
-          Whether you want to discuss a role, review code, or just say hello, feel free to reach out.
-        </p>
+    <footer id="contact" className="space-y-8 sm:space-y-10 pt-8 sm:pt-10 border-t border-zinc-800/80">
+      {/* Contact Callout Card: Clean responsive layout */}
+      <div className="p-6 sm:p-8 rounded-2xl border border-zinc-800/80 bg-zinc-900/35 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        <div className="space-y-2 max-w-xl">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-zinc-100">
+            Let's Connect
+          </h2>
+          <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+            I'm currently open for full-time software engineering roles and exciting projects.
+            Whether you want to discuss a role, review system architecture, or just say hello, feel free to reach out.
+          </p>
+        </div>
 
-        {/* Action Row: Symmetrical buttons on mobile */}
-        <div className="grid grid-cols-1 sm:flex sm:flex-wrap items-center gap-2.5 sm:gap-3 pt-2">
+        {/* Action Row: Symmetrical buttons on mobile, compact on desktop */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 shrink-0">
           {/* Copy Email Button */}
           <button
             onClick={handleCopyEmail}
@@ -34,13 +36,12 @@ export function ContactFooter() {
             {copied ? (
               <>
                 <Check className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Copied {developerBio.email}!</span>
+                <span>Copied Email Address!</span>
               </>
             ) : (
               <>
                 <Mail className="w-4 h-4 text-zinc-900 shrink-0" />
-                <span className="sm:hidden">Copy {developerBio.email}</span>
-                <span className="hidden sm:inline">Copy {developerBio.email}</span>
+                <span>Copy {developerBio.email}</span>
               </>
             )}
           </button>
@@ -48,16 +49,16 @@ export function ContactFooter() {
           {/* Mailto Direct Link */}
           <a
             href={`mailto:${developerBio.email}`}
-            className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-zinc-300 hover:text-white text-xs sm:text-sm font-medium transition-all min-h-[42px]"
+            className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-zinc-200 hover:text-white text-xs sm:text-sm font-medium transition-all min-h-[42px]"
           >
             <span>Open Email Client</span>
-            <ArrowUpRight className="w-4 h-4 text-zinc-500 shrink-0" />
+            <ArrowUpRight className="w-4 h-4 text-zinc-400 shrink-0" />
           </a>
         </div>
       </div>
 
       {/* Social Links & Colophon */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-6 border-t border-zinc-900 text-xs text-zinc-500">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-4 text-xs text-zinc-500">
         <div className="flex items-center gap-4 flex-wrap">
           <a
             href={developerBio.github}
@@ -89,7 +90,7 @@ export function ContactFooter() {
         </div>
 
         <p className="font-mono text-zinc-600">
-          © {new Date().getFullYear()} Mahmud · Crafted with React & Tailwind
+          © {new Date().getFullYear()} Mahmud · Built with React & Tailwind CSS
         </p>
       </div>
     </footer>
