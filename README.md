@@ -8,7 +8,9 @@
 
 A high-performance, creative, and sleek personal portfolio website engineered for **Mahmud** ([@mahmudbuilds](https://github.com/mahmudbuilds)), Full-Stack & AI Engineer and Indie Developer.
 
-Inspired by cutting-edge design systems like Linear and Raycast, the website showcases flagship engineering projects (**Inventry**, **ResuMind**, **Vesper**, **Resonance**, and **Full-Stack E-Commerce**), complete with an interactive **Global Command Palette (`⌘K` / `Ctrl+K`)**, scannable interactive CV / resume viewer, architecture deep-dive inspector, and 60 FPS fluid micro-interactions.
+**Live Deployment:** [mahmudtella.vercel.app](https://mahmudtella.vercel.app)
+
+Inspired by cutting-edge design systems like Linear and Raycast, the website showcases flagship engineering projects (**Inventry**, **ResuMind**, **Vesper**, **Resonance**, and **Flow Batch Automator**), complete with an interactive **Global Command Palette (`⌘K` / `Ctrl+K`)**, scannable interactive CV / resume viewer, architecture deep-dive inspector, and 60 FPS fluid micro-interactions.
 
 ---
 
@@ -22,7 +24,7 @@ Inspired by cutting-edge design systems like Linear and Raycast, the website sho
   - **ResuMind:** AI-powered ATS resume analyzer & scoring engine with client-side multi-column PDF extraction (`pdfjs-dist`).
   - **Vesper:** High-fidelity 60 FPS interface concept for an undetectable technical interview copilot (React 19 + Motion).
   - **Resonance:** Modern audio streaming and podcast discovery application.
-  - **Full-Stack E-Commerce Platform:** Persistent PostgreSQL database, dynamic product grid, and cart. Live demo: [ecommerce-project-tau-gray.vercel.app](https://ecommerce-project-tau-gray.vercel.app).
+  - **Flow Batch Automator:** Chrome Extension engineered for batch prompting on Google Flow (flow.google.com) with automated queue execution and asset downloads. Repository: [flow-batch-automator](https://github.com/mahmudbuilds/flow-batch-automator).
 - 🔍 **Interactive Architecture & Specs Modal:** Detailed technical breakdowns, challenges solved, and engineering highlights for each system.
 - 📄 **Interactive Digital CV & Resume:** One-click scannable resume modal with print-to-PDF formatting and quick text copy.
 - 🛠️ **Categorized Tech Radar:** Visual skill matrix across Frontend Architecture, Backend Systems, Applied AI, and Cloud Infrastructure.

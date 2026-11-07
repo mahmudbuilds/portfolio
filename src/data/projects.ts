@@ -105,27 +105,29 @@ export const projects: Project[] = [
     accentColor: "from-fuchsia-500/20 to-pink-500/10"
   },
   {
-    id: "ecommerce",
-    title: "Full-Stack E-Commerce Platform",
-    tagline: "High-Performance Storefront with Persistent PostgreSQL Backend",
-    description: "End-to-end e-commerce application featuring real-time product search, filtering, persistent shopping cart, and automated database seeding.",
-    fullDescription: "Frontend built with React.js and Axios, communicating with a decoupled Node.js and Express backend powered by Sequelize ORM and hosted PostgreSQL on Neon.tech.",
-    category: "Full-Stack",
-    stack: ["React.js", "Node.js", "Express", "Sequelize", "PostgreSQL", "Neon.tech"],
+    id: "flow-batch-automator",
+    title: "Flow Batch Automator",
+    tagline: "Batch Prompting & Generation Pipeline for Google Flow",
+    description: "Chrome extension built for batch prompting on Google Flow (flow.google.com), automating prompt queues, generation tracking, and direct asset downloads.",
+    fullDescription: "Designed exclusively for flow.google.com to streamline creative AI workflows. Automates batch prompt submissions, monitors generation state via MutationObserver, intercepts full-resolution media downloads, and writes directly to local folders with zero browser popups.",
+    category: "AI & ML",
+    stack: ["Manifest V3", "JavaScript", "Shadow DOM", "MutationObserver", "File System API", "Google Flow"],
     features: [
-      "Dynamic product grid fetching live inventory from cloud PostgreSQL",
-      "Instant client-side search and category filtering",
-      "Persistent cart state with live quantity adjustment and subtotal calculations",
-      "Automated database seeding and production Vercel rewrite proxy configuration"
+      "Automated batch prompting engine engineered exclusively for Google Flow (flow.google.com)",
+      "MutationObserver state tracking for automated generation detection and progress",
+      "Complete Shadow DOM style isolation preventing interference with host layout",
+      "Direct folder streaming via File System Access API with auto-increment conflict protection",
+      "In-memory 2K upscaled media interceptor running in MAIN page world"
     ],
     metrics: [
-      { label: "Database", value: "PostgreSQL (Neon)" },
-      { label: "Backend", value: "Node/Express" }
+      { label: "Platform", value: "Google Flow" },
+      { label: "Architecture", value: "Manifest V3" },
+      { label: "Automation", value: "Batch Queue" }
     ],
-    liveUrl: "https://ecommerce-project-tau-gray.vercel.app",
-    githubUrl: "https://github.com/mahmudbuilds/ecommerce-project",
+    liveUrl: "https://github.com/mahmudbuilds/flow-batch-automator",
+    githubUrl: "https://github.com/mahmudbuilds/flow-batch-automator",
     featured: false,
-    accentColor: "from-amber-500/20 to-orange-500/10"
+    accentColor: "from-sky-500/20 to-blue-500/10"
   },
   {
     id: "thoughtbot",

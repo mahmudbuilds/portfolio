@@ -155,7 +155,7 @@ export function CommandPalette({ isOpen, onClose, onOpenResume }: CommandPalette
       {
         id: "nav-projects",
         title: "Browse Featured Projects",
-        subtitle: "Inventry, ResuMind, Vesper, E-Commerce",
+        subtitle: "Inventry, ResuMind, Vesper, Flow Automator",
         category: "Navigation",
         icon: Code2,
         action: () => scrollToSection("projects"),

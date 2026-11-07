@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://mahmudtella.vercel.app"),
   title: "Mahmud (@mahmudbuilds) | Full-Stack & AI Engineer",
   description: "Indie builder in the making | Solving problems with code | Full-stack & AI software engineer architecting resilient cloud systems and intelligent developer tools.",
   keywords: [
     "Mahmud",
+    "mahmudtella",
     "mahmudbuilds",
     "Full-Stack Engineer",
     "AI Engineer",
@@ -15,6 +17,7 @@ export const metadata: Metadata = {
     "PostgreSQL",
     "Inventry",
     "ResuMind",
+    "Flow Batch Automator",
     "TypeScript",
     "Tailwind CSS v4"
   ],
@@ -23,10 +26,10 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://github.com/mahmudbuilds",
+    url: "https://mahmudtella.vercel.app",
     title: "Mahmud | Full-Stack & AI Engineer",
     description: "Indie builder in the making | Solving problems with code | Next.js 16, React 19, Django REST, and AI tools.",
-    siteName: "Mahmud Portfolio",
+    siteName: "Mahmud Tella Portfolio",
   },
   twitter: {
     card: "summary_large_image",

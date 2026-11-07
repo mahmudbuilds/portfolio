@@ -80,8 +80,8 @@ export const experienceMilestones = [
     year: "2025 - 2026",
     role: "Full-Stack Software Developer",
     company: "Web & Cloud Engineering",
-    description: "Built decoupled cloud web applications, persistent PostgreSQL e-commerce engines, and audio streaming applications (Resonance, Vesper Copilot concept).",
-    tags: ["React", "PostgreSQL", "Node.js", "Express", "TypeScript"]
+    description: "Built decoupled cloud web applications, browser automation tools for AI platforms (Flow Batch Automator), and audio streaming applications (Resonance, Vesper Copilot concept).",
+    tags: ["React", "Chrome Extensions", "Node.js", "Express", "TypeScript"]
   },
   {
     year: "2025",

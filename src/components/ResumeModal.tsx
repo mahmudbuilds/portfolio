@@ -49,10 +49,10 @@ FEATURED PROJECTS
    • React 19 + TypeScript + Motion + Tailwind CSS
    • High-fidelity 60 FPS interface for technical interview copilots.
 
-4. Full-Stack E-Commerce Platform
-   • React.js + Node.js + Express + Sequelize + PostgreSQL (Neon.tech)
-   • Dynamic product grid, persistent cart, and automated database seeding.
-   • Live: https://ecommerce-project-tau-gray.vercel.app`;
+4. Flow Batch Automator — Batch Prompting for Google Flow
+   • Chrome Extension (Manifest V3) + JavaScript + Shadow DOM + MutationObserver
+   • Built automated batch prompting queue and asset pipeline for Google Flow (flow.google.com).
+   • Code: https://github.com/mahmudbuilds/flow-batch-automator`;
 
     navigator.clipboard.writeText(resumeText);
     setCopied(true);
@@ -236,16 +236,16 @@ FEATURED PROJECTS
                 <div className="border-l-2 border-cyan-500/40 pl-4 print:border-zinc-400">
                   <div className="flex items-center justify-between">
                     <h3 className="font-semibold text-white text-sm print:text-black">
-                      Full-Stack E-Commerce Platform
+                      Flow Batch Automator — Batch Prompting for Google Flow
                     </h3>
-                    <span className="text-[11px] font-mono text-zinc-400">2025 - 2026</span>
+                    <span className="text-[11px] font-mono text-zinc-400">2026</span>
                   </div>
                   <p className="text-xs font-mono text-zinc-400 mt-0.5 mb-1.5 print:text-zinc-600">
-                    React.js, Node.js, Express, Sequelize, PostgreSQL (Neon.tech)
+                    Chrome Extension (Manifest V3), JavaScript, Shadow DOM, MutationObserver
                   </p>
                   <ul className="list-disc list-inside text-xs text-zinc-300 space-y-1 print:text-zinc-800">
-                    <li>Developed responsive storefront with persistent cart state and live search filtering.</li>
-                    <li>Configured database migrations, seeding, and Vercel server proxy rewrites to bypass CORS.</li>
+                    <li>Engineered automated batch prompting and queue execution exclusively for Google Flow (flow.google.com).</li>
+                    <li>Integrated MutationObserver for real-time generation tracking and automated 2K media interception.</li>
                   </ul>
                 </div>
               </div>
