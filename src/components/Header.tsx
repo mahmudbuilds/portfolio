@@ -79,7 +79,7 @@ export function Header({ onOpenResume }: HeaderProps) {
             </h1>
             <div className="flex items-center gap-1.5 text-xs sm:text-sm text-zinc-500 font-mono pt-1 sm:pt-0">
               <MapPin className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
-              <span>Lagos, Nigeria · Working Worldwide</span>
+              <span>Nigeria · Working Worldwide</span>
             </div>
           </div>
           <p className="text-lg sm:text-xl lg:text-2xl text-zinc-400 font-normal">

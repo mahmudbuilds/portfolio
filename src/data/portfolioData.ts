@@ -6,7 +6,7 @@ export const developerBio = {
   title: "Full-Stack Software Engineer",
   tagline: "Building clean, fast, and reliable web applications.",
   bio: "Full-stack software engineer building reliable web applications and tools with React, Next.js, TypeScript, Python, and Convex. Creator of Resonance (AI voice generator & voice cloning platform), Inventry (warehouse logistics system), and Flow Batch Automator (Chrome automation extension). Focused on clean code, great user experience, and practical software that solves real problems.",
-  location: "Lagos, Nigeria · Remote / Global",
+  location: "Nigeria · Remote / Global",
   email: "mahxgithub@gmail.com",
   github: "https://github.com/mahmudbuilds",
   twitter: "https://x.com/mahmudbuilds",
