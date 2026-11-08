@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { Mail, Check, FileText, ArrowUpRight, MapPin } from "lucide-react";
+import { Mail, Check, FileText, ArrowUpRight, MapPin, Sun, Moon } from "lucide-react";
 import { GithubIcon, TwitterIcon } from "./SocialIcons";
 import { developerBio } from "../data/portfolioData";
+import type { Theme } from "../hooks/useTheme";
 
 interface HeaderProps {
   onOpenResume: () => void;
+  theme: Theme;
+  onToggleTheme: () => void;
 }
 
-export function Header({ onOpenResume }: HeaderProps) {
+export function Header({ onOpenResume, theme, onToggleTheme }: HeaderProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopyEmail = () => {
@@ -19,14 +22,14 @@ export function Header({ onOpenResume }: HeaderProps) {
   return (
     <header className="space-y-6 sm:space-y-8 pt-2 sm:pt-4">
       {/* Top Utility Bar: Structured across all viewports */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 sm:pb-5 border-b border-zinc-800/80">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 sm:pb-5 border-b border-zinc-200 dark:border-zinc-800/80">
         {/* Left: Brand Identity + Availability Badge */}
         <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
-          <span className="font-mono text-xs font-semibold tracking-wider text-zinc-200">
+          <span className="font-mono text-xs font-semibold tracking-wider text-zinc-900 dark:text-zinc-200">
             mahmud.build
           </span>
-          <span className="text-zinc-700 hidden md:inline">/</span>
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium w-fit shrink-0">
+          <span className="text-zinc-400 dark:text-zinc-700 hidden md:inline">/</span>
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-xs font-medium w-fit shrink-0">
             <span className="relative flex h-2 w-2 shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -36,36 +39,53 @@ export function Header({ onOpenResume }: HeaderProps) {
         </div>
 
         {/* Right: Clean Navigation */}
-        <nav className="flex items-center gap-1 sm:gap-1.5 text-zinc-400 font-mono text-[11px] sm:text-xs overflow-x-auto no-scrollbar py-0.5">
+        <nav className="flex items-center gap-1 sm:gap-1.5 text-zinc-600 dark:text-zinc-400 font-mono text-[11px] sm:text-xs overflow-x-auto no-scrollbar py-0.5">
           <a
             href="#projects"
-            className="px-2 sm:px-2.5 py-1 rounded-md hover:text-zinc-100 hover:bg-zinc-900/60 transition-colors"
+            className="px-2 sm:px-2.5 py-1 rounded-md hover:text-zinc-950 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-900/60 transition-colors"
           >
             work
           </a>
           <a
             href="#experience"
-            className="px-2 sm:px-2.5 py-1 rounded-md hover:text-zinc-100 hover:bg-zinc-900/60 transition-colors"
+            className="px-2 sm:px-2.5 py-1 rounded-md hover:text-zinc-950 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-900/60 transition-colors"
           >
             experience
           </a>
           <a
             href="#stack"
-            className="px-2 sm:px-2.5 py-1 rounded-md hover:text-zinc-100 hover:bg-zinc-900/60 transition-colors"
+            className="px-2 sm:px-2.5 py-1 rounded-md hover:text-zinc-950 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-900/60 transition-colors"
           >
             stack
           </a>
           <a
             href="#approach"
-            className="px-2 sm:px-2.5 py-1 rounded-md hover:text-zinc-100 hover:bg-zinc-900/60 transition-colors"
+            className="px-2 sm:px-2.5 py-1 rounded-md hover:text-zinc-950 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-900/60 transition-colors"
           >
             approach
           </a>
           <button
             onClick={onOpenResume}
-            className="px-2 sm:px-2.5 py-1 rounded-md bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-zinc-200 hover:text-white transition-colors cursor-pointer"
+            className="px-2 sm:px-2.5 py-1 rounded-md bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 text-zinc-800 dark:text-zinc-200 hover:text-zinc-950 dark:hover:text-white transition-colors cursor-pointer"
           >
             cv.pdf
+          </button>
+
+          {/* Sun / Moon Theme Toggle */}
+          <button
+            onClick={onToggleTheme}
+            className="p-1 sm:px-2 sm:py-1 rounded-md bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white transition-colors cursor-pointer flex items-center gap-1.5 group shrink-0"
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+            title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+          >
+            {theme === "dark" ? (
+              <Sun className="w-3.5 h-3.5 text-amber-400 transition-transform duration-300 group-hover:rotate-45 shrink-0" />
+            ) : (
+              <Moon className="w-3.5 h-3.5 text-zinc-700 transition-transform duration-300 group-hover:-rotate-12 shrink-0" />
+            )}
+            <span className="hidden sm:inline font-mono text-[11px] capitalize">
+              {theme === "dark" ? "light" : "dark"}
+            </span>
           </button>
         </nav>
       </div>
@@ -74,7 +94,7 @@ export function Header({ onOpenResume }: HeaderProps) {
       <div className="space-y-4 sm:space-y-5">
         <div className="space-y-1.5 sm:space-y-2">
           <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4">
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-zinc-100">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
               {developerBio.name}
             </h1>
             <div className="flex items-center gap-1.5 text-xs sm:text-sm text-zinc-500 font-mono pt-1 sm:pt-0">
@@ -82,12 +102,12 @@ export function Header({ onOpenResume }: HeaderProps) {
               <span>Nigeria · Working Worldwide</span>
             </div>
           </div>
-          <p className="text-lg sm:text-xl lg:text-2xl text-zinc-400 font-normal">
+          <p className="text-lg sm:text-xl lg:text-2xl text-zinc-600 dark:text-zinc-400 font-normal">
             {developerBio.title}
           </p>
         </div>
 
-        <p className="text-sm sm:text-base md:text-lg text-zinc-300 leading-relaxed max-w-3xl">
+        <p className="text-sm sm:text-base md:text-lg text-zinc-700 dark:text-zinc-300 leading-relaxed max-w-3xl">
           I build full-stack web applications, AI systems, and tools with React, Next.js, TypeScript, Python, and
           Convex. Passionate about clean code, reliable backend architecture, and interfaces that
           feel fast, simple, and intuitive to use.
@@ -99,16 +119,16 @@ export function Header({ onOpenResume }: HeaderProps) {
         {/* Copy Email Button */}
         <button
           onClick={handleCopyEmail}
-          className="inline-flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-zinc-200 text-xs sm:text-sm font-medium transition-all cursor-pointer shadow-sm active:scale-[0.98] min-h-[40px]"
+          className="inline-flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-lg bg-white hover:bg-zinc-100 dark:bg-zinc-900 dark:hover:bg-zinc-800 border border-zinc-200 hover:border-zinc-300 dark:border-zinc-800 dark:hover:border-zinc-700 text-zinc-800 hover:text-zinc-950 dark:text-zinc-200 dark:hover:text-white text-xs sm:text-sm font-medium transition-all cursor-pointer shadow-xs active:scale-[0.98] min-h-[40px]"
         >
           {copied ? (
             <>
-              <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span className="text-emerald-400 font-medium">Copied Email!</span>
+              <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span className="text-emerald-600 dark:text-emerald-400 font-medium">Copied Email!</span>
             </>
           ) : (
             <>
-              <Mail className="w-4 h-4 text-zinc-400 shrink-0" />
+              <Mail className="w-4 h-4 text-zinc-500 dark:text-zinc-400 shrink-0" />
               <span className="sm:hidden">Copy Email</span>
               <span className="hidden sm:inline">{developerBio.email}</span>
             </>
@@ -118,9 +138,9 @@ export function Header({ onOpenResume }: HeaderProps) {
         {/* View Resume Button */}
         <button
           onClick={onOpenResume}
-          className="inline-flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-zinc-200 text-xs sm:text-sm font-medium transition-all cursor-pointer shadow-sm active:scale-[0.98] min-h-[40px]"
+          className="inline-flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-lg bg-white hover:bg-zinc-100 dark:bg-zinc-900 dark:hover:bg-zinc-800 border border-zinc-200 hover:border-zinc-300 dark:border-zinc-800 dark:hover:border-zinc-700 text-zinc-800 hover:text-zinc-950 dark:text-zinc-200 dark:hover:text-white text-xs sm:text-sm font-medium transition-all cursor-pointer shadow-xs active:scale-[0.98] min-h-[40px]"
         >
-          <FileText className="w-4 h-4 text-zinc-400 shrink-0" />
+          <FileText className="w-4 h-4 text-zinc-500 dark:text-zinc-400 shrink-0" />
           <span>Resume / CV</span>
         </button>
 
@@ -129,11 +149,11 @@ export function Header({ onOpenResume }: HeaderProps) {
           href={developerBio.github}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-zinc-300 hover:text-white text-xs sm:text-sm font-medium transition-all min-h-[40px]"
+          className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-lg bg-white hover:bg-zinc-100 dark:bg-zinc-900 dark:hover:bg-zinc-800 border border-zinc-200 hover:border-zinc-300 dark:border-zinc-800 dark:hover:border-zinc-700 text-zinc-800 hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-white text-xs sm:text-sm font-medium transition-all shadow-xs min-h-[40px]"
         >
-          <GithubIcon className="w-4 h-4 text-zinc-400 shrink-0" />
+          <GithubIcon className="w-4 h-4 text-zinc-500 dark:text-zinc-400 shrink-0" />
           <span>GitHub</span>
-          <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
+          <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-500 shrink-0" />
         </a>
 
         {/* Twitter / X Link */}
@@ -141,25 +161,25 @@ export function Header({ onOpenResume }: HeaderProps) {
           href={developerBio.twitter}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-zinc-300 hover:text-white text-xs sm:text-sm font-medium transition-all min-h-[40px]"
+          className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-lg bg-white hover:bg-zinc-100 dark:bg-zinc-900 dark:hover:bg-zinc-800 border border-zinc-200 hover:border-zinc-300 dark:border-zinc-800 dark:hover:border-zinc-700 text-zinc-800 hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-white text-xs sm:text-sm font-medium transition-all shadow-xs min-h-[40px]"
         >
-          <TwitterIcon className="w-4 h-4 text-zinc-400 shrink-0" />
+          <TwitterIcon className="w-4 h-4 text-zinc-500 dark:text-zinc-400 shrink-0" />
           <span>Twitter</span>
-          <ArrowUpRight className="w-3.5 h-3.5 text-zinc-500 shrink-0" />
+          <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 dark:text-zinc-500 shrink-0" />
         </a>
       </div>
 
       {/* Focus Area Strip: Adds purposeful structure and density on larger viewports */}
-      <div className="hidden sm:grid sm:grid-cols-3 gap-2.5 sm:gap-3 pt-3 border-t border-zinc-900 text-xs font-mono text-zinc-400">
-        <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-zinc-900/20 border border-zinc-850">
+      <div className="hidden sm:grid sm:grid-cols-3 gap-2.5 sm:gap-3 pt-3 border-t border-zinc-200 dark:border-zinc-900 text-xs font-mono text-zinc-600 dark:text-zinc-400">
+        <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/80 dark:bg-zinc-900/20 border border-zinc-200 dark:border-zinc-850 shadow-2xs dark:shadow-none">
           <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0" />
           <span>AI Voice & Neural Audio</span>
         </div>
-        <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-zinc-900/20 border border-zinc-850">
+        <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/80 dark:bg-zinc-900/20 border border-zinc-200 dark:border-zinc-850 shadow-2xs dark:shadow-none">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
           <span>Full-Stack Next.js & Python</span>
         </div>
-        <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-zinc-900/20 border border-zinc-850">
+        <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/80 dark:bg-zinc-900/20 border border-zinc-200 dark:border-zinc-850 shadow-2xs dark:shadow-none">
           <span className="w-1.5 h-1.5 rounded-full bg-sky-500 shrink-0" />
           <span>Chrome Manifest V3 Systems</span>
         </div>

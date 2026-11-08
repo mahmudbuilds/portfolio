@@ -4,11 +4,11 @@ export function ExperienceSection() {
   return (
     <section id="experience" className="space-y-6 sm:space-y-8 scroll-mt-16">
       {/* Section Header */}
-      <div className="pb-3 border-b border-zinc-800/80">
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-zinc-100">
+      <div className="pb-3 border-b border-zinc-200 dark:border-zinc-800/80">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
           Experience & Milestones
         </h2>
-        <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+        <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mt-1">
           Where I have built software, solved technical bottlenecks, and delivered products to production.
         </p>
       </div>
@@ -22,10 +22,10 @@ export function ExperienceSection() {
           >
             {/* Left Column: Timeline & Company Metadata */}
             <div className="md:w-64 shrink-0 space-y-1.5">
-              <span className="inline-block px-2.5 py-1 rounded-md bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-300 font-medium">
+              <span className="inline-block px-2.5 py-1 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs font-mono text-zinc-700 dark:text-zinc-300 font-medium">
                 {milestone.year}
               </span>
-              <p className="text-sm font-semibold text-zinc-200">
+              <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-200">
                 {milestone.company}
               </p>
               <p className="text-xs text-zinc-500 font-mono">
@@ -34,14 +34,14 @@ export function ExperienceSection() {
             </div>
 
             {/* Right Column: Role Title, Summary & Key Deliverables */}
-            <div className="flex-1 space-y-3 pb-6 border-b border-zinc-900 last:border-b-0 last:pb-0">
+            <div className="flex-1 space-y-3 pb-6 border-b border-zinc-200 dark:border-zinc-900 last:border-b-0 last:pb-0">
               <div>
-                <h3 className="text-base sm:text-lg md:text-xl font-semibold text-zinc-100">
+                <h3 className="text-base sm:text-lg md:text-xl font-semibold text-zinc-900 dark:text-zinc-100">
                   {milestone.role}
                 </h3>
               </div>
 
-              <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+              <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
                 {milestone.description}
               </p>
 
@@ -49,9 +49,9 @@ export function ExperienceSection() {
                 {milestone.highlights.map((highlight, hIdx) => (
                   <li
                     key={hIdx}
-                    className="text-xs sm:text-sm text-zinc-400 flex items-start gap-2.5 leading-relaxed"
+                    className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 flex items-start gap-2.5 leading-relaxed"
                   >
-                    <span className="text-emerald-500 select-none mt-1 shrink-0 text-xs">›</span>
+                    <span className="text-emerald-600 dark:text-emerald-500 select-none mt-1 shrink-0 text-xs">›</span>
                     <span>{highlight}</span>
                   </li>
                 ))}
