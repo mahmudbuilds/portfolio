@@ -23,12 +23,8 @@ export function Header({ onOpenResume, theme, onToggleTheme }: HeaderProps) {
     <header className="space-y-6 sm:space-y-8 pt-2 sm:pt-4">
       {/* Top Utility Bar: Structured across all viewports */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 sm:pb-5 border-b border-zinc-200 dark:border-zinc-800/80">
-        {/* Left: Brand Identity + Availability Badge */}
-        <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
-          <span className="font-mono text-xs font-semibold tracking-wider text-zinc-900 dark:text-zinc-200">
-            mahmud.build
-          </span>
-          <span className="text-zinc-400 dark:text-zinc-700 hidden md:inline">/</span>
+        {/* Left: Availability Badge */}
+        <div className="flex items-center shrink-0">
           <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-xs font-medium w-fit shrink-0">
             <span className="relative flex h-2 w-2 shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
