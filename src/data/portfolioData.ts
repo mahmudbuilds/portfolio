@@ -7,10 +7,10 @@ export const developerBio = {
   tagline: "Building clean, fast, and reliable web applications.",
   bio: "Full-stack software engineer building reliable web applications and tools with React, Next.js, TypeScript, Python, and Convex. Creator of Resonance (AI voice generator & voice cloning platform), Inventry (warehouse logistics system), and Flow Batch Automator (Chrome automation extension). Focused on clean code, great user experience, and practical software that solves real problems.",
   location: "Nigeria · Remote / Global",
-  email: "mahxgithub@gmail.com",
+  email: "akinadetella@gmail.com",
   github: "https://github.com/mahmudbuilds",
   twitter: "https://x.com/mahmudbuilds",
-  instagram: "https://instagram.com/mahmudbuilds",
+  instagram: "https://instagram.com/mahmudtella_",
   availability: "Available for engineering roles",
 };
 
@@ -212,7 +212,7 @@ export const projectsData: Project[] = [
       keyTechnicalChallenge: "Keeping animations completely smooth without any lag or dropped frames.",
       solutionEngineered: "Used GPU-accelerated styling and lightweight state management so the interface stays snappy."
     },
-    liveUrl: "https://github.com/mahmudbuilds/vesper",
+    liveUrl: "https://vesper--ai.vercel.app",
     githubUrl: "https://github.com/mahmudbuilds/vesper",
     featured: false,
     accentHex: "#818cf8"
