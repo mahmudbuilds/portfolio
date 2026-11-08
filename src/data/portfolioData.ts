@@ -1,11 +1,11 @@
 import type { Project, SkillCategory, ExperienceMilestone } from "../types";
 
 export const developerBio = {
-  name: "Mahmud",
+  name: "Mahmud Tella",
   handle: "@mahmudbuilds",
   title: "Full-Stack Software Engineer",
   tagline: "Building clean, fast, and reliable web applications.",
-  bio: "Full-stack software engineer building reliable web applications and tools with React, Next.js, TypeScript, Python, and Convex. Creator of Resonance (AI voice generator & voice cloning platform), Inventry (warehouse logistics system), and Flow Batch Automator (Chrome automation extension). Focused on clean code, great user experience, and practical software that solves real problems.",
+  bio: "Full-stack software engineer who builds fast, reliable web and mobile apps. I work with React, Next.js, TypeScript, Python, PostgreSQL, and Convex, and I care about clean code, thoughtful UX, and software that solves real problems.",
   location: "Nigeria · Remote / Global",
   email: "akinadetella@gmail.com",
   github: "https://github.com/mahmudbuilds",
