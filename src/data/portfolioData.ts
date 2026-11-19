@@ -19,7 +19,7 @@ export const projectsData: Project[] = [
     id: "resonance",
     title: "Resonance",
     tagline: "Real-time AI voice synthesis studio with voice cloning and fault-tolerant API routing",
-    description: "Full-stack speech synthesis platform supporting 9+ languages, live microphone voice cloning, and interactive waveform playback — backed by server-enforced credit metering and automated provider key failover.",
+    description: "Full-stack speech synthesis platform supporting 9+ languages, live microphone voice cloning, and interactive waveform playback, backed by server-enforced credit metering and automated provider key failover.",
     fullDescription: "Built with Next.js 16 (App Router), Convex reactive queries and serverless actions, Clerk authentication, Inworld neural TTS, and Wavesurfer.js. Enforces atomic character-level credit deduction on the server and automatically rotates API keys with cached voice re-cloning on provider failure.",
     category: "AI & Systems",
     stack: ["Next.js 16", "TypeScript", "Convex", "Clerk", "Inworld TTS", "Wavesurfer.js", "Tailwind CSS v4"],
@@ -93,7 +93,7 @@ export const projectsData: Project[] = [
     stack: ["React Router 7", "TypeScript", "Vite", "Tailwind CSS", "Client-Side PDF Parsing"],
     features: [
       "Coordinate-aware PDF text reconstruction that preserves reading order across single- and multi-column resume layouts",
-      "100% client-side execution — resumes are parsed in memory and never transmitted to or stored on an external server",
+      "100% client-side execution: resumes are parsed in memory and never transmitted to or stored on an external server",
       "Job description keyword extraction and gap analysis highlighting missing technical skills and ATS formatting issues",
       "Instant compatibility scoring with zero network round-trips"
     ],
@@ -105,7 +105,7 @@ export const projectsData: Project[] = [
     architecture: {
       clientArchitecture: "React Router 7 and TypeScript SPA executing PDF extraction, tokenization, and keyword scoring entirely in the browser.",
       backendArchitecture: "Intentionally serverless: removing backend ingestion eliminates PII storage risk and network latency.",
-      databaseAndStorage: "Ephemeral in-memory processing — document buffers are discarded as soon as the session closes.",
+      databaseAndStorage: "Ephemeral in-memory processing. Document buffers are discarded as soon as the session closes.",
       securityAndAuth: "Privacy-by-architecture design ensuring personal contact details and employment history never cross the network.",
       deploymentPipeline: "Static build deployed to Vercel's global edge CDN via Vite.",
       keyTechnicalChallenge: "Naive PDF text extraction reads horizontally across page coordinates, interleaving unrelated sentences in two-column resumes and breaking keyword matching.",
@@ -154,7 +154,7 @@ export const projectsData: Project[] = [
     id: "vesper",
     title: "Vesper",
     tagline: "Keyboard-first, low-latency workspace UI for technical interview practice",
-    description: "Minimalist frontend workspace built with React 19, TypeScript, and Motion — designed around keyboard-driven navigation, GPU-composited transitions, and local-first state persistence.",
+    description: "Minimalist frontend workspace built with React 19, TypeScript, and Motion, designed around keyboard-driven navigation, GPU-composited transitions, and local-first state persistence.",
     fullDescription: "Built with React 19, TypeScript, Tailwind CSS, and Motion to explore crisp interaction design for developer tools: global keyboard shortcuts, zero-jank spring animations, and distraction-free dark-mode ergonomics.",
     category: "Frontend Concepts",
     stack: ["React 19", "TypeScript", "Tailwind CSS", "Motion"],
@@ -173,7 +173,7 @@ export const projectsData: Project[] = [
       clientArchitecture: "Modular React 19 component architecture using strict TypeScript, keyboard event orchestration, and Motion spring primitives.",
       backendArchitecture: "Zero-latency client-side runtime with instant keyboard dispatch and local persistence.",
       databaseAndStorage: "Browser-local storage preserving user preferences and practice notes offline without external dependencies.",
-      securityAndAuth: "Fully local execution — session notes and settings remain exclusively on the user's machine.",
+      securityAndAuth: "Fully local execution: session notes and settings remain exclusively on the user's machine.",
       deploymentPipeline: "Deployed on Vercel with optimized static asset bundling.",
       keyTechnicalChallenge: "Maintaining locked 60 FPS panel transitions and interactive feedback while keeping bundle size and re-render overhead minimal.",
       solutionEngineered: "Restricted animations to GPU-composited transform/opacity properties and isolated high-frequency UI state to prevent cascading React re-renders."
@@ -238,7 +238,7 @@ export const experienceMilestonesData: ExperienceMilestone[] = [
     year: "2024 – Present",
     role: "Full-Stack Software Engineer",
     company: "Independent Engineering",
-    description: "Architected, shipped, and operated end-to-end web applications and browser systems — owning relational schemas, API resilience, authentication, and frontend performance from initial design to production deployment.",
+    description: "Architected, shipped, and operated end-to-end web applications and browser systems, owning relational schemas, API resilience, authentication, and frontend performance from initial design to production deployment.",
     highlights: [
       "Designed transactional PostgreSQL schemas and Django REST APIs with row-level locking (SELECT FOR UPDATE) and RBAC to enforce data consistency under concurrent writes.",
       "Built fault-tolerant external API integrations in serverless backends, implementing automated multi-key rotation, failover recovery, and server-side usage metering.",

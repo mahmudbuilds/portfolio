@@ -98,7 +98,7 @@ export function Header({ onOpenResume, theme, onToggleTheme }: HeaderProps) {
 
         <p className="text-sm sm:text-[15px] text-ink-muted leading-relaxed max-w-[62ch]">
           I ship end-to-end products with TypeScript, React, Next.js, Python, PostgreSQL, and
-          Convex — caring equally about data integrity, API reliability, and frontend polish.
+          Convex, caring equally about data integrity, API reliability, and frontend polish.
         </p>
 
         {/* Quiet Metadata Line */}

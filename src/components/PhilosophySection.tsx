@@ -13,7 +13,7 @@ export function PhilosophySection() {
     {
       title: "Own the whole path to production",
       description:
-        "Shipping reliable products means caring about every layer — from SQL query plans and auth boundaries to responsive layouts, keyboard ergonomics, and perceived latency.",
+        "Shipping reliable products means caring about every layer, from SQL query plans and auth boundaries to responsive layouts, keyboard ergonomics, and perceived latency.",
     },
   ];
 
