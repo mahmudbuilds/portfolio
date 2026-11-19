@@ -2,51 +2,89 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
+  --font-serif: "Newsreader", Georgia, Cambria, "Times New Roman", serif;
+  --font-sans: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --color-paper: var(--bg-paper);
+  --color-surface: var(--bg-surface);
+  --color-ink: var(--text-ink);
+  --color-ink-secondary: var(--text-secondary);
+  --color-ink-muted: var(--text-muted);
+  --color-line: var(--border-line);
+  --color-line-strong: var(--border-strong);
+  --color-accent: var(--accent);
+}
+
 @layer base {
   :root {
-    --font-sans: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --bg-paper: #faf9f6;
+    --bg-surface: #f2f0eb;
+    --text-ink: #161614;
+    --text-secondary: #52504a;
+    --text-muted: #68655e;
+    --border-line: #e4e1d9;
+    --border-strong: #cbc6bb;
+    --accent: #b84a27;
+    --selection-bg: rgba(184, 74, 39, 0.14);
+  }
+
+  html.dark {
+    --bg-paper: #111110;
+    --bg-surface: #191917;
+    --text-ink: #f3f1ec;
+    --text-secondary: #aba79e;
+    --text-muted: #8a867d;
+    --border-line: #272623;
+    --border-strong: #3d3b36;
+    --accent: #e07a5f;
+    --selection-bg: rgba(224, 122, 95, 0.22);
   }
 
   html {
     font-family: var(--font-sans);
-    background-color: #fafafa;
-    color: #18181b;
+    background-color: var(--bg-paper);
+    color: var(--text-ink);
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-
-  html.dark {
-    background-color: #09090b;
-    color: #f4f4f5;
+    text-rendering: optimizeLegibility;
   }
 
   body {
-    background-color: #fafafa;
-    background-image: 
-      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(99, 102, 241, 0.05), transparent 70%),
-      radial-gradient(ellipse 60% 40% at 80% 60%, rgba(16, 185, 129, 0.03), transparent 60%);
-    background-attachment: fixed;
-    color: #18181b;
+    background-color: var(--bg-paper);
+    color: var(--text-ink);
     overflow-x: hidden;
     min-height: 100vh;
+    caret-color: var(--accent);
   }
 
-  .dark body {
-    background-color: #09090b;
-    background-image: 
-      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(120, 119, 198, 0.12), transparent 70%),
-      radial-gradient(ellipse 60% 40% at 80% 60%, rgba(16, 185, 129, 0.03), transparent 60%);
-    color: #f4f4f5;
+  ::selection {
+    background-color: var(--selection-bg);
+    color: var(--text-ink);
   }
 
-  pre, code, kbd, samp {
+  a,
+  button {
+    text-underline-offset: 4px;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  pre,
+  code,
+  kbd,
+  samp {
     font-family: var(--font-mono);
   }
 }
 
-/* Hide scrollbar for clean filter pill strips */
+/* Hide scrollbar for horizontal strips */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -55,36 +93,27 @@
   scrollbar-width: none;
 }
 
-/* Refined Minimal Scrollbar */
+/* Minimal palette-matched scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #fafafa;
-}
-.dark ::-webkit-scrollbar-track {
-  background: #09090b;
+  background: var(--bg-paper);
 }
 ::-webkit-scrollbar-thumb {
-  background: #d4d4d8;
+  background: var(--border-strong);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #a1a1aa;
-}
-.dark ::-webkit-scrollbar-thumb {
-  background: #27272a;
-}
-.dark ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: var(--text-muted);
 }
 
-/* Print Styles for Clean Resume */
+/* Print styles for resume */
 @media print {
   body {
     background: #ffffff !important;
-    color: #09090b !important;
+    color: #161614 !important;
   }
   .no-print {
     display: none !important;

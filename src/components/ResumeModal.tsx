@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { X, Printer, Copy, Check, Mail, ArrowUpRight } from "lucide-react";
 import { GithubIcon, TwitterIcon } from "./SocialIcons";
-import { developerBio, projectsData, skillCategoriesData, experienceMilestonesData } from "../data/portfolioData";
+import {
+  developerBio,
+  projectsData,
+  skillCategoriesData,
+  experienceMilestonesData,
+} from "../data/portfolioData";
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -78,35 +83,41 @@ ${skillCategoriesData
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-6 bg-black/70 backdrop-blur-sm animate-in fade-in duration-200"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Resume"
+      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-6 bg-black/65 backdrop-blur-xs"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-3xl max-h-[92vh] sm:max-h-[90vh] flex flex-col rounded-xl bg-white border border-zinc-300 shadow-2xl text-zinc-900 overflow-hidden"
+        className="relative w-full max-w-3xl max-h-[92vh] sm:max-h-[90vh] flex flex-col rounded-xl bg-white border border-[#e4e1d9] shadow-2xl text-[#161614] overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Modal Toolbar: Fully responsive for mobile screens */}
-        <div className="flex items-center justify-between px-3.5 sm:px-5 py-3 border-b border-zinc-200 bg-zinc-100/90 gap-2">
-          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-            <span className="font-mono text-xs text-zinc-600 font-medium">cv.pdf</span>
-            <span className="text-[10px] sm:text-[11px] px-1.5 sm:px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-200 font-mono">
-              Ready
-            </span>
-          </div>
+        {/* Modal Toolbar */}
+        <div className="no-print flex items-center justify-between px-4 sm:px-6 py-3 border-b border-[#e4e1d9] bg-[#faf9f6] gap-2">
+          <span className="text-xs sm:text-sm font-medium text-[#161614]">
+            Resume
+          </span>
 
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="flex items-center gap-2">
             <button
               onClick={copyMarkdown}
-              className="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 rounded-md bg-white hover:bg-zinc-50 border border-zinc-300 text-xs font-medium text-zinc-700 hover:text-zinc-950 transition-colors cursor-pointer shadow-2xs"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white hover:bg-[#f2f0eb] border border-[#cbc6bb] text-xs font-medium text-[#161614] transition-colors cursor-pointer"
             >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-              <span className="hidden sm:inline">{copied ? "Copied Markdown" : "Copy Markdown"}</span>
+              {copied ? (
+                <Check className="w-3.5 h-3.5 text-[#b84a27]" />
+              ) : (
+                <Copy className="w-3.5 h-3.5 text-[#68655e]" />
+              )}
+              <span className="hidden sm:inline">
+                {copied ? "Copied Markdown" : "Copy Markdown"}
+              </span>
               <span className="sm:hidden">{copied ? "Copied" : "Copy"}</span>
             </button>
 
             <button
               onClick={handlePrint}
-              className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-md bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold transition-colors cursor-pointer shadow-xs"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[#161614] hover:opacity-90 text-[#faf9f6] text-xs font-medium transition-opacity cursor-pointer"
             >
               <Printer className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Print / Save PDF</span>
@@ -115,8 +126,8 @@ ${skillCategoriesData
 
             <button
               onClick={onClose}
-              className="p-1.5 rounded-md text-zinc-500 hover:text-zinc-900 hover:bg-zinc-200 transition-colors cursor-pointer"
-              aria-label="Close modal"
+              className="p-1.5 rounded-md text-[#68655e] hover:text-[#161614] hover:bg-[#f2f0eb] transition-colors cursor-pointer"
+              aria-label="Close resume"
             >
               <X className="w-4 h-4" />
             </button>
@@ -124,36 +135,36 @@ ${skillCategoriesData
         </div>
 
         {/* Printable & Scrollable Resume Content */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-8 md:p-10 space-y-6 sm:space-y-8 font-sans text-xs sm:text-sm leading-relaxed bg-white text-zinc-800">
+        <div className="flex-1 overflow-y-auto p-5 sm:p-8 md:p-10 space-y-6 sm:space-y-8 font-sans text-xs sm:text-sm leading-relaxed bg-white text-[#2e2d2a]">
           {/* Header */}
-          <div className="border-b border-zinc-200 pb-5 sm:pb-6 space-y-1.5 sm:space-y-2">
-            <h1 className="text-xl sm:text-3xl font-bold tracking-tight text-zinc-950">
+          <div className="border-b border-[#e4e1d9] pb-5 space-y-1.5">
+            <h1 className="font-serif text-2xl sm:text-3xl font-normal tracking-[-0.02em] text-[#161614]">
               {developerBio.name}
             </h1>
-            <p className="text-sm sm:text-base font-medium text-zinc-700">
+            <p className="text-sm sm:text-base text-[#52504a]">
               {developerBio.title}
             </p>
-            <div className="flex items-center gap-3 sm:gap-4 flex-wrap text-xs text-zinc-600 pt-1 font-mono">
-              <span className="flex items-center gap-1">
-                <Mail className="w-3.5 h-3.5 text-zinc-500" />
+            <div className="flex items-center gap-3 sm:gap-4 flex-wrap text-xs text-[#68655e] pt-1 font-mono">
+              <span className="flex items-center gap-1.5">
+                <Mail className="w-3.5 h-3.5" />
                 {developerBio.email}
               </span>
               <a
                 href={developerBio.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 text-zinc-600 hover:text-zinc-950"
+                className="flex items-center gap-1.5 hover:text-[#161614] hover:underline"
               >
-                <GithubIcon className="w-3.5 h-3.5 text-zinc-500" />
+                <GithubIcon className="w-3.5 h-3.5" />
                 github.com/mahmudbuilds
               </a>
               <a
                 href={developerBio.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 text-zinc-600 hover:text-zinc-950"
+                className="flex items-center gap-1.5 hover:text-[#161614] hover:underline"
               >
-                <TwitterIcon className="w-3.5 h-3.5 text-zinc-500" />
+                <TwitterIcon className="w-3.5 h-3.5" />
                 @mahmudbuilds
               </a>
             </div>
@@ -161,45 +172,48 @@ ${skillCategoriesData
 
           {/* Summary */}
           <section className="space-y-2">
-            <h2 className="text-xs font-mono uppercase tracking-wider text-zinc-500 font-semibold border-b border-zinc-200 pb-1">
-              Professional Summary
+            <h2 className="text-xs font-mono uppercase tracking-wider text-[#68655e] font-medium border-b border-[#e4e1d9] pb-1">
+              Summary
             </h2>
-            <p className="text-zinc-700 leading-relaxed">
-              {developerBio.bio}
-            </p>
+            <p className="text-[#2e2d2a] leading-relaxed">{developerBio.bio}</p>
           </section>
 
           {/* Selected Projects */}
           <section className="space-y-4">
-            <h2 className="text-xs font-mono uppercase tracking-wider text-zinc-500 font-semibold border-b border-zinc-200 pb-1">
-              Selected Projects & Engineering
+            <h2 className="text-xs font-mono uppercase tracking-wider text-[#68655e] font-medium border-b border-[#e4e1d9] pb-1">
+              Selected Projects
             </h2>
             <div className="space-y-4">
               {projectsData.map((project) => (
                 <div key={project.id} className="space-y-1.5">
                   <div className="flex items-baseline justify-between flex-wrap gap-2">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="font-semibold text-zinc-900">{project.title}</span>
-                      <span className="text-xs text-zinc-600">— {project.tagline}</span>
+                    <div className="flex items-baseline gap-2 flex-wrap">
+                      <span className="font-semibold text-[#161614]">
+                        {project.title}
+                      </span>
+                      <span className="text-xs text-[#68655e]">
+                        — {project.tagline}
+                      </span>
                     </div>
                     {project.liveUrl && (
                       <a
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-xs text-zinc-600 hover:text-zinc-950 inline-flex items-center gap-0.5 font-mono"
+                        className="text-xs text-[#52504a] hover:text-[#161614] inline-flex items-center gap-0.5 font-mono"
                       >
-                        link <ArrowUpRight className="w-3 h-3 text-zinc-500" />
+                        link <ArrowUpRight className="w-3 h-3" />
                       </a>
                     )}
                   </div>
-                  <p className="text-xs text-zinc-600">
-                    <strong className="text-zinc-800 font-medium">Stack:</strong> {project.stack.join(", ")}
+                  <p className="text-xs text-[#68655e]">
+                    <strong className="text-[#161614] font-medium">Stack:</strong>{" "}
+                    {project.stack.join(", ")}
                   </p>
-                  <ul className="space-y-1 text-xs text-zinc-700">
+                  <ul className="space-y-1 text-xs text-[#2e2d2a]">
                     {project.features.slice(0, 3).map((f, i) => (
                       <li key={i} className="flex items-start gap-2">
-                        <span className="text-zinc-400 select-none">•</span>
+                        <span className="text-[#68655e] select-none">—</span>
                         <span>{f}</span>
                       </li>
                     ))}
@@ -211,24 +225,31 @@ ${skillCategoriesData
 
           {/* Experience */}
           <section className="space-y-4">
-            <h2 className="text-xs font-mono uppercase tracking-wider text-zinc-500 font-semibold border-b border-zinc-200 pb-1">
-              Experience & Milestones
+            <h2 className="text-xs font-mono uppercase tracking-wider text-[#68655e] font-medium border-b border-[#e4e1d9] pb-1">
+              Experience
             </h2>
             <div className="space-y-4">
               {experienceMilestonesData.map((milestone, idx) => (
                 <div key={idx} className="space-y-1.5">
                   <div className="flex items-baseline justify-between flex-wrap gap-1">
                     <div>
-                      <span className="font-semibold text-zinc-900">{milestone.role}</span>
-                      <span className="text-xs text-zinc-600"> · {milestone.company}</span>
+                      <span className="font-semibold text-[#161614]">
+                        {milestone.role}
+                      </span>
+                      <span className="text-xs text-[#68655e]">
+                        {" "}
+                        · {milestone.company}
+                      </span>
                     </div>
-                    <span className="text-xs font-mono text-zinc-500">{milestone.year}</span>
+                    <span className="text-xs font-mono tabular-nums text-[#68655e]">
+                      {milestone.year}
+                    </span>
                   </div>
-                  <p className="text-xs text-zinc-600">{milestone.description}</p>
-                  <ul className="space-y-1 text-xs text-zinc-700">
+                  <p className="text-xs text-[#52504a]">{milestone.description}</p>
+                  <ul className="space-y-1 text-xs text-[#2e2d2a]">
                     {milestone.highlights.map((h, i) => (
                       <li key={i} className="flex items-start gap-2">
-                        <span className="text-zinc-400 select-none">•</span>
+                        <span className="text-[#68655e] select-none">—</span>
                         <span>{h}</span>
                       </li>
                     ))}
@@ -240,14 +261,18 @@ ${skillCategoriesData
 
           {/* Technical Skills */}
           <section className="space-y-3">
-            <h2 className="text-xs font-mono uppercase tracking-wider text-zinc-500 font-semibold border-b border-zinc-200 pb-1">
-              Technical Capabilities
+            <h2 className="text-xs font-mono uppercase tracking-wider text-[#68655e] font-medium border-b border-[#e4e1d9] pb-1">
+              Technical Skills
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               {skillCategoriesData.map((category) => (
-                <div key={category.name} className="space-y-1">
-                  <span className="font-medium text-zinc-800 block">{category.name}</span>
-                  <p className="text-zinc-600">{category.skills.map((s) => s.name).join(", ")}</p>
+                <div key={category.name} className="space-y-0.5">
+                  <span className="font-medium text-[#161614] block">
+                    {category.name}
+                  </span>
+                  <p className="text-[#52504a]">
+                    {category.skills.map((s) => s.name).join(", ")}
+                  </p>
                 </div>
               ))}
             </div>

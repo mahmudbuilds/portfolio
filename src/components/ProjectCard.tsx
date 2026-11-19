@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
-import { GithubIcon } from "./SocialIcons";
 import type { Project } from "../types";
 
 interface ProjectCardProps {
@@ -16,126 +15,117 @@ export function ProjectCard({ project }: ProjectCardProps) {
     !project.liveUrl.includes("github.com");
 
   return (
-    <article className="group relative rounded-2xl transition-all duration-200 flex flex-col justify-between h-full bg-white dark:bg-zinc-900/35 border border-zinc-200/90 dark:border-zinc-800/80 hover:border-zinc-300 dark:hover:border-zinc-700/80 hover:bg-zinc-50/50 dark:hover:bg-zinc-900/70 p-5 sm:p-6 shadow-xs hover:shadow-md">
-      <div>
-        {/* Top Header: Title, Category Badges & Direct Action Links */}
-        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4">
-          <div className="space-y-1.5">
-            <div className="flex items-center gap-2 flex-wrap">
-              <h3 className="font-semibold text-base sm:text-lg text-zinc-900 dark:text-zinc-100 group-hover:text-zinc-950 dark:group-hover:text-white transition-colors tracking-tight">
-                {project.title}
-              </h3>
+    <article className="py-7 sm:py-9 grid grid-cols-1 md:grid-cols-[12.5rem_1fr] gap-4 md:gap-10">
+      {/* Left Metadata & Links Column */}
+      <div className="flex flex-row md:flex-col items-baseline md:items-start justify-between md:justify-start gap-3 md:pt-1">
+        <span className="text-xs text-ink-muted font-medium">
+          {project.category}
+        </span>
 
-              <span className="px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-mono uppercase tracking-wider bg-zinc-100 text-zinc-700 border border-zinc-200/80 dark:bg-zinc-800/80 dark:text-zinc-300 dark:border-zinc-700/50">
-                {project.category}
-              </span>
-            </div>
+        <div className="flex items-center md:flex-col md:items-start gap-4 md:gap-1.5 text-xs sm:text-[13px]">
+          {hasDistinctLive && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Visit live site for ${project.title}`}
+              className="inline-flex items-center gap-1 text-ink font-medium hover:text-accent hover:underline transition-colors"
+            >
+              <span>Live site</span>
+              <ArrowUpRight className="w-3.5 h-3.5 text-ink-muted" />
+            </a>
+          )}
 
-            <p className="text-xs sm:text-sm font-medium text-zinc-700 dark:text-zinc-200">
-              {project.tagline}
-            </p>
-          </div>
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`View source code for ${project.title}`}
+              className="inline-flex items-center gap-1 text-ink-secondary hover:text-ink hover:underline transition-colors"
+            >
+              <span>Source</span>
+              <ArrowUpRight className="w-3.5 h-3.5 text-ink-muted" />
+            </a>
+          )}
+        </div>
+      </div>
 
-          {/* External Links */}
-          <div className="flex items-center gap-2 shrink-0 self-start">
-            {hasDistinctLive && (
+      {/* Right Content Column */}
+      <div className="space-y-3">
+        <div>
+          <h3 className="font-serif text-xl sm:text-2xl tracking-[-0.015em] font-normal text-ink">
+            {hasDistinctLive ? (
               <a
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`Visit live demo for ${project.title}`}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:text-zinc-100 text-xs font-medium border border-zinc-900 hover:border-zinc-800 dark:border-zinc-700 dark:hover:border-zinc-600 transition-colors shadow-xs min-h-[34px]"
+                className="hover:text-accent transition-colors"
               >
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400"></span>
-                </span>
-                <span>Live Demo</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-zinc-300 dark:text-zinc-400" />
+                {project.title}
               </a>
+            ) : (
+              project.title
             )}
-
-            {project.githubUrl && (
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`View source code for ${project.title}`}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-zinc-800 hover:text-zinc-950 dark:bg-zinc-900/90 dark:hover:bg-zinc-800 dark:text-zinc-300 dark:hover:text-white text-xs font-medium border border-zinc-200 hover:border-zinc-300 dark:border-zinc-800 dark:hover:border-zinc-700 transition-colors min-h-[34px]"
-              >
-                <GithubIcon className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400" />
-                <span>Code</span>
-              </a>
-            )}
-          </div>
+          </h3>
+          <p className="text-sm font-medium text-ink-secondary mt-1">
+            {project.tagline}
+          </p>
         </div>
 
-        {/* Narrative Description */}
-        <p className="mt-3 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+        <p className="text-sm text-ink-muted leading-relaxed max-w-[62ch]">
           {project.description}
         </p>
 
-        {/* Key Metrics Chips */}
-        {project.metrics && project.metrics.length > 0 && (
-          <div className="mt-3.5 flex flex-wrap gap-2 text-xs">
-            {project.metrics.map((metric, mIdx) => (
-              <div
-                key={mIdx}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-zinc-50 dark:bg-zinc-950/60 border border-zinc-200 dark:border-zinc-850 text-zinc-600 dark:text-zinc-400 text-[11px] font-mono"
-              >
-                <span className="text-zinc-500">{metric.label}:</span>
-                <span className="text-zinc-800 dark:text-zinc-200 font-medium">{metric.value}</span>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+        {/* Inline Tech Stack Metadata (no pill soup) */}
+        <p className="text-xs font-mono text-ink-muted leading-relaxed pt-0.5">
+          {project.stack.join(" · ")}
+        </p>
 
-      {/* Bottom Region: Stack Tags & Engineering Breakdown Drawer */}
-      <div className="mt-4 pt-3.5 border-t border-zinc-200 dark:border-zinc-800/60 space-y-3">
-        {/* Tech Stack Pills */}
-        <div className="flex flex-wrap gap-1.5">
-          {project.stack.map((tech) => (
-            <span
-              key={tech}
-              className="px-2 py-0.5 rounded text-[11px] font-mono text-zinc-700 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-950/80 border border-zinc-200/80 dark:border-zinc-800/90"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
-
-        {/* Expandable Engineering Breakdown */}
+        {/* Expandable Technical Notes */}
         {project.architecture && (
           <div className="pt-1">
             <button
               onClick={() => setExpanded(!expanded)}
-              className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 transition-colors cursor-pointer py-1 min-h-[28px]"
+              aria-expanded={expanded}
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-ink-secondary hover:text-ink transition-colors cursor-pointer py-1"
             >
-              <span>{expanded ? "Hide technical breakdown" : "Engineering breakdown & challenges"}</span>
+              <span>{expanded ? "Hide technical notes" : "Technical notes"}</span>
               <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                  expanded ? "rotate-180 text-zinc-800 dark:text-zinc-200" : "text-zinc-500"
+                className={`w-3.5 h-3.5 text-ink-muted transition-transform duration-200 ${
+                  expanded ? "rotate-180" : ""
                 }`}
               />
             </button>
 
             {expanded && (
-              <div className="mt-3 space-y-3 text-xs text-zinc-600 dark:text-zinc-400 bg-zinc-50 dark:bg-zinc-950/80 p-3.5 sm:p-4 rounded-xl border border-zinc-200 dark:border-zinc-800/80 leading-relaxed animate-in fade-in duration-200">
+              <div className="mt-3.5 pl-4 border-l border-line-strong space-y-3.5 text-xs sm:text-[13px] leading-relaxed text-ink-secondary max-w-[62ch]">
                 <div>
-                  <span className="font-semibold text-zinc-900 dark:text-zinc-200 block mb-1">Architecture & Data Flow</span>
-                  <p className="text-zinc-600 dark:text-zinc-400">
-                    {project.architecture.clientArchitecture} {project.architecture.backendArchitecture}
+                  <span className="font-medium text-ink block mb-0.5">
+                    Architecture &amp; data flow
+                  </span>
+                  <p className="text-ink-muted">
+                    {project.architecture.clientArchitecture}{" "}
+                    {project.architecture.backendArchitecture}
                   </p>
                 </div>
 
                 <div>
-                  <span className="font-semibold text-zinc-900 dark:text-zinc-200 block mb-1">Key Technical Challenge</span>
-                  <p className="text-zinc-600 dark:text-zinc-400">{project.architecture.keyTechnicalChallenge}</p>
+                  <span className="font-medium text-ink block mb-0.5">
+                    Key challenge
+                  </span>
+                  <p className="text-ink-muted">
+                    {project.architecture.keyTechnicalChallenge}
+                  </p>
                 </div>
 
                 <div>
-                  <span className="font-semibold text-emerald-700 dark:text-emerald-400 block mb-1">Solution Engineered</span>
-                  <p className="text-zinc-700 dark:text-zinc-300">{project.architecture.solutionEngineered}</p>
+                  <span className="font-medium text-ink block mb-0.5">
+                    Solution
+                  </span>
+                  <p className="text-ink-secondary">
+                    {project.architecture.solutionEngineered}
+                  </p>
                 </div>
               </div>
             )}

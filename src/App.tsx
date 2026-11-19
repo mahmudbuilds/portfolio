@@ -13,33 +13,29 @@ export function App() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <div className="min-h-screen bg-transparent text-zinc-900 dark:text-zinc-100 selection:bg-zinc-200 dark:selection:bg-zinc-800 selection:text-zinc-900 dark:selection:text-white antialiased font-sans transition-colors duration-200">
-      {/* Responsive multi-viewport container: tight on mobile, spacious multi-column on desktop */}
-      <main className="max-w-5xl xl:max-w-6xl mx-auto px-4 sm:px-6 md:px-8 lg:px-10 py-6 sm:py-12 md:py-16 space-y-16 sm:space-y-24">
-        {/* Header & Introduction */}
+    <div className="min-h-screen bg-paper text-ink antialiased font-sans transition-colors duration-200">
+      <main
+        className={`max-w-4xl mx-auto px-5 sm:px-8 py-8 sm:py-14 md:py-20 space-y-20 sm:space-y-28 ${
+          isResumeOpen ? "no-print" : ""
+        }`}
+      >
         <Header
           onOpenResume={() => setIsResumeOpen(true)}
           theme={theme}
           onToggleTheme={toggleTheme}
         />
 
-        {/* Selected Work & Projects */}
         <ProjectsSection />
 
-        {/* Work & Milestones */}
         <ExperienceSection />
 
-        {/* Technical Stack */}
         <SkillsSection />
 
-        {/* Engineering Philosophy */}
         <PhilosophySection />
 
-        {/* Contact & Footer */}
         <ContactFooter />
       </main>
 
-      {/* Clean Resume Modal */}
       <ResumeModal
         isOpen={isResumeOpen}
         onClose={() => setIsResumeOpen(false)}
