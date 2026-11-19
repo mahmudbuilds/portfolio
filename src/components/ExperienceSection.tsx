@@ -8,7 +8,7 @@ export function ExperienceSection() {
           Experience
         </h2>
         <p className="text-sm text-ink-muted">
-          Where I have built software, solved technical bottlenecks, and shipped products.
+          Core engineering domains, systems built, and technical ownership from schema to UI.
         </p>
       </div>
 

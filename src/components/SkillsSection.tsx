@@ -8,7 +8,7 @@ export function SkillsSection() {
           Technical Stack
         </h2>
         <p className="text-sm text-ink-muted">
-          Languages, frameworks, and infrastructure I use in production.
+          Core languages, frameworks, and data tools I ship production software with.
         </p>
       </div>
 

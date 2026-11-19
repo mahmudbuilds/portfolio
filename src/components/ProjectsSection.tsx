@@ -27,7 +27,7 @@ export function ProjectsSection() {
             Selected Work
           </h2>
           <p className="text-sm text-ink-muted">
-            Production web applications, neural AI audio tools, and browser systems.
+            End-to-end web applications, resilient API integrations, and browser-native tools.
           </p>
         </div>
 

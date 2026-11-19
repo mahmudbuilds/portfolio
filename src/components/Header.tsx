@@ -91,22 +91,21 @@ export function Header({ onOpenResume, theme, onToggleTheme }: HeaderProps) {
           </h1>
 
           <p className="text-lg sm:text-xl md:text-[1.35rem] leading-[1.45] text-ink-secondary max-w-[54ch] font-normal">
-            Full-stack software engineer building fast, reliable web applications, AI audio tools,
-            and browser systems.
+            Full-stack software engineer building resilient web applications, transactional
+            backends, and fast, thoughtfully engineered interfaces.
           </p>
         </div>
 
         <p className="text-sm sm:text-[15px] text-ink-muted leading-relaxed max-w-[62ch]">
-          I work with React, Next.js, TypeScript, Python, PostgreSQL, and Convex — focusing on
-          clean architecture, dependable backends, and interfaces that feel fast and effortless to
-          use.
+          I ship end-to-end products with TypeScript, React, Next.js, Python, PostgreSQL, and
+          Convex — caring equally about data integrity, API reliability, and frontend polish.
         </p>
 
         {/* Quiet Metadata Line */}
         <p className="text-xs sm:text-[13px] text-ink-muted flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-x-2.5 gap-y-0.5">
           <span>Nigeria · Remote worldwide</span>
           <span className="hidden sm:inline" aria-hidden="true">·</span>
-          <span>Open to full-time engineering roles</span>
+          <span>Open to full-time full-stack engineering roles</span>
         </p>
 
         {/* Restrained Action Bar */}

@@ -21,8 +21,8 @@ export function ContactFooter() {
             Get in touch
           </h2>
           <p className="text-sm sm:text-[15px] text-ink-secondary leading-relaxed">
-            I'm open to full-time software engineering roles and select projects. Whether you want
-            to discuss a role, talk through system architecture, or say hello, feel free to write.
+            I'm looking for a full-time full-stack engineering role on a product-focused team. If
+            you're hiring or want to talk through any of the systems above, send me a note.
           </p>
         </div>
 

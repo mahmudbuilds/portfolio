@@ -1,19 +1,19 @@
 export function PhilosophySection() {
   const principles = [
     {
-      title: "Simplicity over cleverness",
+      title: "Data integrity first",
       description:
-        "Code should be easy to read, test, and delete. Clear, straightforward logic ages far better than opaque abstractions that turn into technical debt.",
+        "Good UI cannot hide a fragile backend. I design explicit schemas, enforce constraints at the database layer, and handle concurrency and failure modes before they reach users.",
     },
     {
-      title: "Performance is respect for the user",
+      title: "Boring, legible architecture",
       description:
-        "Fast initial loads, indexed database queries, and lean bundles aren't afterthoughts — they are fundamental to building software people enjoy using.",
+        "Maintainable software favors clear boundaries and predictable data flow over premature abstraction. Code should be easy for the next engineer to trace, test, and change safely.",
     },
     {
-      title: "End-to-end ownership",
+      title: "Own the whole path to production",
       description:
-        "Reliable web applications require care across the entire stack, from relational schema design and API contracts to responsive layout and keyboard accessibility.",
+        "Shipping reliable products means caring about every layer — from SQL query plans and auth boundaries to responsive layouts, keyboard ergonomics, and perceived latency.",
     },
   ];
 
@@ -24,7 +24,7 @@ export function PhilosophySection() {
           Engineering Approach
         </h2>
         <p className="text-sm text-ink-muted">
-          Principles that guide how I design systems and write software.
+          How I make trade-offs when designing systems and shipping product features.
         </p>
       </div>
 
