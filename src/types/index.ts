@@ -1,4 +1,4 @@
-export type ProjectCategory = "All" | "Full-Stack" | "AI & Systems" | "Frontend Concepts";
+export type ProjectCategory = "Full-Stack" | "AI & Systems" | "Frontend Concepts";
 
 export interface ProjectMetric {
   label: string;
@@ -21,7 +21,7 @@ export interface Project {
   tagline: string;
   description: string;
   fullDescription: string;
-  category: "Full-Stack" | "AI & Systems" | "Frontend Concepts";
+  category: ProjectCategory;
   stack: string[];
   features: string[];
   metrics: ProjectMetric[];
@@ -30,17 +30,17 @@ export interface Project {
   githubUrl: string;
   featured: boolean;
   accentHex: string;
+  screenshot?: string;
+  screenshotAlt?: string;
+  diagram?: "inventry-locking";
 }
 
 export interface SkillItem {
   name: string;
-  level?: string;
-  highlight?: boolean;
 }
 
 export interface SkillCategory {
   name: string;
-  description?: string;
   skills: SkillItem[];
 }
 
@@ -50,5 +50,4 @@ export interface ExperienceMilestone {
   company: string;
   description: string;
   highlights: string[];
-  tags?: string[];
 }

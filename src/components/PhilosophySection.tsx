@@ -1,60 +1,54 @@
 export function PhilosophySection() {
   const principles = [
     {
-      index: "01",
       title: "Enforce invariants at the database layer",
       description:
-        "Application checks alone break under concurrent requests. Critical rules belong inside transactions and schema constraints.",
+        "Application checks alone race under concurrent load. Critical business rules belong inside atomic transactions and schema constraints.",
       example:
-        "In Inventry, wrapping stock decrements in PostgreSQL SELECT FOR UPDATE row locks prevents concurrent orders from driving inventory negative.",
+        "Inventry serializes conflicting warehouse checkouts inside PostgreSQL transactions so stock counts can never go negative.",
     },
     {
-      index: "02",
       title: "Design for upstream failure, not the happy path",
       description:
-        "Third-party APIs hit rate limits and quotas in production. Fallbacks and metering should be built into the server layer from day one.",
+        "Third-party APIs hit quotas and rate limits in production. Failover and usage metering belong in the server layer from day one.",
       example:
-        "In Resonance, multi-key API rotation detects upstream quota errors, swaps to a healthy key, and re-clones custom voices from cached audio buffers.",
+        "Resonance detects upstream TTS quota errors, rotates to a healthy key, and re-clones custom voices from cached audio buffers.",
     },
     {
-      index: "03",
       title: "Keep state where it belongs",
       description:
-        "Not every problem needs a backend round-trip. Choosing the right execution boundary cuts latency, complexity, and security surface.",
+        "Not every workflow needs a server round-trip. Picking the right execution boundary cuts latency, cost, and privacy exposure.",
       example:
-        "In ResuMind, running PDF parsing 100% client-side removes PII storage risk; in Flow Batch Automator, closed Shadow DOM and IndexedDB isolate extension state.",
+        "ResuMind parses resumes entirely in-browser with zero PII storage; Flow Batch Automator isolates its UI in a closed Shadow DOM.",
     },
   ];
 
   return (
-    <section id="approach" className="space-y-8 scroll-mt-16">
-      <div className="space-y-1.5">
-        <h2 className="font-serif text-2xl sm:text-3xl tracking-[-0.02em] font-normal text-ink">
+    <section id="approach" className="space-y-8 scroll-mt-24">
+      <div className="space-y-2">
+        <h2 className="font-serif text-2xl sm:text-3xl tracking-[-0.02em] font-normal text-ink text-balance">
           Engineering Approach
         </h2>
-        <p className="text-sm sm:text-[15px] text-ink-muted">
-          Trade-offs I prioritize when designing systems, backed by decisions from shipped work.
+        <p className="text-sm sm:text-[15px] text-ink-muted max-w-[60ch]">
+          The trade-offs I prioritize when designing systems, grounded in shipped work.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 pt-8 border-t border-line">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 pt-8 border-t border-line">
         {principles.map((principle) => (
           <div
             key={principle.title}
-            className="flex flex-col justify-between space-y-4 bg-surface/60 border border-line rounded-xl p-6"
+            className="flex flex-col justify-between space-y-5"
           >
             <div className="space-y-2.5">
-              <span className="font-mono text-xs text-accent tabular-nums">
-                {principle.index}
-              </span>
-              <h3 className="text-base font-medium text-ink tracking-[-0.01em] leading-snug">
+              <h3 className="font-serif text-xl text-ink tracking-[-0.015em] leading-snug text-balance">
                 {principle.title}
               </h3>
-              <p className="text-sm text-ink-secondary leading-relaxed">
+              <p className="text-sm sm:text-[15px] text-ink-secondary leading-relaxed">
                 {principle.description}
               </p>
             </div>
-            <p className="text-[13px] text-ink-muted leading-relaxed pt-3 border-t border-line">
+            <p className="text-[13px] text-ink-muted leading-relaxed pt-4 border-t border-line">
               {principle.example}
             </p>
           </div>

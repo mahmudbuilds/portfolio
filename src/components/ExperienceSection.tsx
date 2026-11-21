@@ -2,21 +2,21 @@ import { experienceMilestonesData } from "../data/portfolioData";
 
 export function ExperienceSection() {
   return (
-    <section id="experience" className="space-y-8 scroll-mt-16">
-      <div className="space-y-1.5">
-        <h2 className="font-serif text-2xl sm:text-3xl tracking-[-0.02em] font-normal text-ink">
+    <section id="experience" className="space-y-8 scroll-mt-24">
+      <div className="space-y-2">
+        <h2 className="font-serif text-2xl sm:text-3xl tracking-[-0.02em] font-normal text-ink text-balance">
           Experience
         </h2>
-        <p className="text-sm sm:text-[15px] text-ink-muted">
-          Core engineering domains, systems built, and technical ownership from schema to UI.
+        <p className="text-sm sm:text-[15px] text-ink-muted max-w-[60ch]">
+          End-to-end engineering ownership across schema design, API resilience, and interface craft.
         </p>
       </div>
 
       <div className="border-t border-b border-line divide-y divide-line">
-        {experienceMilestonesData.map((milestone, idx) => (
+        {experienceMilestonesData.map((milestone) => (
           <div
-            key={idx}
-            className="py-7 sm:py-9 grid grid-cols-1 md:grid-cols-[14rem_1fr] lg:grid-cols-[16rem_1fr] gap-4 md:gap-10 lg:gap-12"
+            key={milestone.year}
+            className="py-8 sm:py-10 grid grid-cols-1 md:grid-cols-[14rem_1fr] lg:grid-cols-[16rem_1fr] gap-4 md:gap-10 lg:gap-12"
           >
             {/* Left Column: Period & Context */}
             <div className="space-y-1 md:pt-1">
@@ -29,8 +29,8 @@ export function ExperienceSection() {
             </div>
 
             {/* Right Column: Role, Summary & Deliverables */}
-            <div className="space-y-3.5 max-w-[72ch]">
-              <h3 className="font-serif text-xl sm:text-2xl tracking-[-0.015em] font-normal text-ink">
+            <div className="space-y-4 max-w-[54ch]">
+              <h3 className="font-serif text-xl sm:text-2xl tracking-[-0.015em] font-normal text-ink text-balance">
                 {milestone.role}
               </h3>
 
@@ -39,9 +39,9 @@ export function ExperienceSection() {
               </p>
 
               <ul className="space-y-2.5 pt-1">
-                {milestone.highlights.map((highlight, hIdx) => (
+                {milestone.highlights.map((highlight) => (
                   <li
-                    key={hIdx}
+                    key={highlight}
                     className="text-sm sm:text-[15px] text-ink-secondary flex items-start gap-3 leading-relaxed"
                   >
                     <span

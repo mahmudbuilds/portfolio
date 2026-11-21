@@ -22,10 +22,10 @@
     --bg-paper: #faf9f6;
     --bg-surface: #f2f0eb;
     --text-ink: #161614;
-    --text-secondary: #43413c;
-    --text-muted: #5a5751;
-    --border-line: #e4e1d9;
-    --border-strong: #cbc6bb;
+    --text-secondary: #36342f;
+    --text-muted: #4f4c46;
+    --border-line: #e2dfd7;
+    --border-strong: #c2bdb1;
     --accent: #b84a27;
     --selection-bg: rgba(184, 74, 39, 0.14);
   }
@@ -34,10 +34,10 @@
     --bg-paper: #111110;
     --bg-surface: #181816;
     --text-ink: #f3f1ec;
-    --text-secondary: #c2beb5;
-    --text-muted: #9e9a90;
+    --text-secondary: #ccc8bf;
+    --text-muted: #a39f95;
     --border-line: #272623;
-    --border-strong: #3d3b36;
+    --border-strong: #3f3d38;
     --accent: #e07a5f;
     --selection-bg: rgba(224, 122, 95, 0.22);
   }
@@ -70,6 +70,10 @@
     text-underline-offset: 4px;
   }
 
+  p {
+    text-wrap: pretty;
+  }
+
   :focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 3px;
@@ -81,6 +85,36 @@
   kbd,
   samp {
     font-family: var(--font-mono);
+  }
+}
+
+/* Interactive Hero Waveform Motion */
+@keyframes wavePulse {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.waveform-bar {
+  transform-origin: center;
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1), background-color 200ms ease;
+}
+
+.waveform-playing .waveform-bar {
+  animation: wavePulse var(--bar-duration, 1.2s) ease-in-out infinite;
+  animation-delay: var(--bar-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .waveform-playing .waveform-bar {
+    animation: none;
   }
 }
 

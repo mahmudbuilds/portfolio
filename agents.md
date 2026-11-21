@@ -12,13 +12,12 @@
    - Do NOT use npm, yarn, or pnpm.
 
 2. **Framework & Stack**
-   - **Next.js 16** (App Router)
+   - **Vite 8**
    - **React 19**
    - **TypeScript**
    - **Tailwind CSS v4**
-   - **Motion** (`motion` package, importing from `motion/react`)
-   - **Lucide React** for modern sleek iconography
+   - **Lucide React** for iconography
 
 3. **Git Workflow**
-   - Make atomic, descriptive git commits for each small milestone or component addition.
+   - Make atomic, descriptive git commits for each milestone or component update.
    - Push commits to the remote GitHub repository (`mahmudbuilds/portfolio`).

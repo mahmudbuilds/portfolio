@@ -5,255 +5,274 @@ export const developerBio = {
   handle: "@mahmudbuilds",
   title: "Full-Stack Software Engineer",
   tagline: "Resilient web applications, transactional backends, and fast interfaces.",
-  bio: "Full-stack software engineer with end-to-end ownership across TypeScript, React, Next.js, Python (Django REST), PostgreSQL, and Convex. Focused on transactional data integrity, fault-tolerant API integrations, and responsive interfaces built for production use.",
-  location: "Nigeria · Remote / Global",
-  email: "akinadetella@gmail.com",
+  bio: "Full-stack software engineer building end-to-end web products with TypeScript, React, Next.js, Python (Django REST), PostgreSQL, and Convex. Focused on data integrity under load, fault-tolerant API integrations, and responsive interfaces.",
+  location: "Nigeria · Remote worldwide",
+  timezone: "WAT (UTC+1)",
+  responsePromise: "Usually replies within 24 hours",
+  email: "mahxgithub@gmail.com",
   github: "https://github.com/mahmudbuilds",
   twitter: "https://x.com/mahmudbuilds",
-  instagram: "https://instagram.com/mahmudtella_",
-  availability: "Open to full-time full-stack engineering roles",
+  siteUrl: "https://mahmudtella.vercel.app",
+  resumePdfUrl: "/Mahmud-Tella-Resume.pdf",
+  availability: "Open to full-time full-stack roles",
 };
 
 export const projectsData: Project[] = [
   {
     id: "resonance",
     title: "Resonance",
-    tagline: "Real-time AI voice synthesis studio with voice cloning and fault-tolerant API routing",
-    description: "Full-stack speech synthesis platform supporting 9+ languages, live microphone voice cloning, and interactive waveform playback, backed by server-enforced credit metering and automated provider key failover.",
-    fullDescription: "Built with Next.js 16 (App Router), Convex reactive queries and serverless actions, Clerk authentication, Inworld neural TTS, and Wavesurfer.js. Enforces atomic character-level credit deduction on the server and automatically rotates API keys with cached voice re-cloning on provider failure.",
+    tagline: "Generates studio-grade narration and cloned voices in 9+ languages without dropping requests under API limits",
+    description:
+      "A real-time speech synthesis studio with live microphone voice cloning and interactive waveform scrubbing. Server-side credit metering and automated provider key failover keep synthesis reliable under concurrent load.",
+    fullDescription:
+      "Built with Next.js 16 (App Router), Convex reactive queries and serverless actions, Clerk authentication, Inworld neural TTS, and Wavesurfer.js. Enforces atomic character-level credit deduction on the server and automatically rotates API keys with cached voice re-cloning on provider failure.",
     category: "AI & Systems",
-    stack: ["Next.js 16", "TypeScript", "Convex", "Clerk", "Inworld TTS", "Wavesurfer.js", "Tailwind CSS v4"],
+    stack: ["Next.js 16", "TypeScript", "Convex", "Clerk", "Inworld TTS", "Wavesurfer.js"],
     features: [
-      "Server-enforced character-level credit metering and real-time reactive state via Convex mutations",
+      "Server-enforced character-level credit metering and reactive balance updates via Convex mutations",
       "Automated multi-key API rotation with transparent failover and automatic voice re-cloning from cached audio samples",
-      "Multi-language neural text-to-speech (9+ languages) with granular pacing, emotion, and temperature controls",
-      "Voice cloning pipeline supporting both live browser microphone capture and uploaded audio files",
-      "Interactive waveform visualization and playback scrubbing powered by Wavesurfer.js"
+      "Multi-language neural text-to-speech (9+ languages) with pacing, emotion, and temperature controls",
+      "Voice cloning pipeline supporting live browser microphone capture and uploaded audio files",
+      "Interactive waveform visualization and playback scrubbing powered by Wavesurfer.js",
     ],
     metrics: [
-      { label: "Status", value: "Live & Deployed" },
-      { label: "Runtime", value: "Next.js 16 + Convex" },
-      { label: "Auth", value: "Clerk + Server Validation" }
+      { label: "Languages", value: "9+ neural voices" },
+      { label: "Reliability", value: "Multi-key failover" },
+      { label: "Metering", value: "Server-enforced" },
     ],
     architecture: {
-      clientArchitecture: "Next.js 16 App Router workspace with protected Clerk routes, script editor, live microphone recorder, and Wavesurfer.js waveform playback.",
-      backendArchitecture: "Convex serverless actions orchestrate speech synthesis against Inworld TTS while reactive queries and mutations handle credit balances and audio storage.",
-      databaseAndStorage: "Convex reactive database and object storage tracking user credit ledgers, voice profiles, generated audio assets, and synthesis telemetry.",
-      securityAndAuth: "Clerk session authentication with middleware route guards and server-side credit validation prior to dispatching external synthesis requests.",
-      deploymentPipeline: "Continuous deployment on Vercel with edge asset caching and managed Convex cloud functions.",
-      keyTechnicalChallenge: "Preventing user-facing synthesis failures when third-party TTS API keys hit rate limits or quota ceilings during concurrent voice generation.",
-      solutionEngineered: "Built a multi-key rotation and failover layer in Convex actions that detects upstream quota/rate errors, switches to a healthy key, and transparently re-clones custom voices from cached audio buffers."
+      clientArchitecture:
+        "Next.js 16 App Router workspace with Clerk route protection, script editor, live microphone recorder, and Wavesurfer.js playback.",
+      backendArchitecture:
+        "Convex serverless actions orchestrate speech synthesis against Inworld TTS while reactive queries and mutations manage credit balances and audio storage.",
+      databaseAndStorage:
+        "Convex reactive database and object storage tracking user credit ledgers, voice profiles, generated audio assets, and synthesis telemetry.",
+      securityAndAuth:
+        "Clerk session authentication with middleware route guards and server-side credit validation before dispatching external synthesis requests.",
+      deploymentPipeline:
+        "Continuous deployment on Vercel with edge asset caching and managed Convex cloud functions.",
+      keyTechnicalChallenge:
+        "Preventing failed voice generations when third-party TTS API keys hit rate limits or quota ceilings during concurrent usage.",
+      solutionEngineered:
+        "Built a key-rotation and failover layer in Convex actions that detects upstream quota errors, switches to a healthy key, and re-clones custom voices from cached audio buffers.",
     },
     liveUrl: "https://tryresonance.vercel.app",
     githubUrl: "https://github.com/mahmudbuilds/resonance",
     featured: true,
-    accentHex: "#f43f5e"
+    accentHex: "#2563eb",
+    screenshot: "/projects/resonance.png",
+    screenshotAlt:
+      "Resonance AI voice synthesis studio showing the landing hero, studio microphone setup, and interactive audio waveform player",
   },
   {
     id: "inventry",
     title: "Inventry",
-    tagline: "Multi-warehouse inventory platform engineered for transactional stock accuracy",
-    description: "Decoupled full-stack inventory system that tracks stock across multiple warehouses, enforces role-based access control, and eliminates overselling under concurrent order load using PostgreSQL row-level locks.",
-    fullDescription: "Architected with a Next.js 16 (App Router) client and a Python / Django REST Framework API backed by PostgreSQL. Models multi-warehouse stock ledgers, enforces RBAC across Admins, Managers, and Staff, and serializes concurrent inventory mutations inside atomic database transactions.",
+    tagline: "Stops simultaneous warehouse orders from overselling the last unit in stock",
+    description:
+      "A decoupled multi-warehouse inventory platform with role-based permissions for Admins, Managers, and Staff. Conflicting checkout and transfer requests are serialized inside atomic PostgreSQL transactions so stock counts never drift negative.",
+    fullDescription:
+      "Architected with a Next.js 16 (App Router) client and a Python / Django REST Framework API backed by PostgreSQL. Models multi-warehouse stock ledgers, enforces RBAC across Admins, Managers, and Staff, and serializes concurrent inventory mutations inside atomic database transactions.",
     category: "Full-Stack",
-    stack: ["Next.js 16", "TypeScript", "Python", "Django REST Framework", "PostgreSQL", "Tailwind CSS"],
+    stack: ["Next.js 16", "TypeScript", "Python", "Django REST", "PostgreSQL"],
     features: [
-      "Atomic inventory mutations using PostgreSQL SELECT FOR UPDATE row locks to eliminate overselling under concurrent orders",
+      "Atomic stock decrements with PostgreSQL row-level locking to prevent negative inventory under concurrent orders",
       "Multi-warehouse stock ledger with automated low-stock threshold alerts and reorder visibility",
       "Role-based access control (RBAC) with JWT authentication scoping permissions for Admins, Managers, and Staff",
-      "Decoupled Django REST Framework API with strict serializer validation and relational audit trails",
-      "Responsive operations dashboard built with Next.js 16 for desktop, tablet, and warehouse floor devices"
+      "Decoupled Django REST Framework API with serializer validation and relational audit trails",
+      "Responsive operations dashboard built with Next.js 16 for desktop, tablet, and warehouse floor devices",
     ],
     metrics: [
-      { label: "Status", value: "Live & Deployed" },
-      { label: "Backend", value: "Django REST + Postgres" },
-      { label: "Concurrency", value: "Row-Level Locks" }
+      { label: "Concurrency", value: "Row-level locks" },
+      { label: "Access", value: "3-role RBAC" },
+      { label: "Integrity", value: "Atomic Postgres" },
     ],
     architecture: {
-      clientArchitecture: "Next.js 16 and React frontend consuming typed REST endpoints with optimistic UI feedback and role-aware navigation.",
-      backendArchitecture: "Python / Django REST Framework service layer handling order processing, stock ledger updates, and granular permission checks.",
-      databaseAndStorage: "Relational PostgreSQL schema modeling warehouses, SKUs, stock levels, and transactional order histories with referential integrity.",
-      securityAndAuth: "Stateless JWT authentication paired with Django permission classes enforcing role-scoped read/write boundaries.",
-      deploymentPipeline: "Decoupled cloud deployment with Vercel serving the Next.js frontend and managed cloud hosting for the Django API and PostgreSQL.",
-      keyTechnicalChallenge: "Eliminating race conditions where two simultaneous checkout or transfer requests read the same remaining stock count and drive inventory negative.",
-      solutionEngineered: "Wrapped stock-decrement workflows in atomic database transactions with SELECT FOR UPDATE row-level locks, serializing conflicting writes so stock invariants hold under concurrency."
+      clientArchitecture:
+        "Next.js 16 and React frontend consuming typed REST endpoints with optimistic UI feedback and role-aware navigation.",
+      backendArchitecture:
+        "Python / Django REST Framework service layer handling order processing, stock ledger updates, and granular permission checks.",
+      databaseAndStorage:
+        "Relational PostgreSQL schema modeling warehouses, SKUs, stock levels, and transactional order histories with referential integrity.",
+      securityAndAuth:
+        "Stateless JWT authentication paired with Django permission classes enforcing role-scoped read and write boundaries.",
+      deploymentPipeline:
+        "Decoupled deployment separating the Next.js frontend from the Django REST API and managed PostgreSQL database.",
+      keyTechnicalChallenge:
+        "Eliminating race conditions where two simultaneous checkout or transfer requests read the same remaining stock count and drive inventory negative.",
+      solutionEngineered:
+        "Wrapped stock-decrement workflows in atomic database transactions with row-level locks, serializing conflicting writes so stock invariants hold under concurrency.",
     },
-    liveUrl: "https://inventry-roan.vercel.app",
     githubUrl: "https://github.com/mahmudbuilds/inventry",
     featured: true,
-    accentHex: "#10b981"
+    accentHex: "#0f766e",
+    diagram: "inventry-locking",
   },
   {
     id: "resumind",
     title: "ResuMind",
-    tagline: "Client-side ATS resume parser and job-description keyword matcher",
-    description: "Zero-backend document analysis tool that parses multi-column PDF resumes locally in the browser, extracts structured text in reading order, and scores keyword alignment against target job descriptions.",
-    fullDescription: "Built with React Router 7 and TypeScript. Performs 100% in-browser PDF parsing so sensitive candidate data never leaves the device, using coordinate-aware text reconstruction to handle multi-column layouts accurately.",
+    tagline: "Parses multi-column PDF resumes locally so candidate data never leaves the browser",
+    description:
+      "A zero-backend ATS resume analyzer that reconstructs reading order from complex PDF layouts in memory and scores keyword alignment against job descriptions with zero server storage.",
+    fullDescription:
+      "Built with React Router 7 and TypeScript. Performs 100% in-browser PDF parsing so sensitive candidate data never leaves the device, using coordinate-aware text reconstruction to handle multi-column layouts accurately.",
     category: "AI & Systems",
-    stack: ["React Router 7", "TypeScript", "Vite", "Tailwind CSS", "Client-Side PDF Parsing"],
+    stack: ["React Router 7", "TypeScript", "Vite", "Tailwind CSS", "PDF Parsing"],
     features: [
-      "Coordinate-aware PDF text reconstruction that preserves reading order across single- and multi-column resume layouts",
-      "100% client-side execution: resumes are parsed in memory and never transmitted to or stored on an external server",
-      "Job description keyword extraction and gap analysis highlighting missing technical skills and ATS formatting issues",
-      "Instant compatibility scoring with zero network round-trips"
+      "Coordinate-aware PDF text reconstruction that preserves reading order across single- and multi-column resumes",
+      "100% client-side execution so resumes are parsed in memory and never sent to an external server",
+      "Job description keyword extraction and gap analysis highlighting missing skills and formatting issues",
+      "Instant compatibility scoring with zero network round-trips",
     ],
     metrics: [
-      { label: "Execution", value: "100% Client-Side" },
-      { label: "Framework", value: "React Router 7" },
-      { label: "Privacy", value: "Zero Server Storage" }
+      { label: "Privacy", value: "Zero server PII" },
+      { label: "Parser", value: "Multi-column PDF" },
+      { label: "Runtime", value: "100% client-side" },
     ],
     architecture: {
-      clientArchitecture: "React Router 7 and TypeScript SPA executing PDF extraction, tokenization, and keyword scoring entirely in the browser.",
-      backendArchitecture: "Intentionally serverless: removing backend ingestion eliminates PII storage risk and network latency.",
-      databaseAndStorage: "Ephemeral in-memory processing. Document buffers are discarded as soon as the session closes.",
-      securityAndAuth: "Privacy-by-architecture design ensuring personal contact details and employment history never cross the network.",
-      deploymentPipeline: "Static build deployed to Vercel's global edge CDN via Vite.",
-      keyTechnicalChallenge: "Naive PDF text extraction reads horizontally across page coordinates, interleaving unrelated sentences in two-column resumes and breaking keyword matching.",
-      solutionEngineered: "Implemented a layout-aware parser that clusters text runs by bounding-box geometry and column boundaries before reconstructing sequential reading order."
+      clientArchitecture:
+        "React Router 7 and TypeScript SPA executing PDF extraction, tokenization, and keyword scoring entirely in the browser.",
+      backendArchitecture:
+        "Intentionally serverless: removing backend ingestion eliminates PII storage risk and network latency.",
+      databaseAndStorage:
+        "Ephemeral in-memory processing. Document buffers are discarded as soon as the session closes.",
+      securityAndAuth:
+        "Privacy-by-architecture design ensuring personal contact details and employment history never cross the network.",
+      deploymentPipeline: "Static build deployed to Vercel's edge CDN via Vite.",
+      keyTechnicalChallenge:
+        "Standard PDF text extraction reads horizontally across coordinates, scrambling unrelated sentences in two-column resumes and breaking keyword matching.",
+      solutionEngineered:
+        "Implemented a layout-aware parser that clusters text runs by bounding-box geometry and column boundaries before reconstructing sequential reading order.",
     },
-    liveUrl: "https://github.com/mahmudbuilds/ResuMind",
     githubUrl: "https://github.com/mahmudbuilds/ResuMind",
-    featured: true,
-    accentHex: "#38bdf8"
+    featured: false,
+    accentHex: "#0369a1",
   },
   {
     id: "flow-batch-automator",
     title: "Flow Batch Automator",
-    tagline: "Manifest V3 Chrome extension for queued prompt automation and direct-to-disk media capture",
-    description: "Browser automation extension that queues batch jobs on Flow, intercepts uncompressed 2K/4K media buffers directly in memory, and streams assets to local folders via the File System Access API without Save As prompts.",
-    fullDescription: "Built on Chrome Manifest V3 using closed Shadow DOM UI encapsulation, MAIN-world script interception, MutationObserver state tracking, IndexedDB directory-handle persistence, and automated filename conflict resolution.",
+    tagline: "Queues batch media jobs and streams full 2K/4K outputs straight to disk without Save As dialogs",
+    description:
+      "A Chrome Manifest V3 extension with an isolated side panel that automates prompt queues on Google Flow, captures uncompressed media in memory, and writes directly to user-authorized folders.",
+    fullDescription:
+      "Built on Chrome Manifest V3 using closed Shadow DOM UI encapsulation, MAIN-world script interception, MutationObserver state tracking, IndexedDB directory-handle persistence, and automated filename conflict resolution.",
     category: "AI & Systems",
     stack: ["JavaScript (ES6+)", "Chrome Manifest V3", "Shadow DOM", "File System Access API", "IndexedDB"],
     features: [
-      "MAIN-world interception that captures full uncompressed 2K/4K binary media buffers directly in memory",
-      "Direct local folder writes via the Native File System Access API with auto-incrementing filename conflict resolution",
+      "MAIN-world interception capturing full uncompressed 2K/4K binary media buffers directly in memory",
+      "Direct local folder writes via the File System Access API with automatic filename conflict resolution",
       "Closed Shadow DOM side-panel UI preventing CSS and DOM collisions with the host web application",
       "MutationObserver state machine tracking asynchronous job completion across dynamic feed updates",
-      "IndexedDB persistence for authorized directory handles paired with chrome.storage.local queue state"
+      "IndexedDB persistence for authorized directory handles paired with chrome.storage.local queue state",
     ],
     metrics: [
-      { label: "Platform", value: "Chrome Manifest V3" },
+      { label: "Platform", value: "Manifest V3" },
+      { label: "Output", value: "2K/4K direct disk" },
       { label: "Isolation", value: "Closed Shadow DOM" },
-      { label: "Storage", value: "IndexedDB + Native FS" }
     ],
     architecture: {
-      clientArchitecture: "Injected control panel encapsulated inside a closed Shadow Root to guarantee complete CSS isolation from host page updates.",
-      backendArchitecture: "Manifest V3 background service worker coordinating asynchronous prompt queues, completion events, and chrome.storage state.",
-      databaseAndStorage: "IndexedDB persists FileSystemDirectoryHandle references across sessions while chrome.storage.local stores queued jobs and settings.",
-      securityAndAuth: "Scoped to strict Manifest V3 permission boundaries with explicit user-granted folder access through the File System Access API.",
-      deploymentPipeline: "Packaged as an unpacked Manifest V3 Chrome extension with modular content, MAIN-world, and service-worker scripts.",
-      keyTechnicalChallenge: "Capturing full-resolution upscaled media buffers across isolated extension worlds without triggering repetitive browser download dialogs or dropping files.",
-      solutionEngineered: "Bridged a MAIN-world network/buffer interceptor with the extension context to stream raw binary payloads straight to user-authorized local file handles."
+      clientArchitecture:
+        "Injected control panel encapsulated inside a closed Shadow Root to guarantee CSS isolation from host page updates.",
+      backendArchitecture:
+        "Manifest V3 background service worker coordinating asynchronous prompt queues, completion events, and chrome.storage state.",
+      databaseAndStorage:
+        "IndexedDB persists FileSystemDirectoryHandle references across sessions while chrome.storage.local stores queued jobs and settings.",
+      securityAndAuth:
+        "Scoped to strict Manifest V3 permission boundaries with explicit user-granted folder access through the File System Access API.",
+      deploymentPipeline:
+        "Packaged as a modular Manifest V3 Chrome extension with separated content, MAIN-world, and service-worker scripts.",
+      keyTechnicalChallenge:
+        "Capturing full-resolution media buffers across isolated extension worlds without triggering repetitive browser download prompts.",
+      solutionEngineered:
+        "Bridged a MAIN-world buffer interceptor with the extension context to stream raw binary payloads straight to user-authorized local file handles.",
     },
-    liveUrl: "https://github.com/mahmudbuilds/flow-batch-automator",
     githubUrl: "https://github.com/mahmudbuilds/flow-batch-automator",
     featured: false,
-    accentHex: "#f59e0b"
+    accentHex: "#b45309",
   },
   {
     id: "vesper",
     title: "Vesper",
-    tagline: "Keyboard-first, low-latency workspace UI for technical interview practice",
-    description: "Minimalist frontend workspace built with React 19, TypeScript, and Motion, designed around keyboard-driven navigation, GPU-composited transitions, and local-first state persistence.",
-    fullDescription: "Built with React 19, TypeScript, Tailwind CSS, and Motion to explore crisp interaction design for developer tools: global keyboard shortcuts, zero-jank spring animations, and distraction-free dark-mode ergonomics.",
+    tagline: "A keyboard-first React workspace exploring 60 FPS spring choreography and offline state",
+    description:
+      "A frontend interaction and motion study built with React 19, TypeScript, and Motion. Focused on mouse-free command navigation, GPU-composited transitions without layout thrashing, and local-first note persistence.",
+    fullDescription:
+      "Built with React 19, TypeScript, Tailwind CSS, and Motion to explore crisp interaction design for developer tools: global keyboard shortcuts, GPU-composited spring animations, and distraction-free dark-mode ergonomics.",
     category: "Frontend Concepts",
     stack: ["React 19", "TypeScript", "Tailwind CSS", "Motion"],
     features: [
-      "Keyboard-first command and navigation model built for mouse-free workflow speed",
-      "GPU-composited spring animations tuned for consistent 60 FPS frame pacing without layout thrashing",
-      "Local-first state persistence keeping notes and workspace preferences instant and offline-capable",
-      "High-contrast dark interface with restrained visual hierarchy to keep focus on code and notes"
+      "Keyboard-first command and navigation model designed for mouse-free workflow speed",
+      "GPU-composited spring transitions tuned for consistent 60 FPS frame pacing without layout thrashing",
+      "Local-first state persistence keeping workspace notes and preferences instant and offline-capable",
+      "High-contrast dark interface with restrained visual hierarchy",
     ],
     metrics: [
-      { label: "Runtime", value: "React 19 + TS" },
-      { label: "Motion", value: "GPU-Composited 60 FPS" },
-      { label: "Storage", value: "Local-First" }
+      { label: "Motion", value: "60 FPS springs" },
+      { label: "Input", value: "Keyboard-first" },
+      { label: "Storage", value: "Local-first" },
     ],
     architecture: {
-      clientArchitecture: "Modular React 19 component architecture using strict TypeScript, keyboard event orchestration, and Motion spring primitives.",
-      backendArchitecture: "Zero-latency client-side runtime with instant keyboard dispatch and local persistence.",
-      databaseAndStorage: "Browser-local storage preserving user preferences and practice notes offline without external dependencies.",
-      securityAndAuth: "Fully local execution: session notes and settings remain exclusively on the user's machine.",
+      clientArchitecture:
+        "Modular React 19 component architecture using strict TypeScript, keyboard event orchestration, and Motion spring primitives.",
+      backendArchitecture:
+        "Zero-latency client-side runtime with instant keyboard dispatch and local persistence.",
+      databaseAndStorage:
+        "Browser-local storage preserving user preferences and workspace notes offline without external dependencies.",
+      securityAndAuth:
+        "Fully local execution: workspace notes and settings stay on the user's machine.",
       deploymentPipeline: "Deployed on Vercel with optimized static asset bundling.",
-      keyTechnicalChallenge: "Maintaining locked 60 FPS panel transitions and interactive feedback while keeping bundle size and re-render overhead minimal.",
-      solutionEngineered: "Restricted animations to GPU-composited transform/opacity properties and isolated high-frequency UI state to prevent cascading React re-renders."
+      keyTechnicalChallenge:
+        "Maintaining locked 60 FPS panel transitions while keeping bundle size and React re-render overhead minimal.",
+      solutionEngineered:
+        "Restricted animations to GPU-composited transform and opacity properties and isolated high-frequency UI state to prevent cascading re-renders.",
     },
     liveUrl: "https://vesper--ai.vercel.app",
     githubUrl: "https://github.com/mahmudbuilds/vesper",
     featured: false,
-    accentHex: "#818cf8"
-  }
+    accentHex: "#6366f1",
+  },
 ];
 
 export const skillCategoriesData: SkillCategory[] = [
   {
-    name: "Languages",
+    name: "Languages & UI",
     skills: [
       { name: "TypeScript" },
-      { name: "JavaScript (ES6+)" },
-      { name: "Python" },
-      { name: "SQL" },
-      { name: "HTML5 & CSS3" }
-    ]
-  },
-  {
-    name: "Frontend Engineering",
-    skills: [
       { name: "React 19" },
-      { name: "Next.js (App Router)" },
-      { name: "React Router 7" },
+      { name: "Next.js" },
       { name: "Tailwind CSS" },
-      { name: "Vite" },
-      { name: "Web Components & Shadow DOM" },
-      { name: "Browser & Web APIs" }
-    ]
+    ],
   },
   {
     name: "Backend & Data",
     skills: [
+      { name: "Python" },
+      { name: "Django REST" },
       { name: "PostgreSQL" },
-      { name: "Django REST Framework" },
-      { name: "Node.js & Express" },
-      { name: "Convex (Realtime & Serverless)" },
-      { name: "REST API Design" },
-      { name: "Auth & RBAC (Clerk, JWT)" },
-      { name: "Transactions & Schema Design" }
-    ]
+      { name: "Convex" },
+    ],
   },
   {
-    name: "Infrastructure & Tooling",
+    name: "Platform & Web",
     skills: [
-      { name: "Git & GitHub" },
+      { name: "Node.js" },
+      { name: "Auth & RBAC" },
+      { name: "Manifest V3" },
       { name: "Vercel" },
-      { name: "Neon Serverless Postgres" },
-      { name: "Chrome Extensions (Manifest V3)" },
-      { name: "Performance Optimization" },
-      { name: "Automated Deployments" }
-    ]
-  }
+    ],
+  },
 ];
 
 export const experienceMilestonesData: ExperienceMilestone[] = [
   {
-    year: "2024 – Present",
-    role: "Full-Stack Software Engineer",
-    company: "Independent Engineering",
-    description: "Architected, shipped, and operated end-to-end web applications and browser systems, owning relational schemas, API resilience, authentication, and frontend performance from initial design to production deployment.",
+    year: "2023 – Present",
+    role: "Independent Full-Stack Engineer",
+    company: "Self-Directed Product Engineering",
+    description:
+      "Designing, building, and operating end-to-end web products and browser tools from database schema to production UI, with full ownership over data consistency, API resilience, and frontend performance.",
     highlights: [
-      "Designed transactional PostgreSQL schemas and Django REST APIs with row-level locking (SELECT FOR UPDATE) and RBAC to enforce data consistency under concurrent writes.",
-      "Built fault-tolerant external API integrations in serverless backends, implementing automated multi-key rotation, failover recovery, and server-side usage metering.",
-      "Architected reactive Next.js (App Router) and TypeScript frontends with Clerk/JWT auth boundaries, optimistic updates, and client-side document/media processing.",
-      "Engineered Manifest V3 browser tooling leveraging closed Shadow DOM encapsulation, MAIN-world buffer interception, IndexedDB, and the Native File System Access API."
-    ]
+      "Engineered transactional PostgreSQL and Django REST backends with atomic write serialization, JWT authentication, and three-tier role-based access control.",
+      "Built fault-tolerant serverless workflows in Convex and Next.js featuring automated API key failover, server-side usage metering, and real-time reactive state.",
+      "Shipped privacy-first browser software including a client-side multi-column PDF parser and a Manifest V3 Chrome extension using closed Shadow DOM and the File System Access API.",
+    ],
   },
-  {
-    year: "2023 – 2024",
-    role: "Full-Stack Web Developer",
-    company: "Independent Engineering",
-    description: "Established production fundamentals across React, Node.js, Express, and relational SQL databases, shipping responsive full-stack web applications.",
-    highlights: [
-      "Built RESTful Node.js and Express services backed by hosted PostgreSQL with parameterized queries, input validation, and server-verified pricing/state logic.",
-      "Developed responsive, accessible React and Tailwind CSS interfaces engineered for consistent behavior across desktop, tablet, and mobile viewports."
-    ]
-  }
 ];
