@@ -16,7 +16,7 @@ export function ExperienceSection() {
         {experienceMilestonesData.map((milestone, idx) => (
           <div
             key={idx}
-            className="py-7 sm:py-9 grid grid-cols-1 md:grid-cols-[12.5rem_1fr] gap-4 md:gap-10"
+            className="py-7 sm:py-9 grid grid-cols-1 md:grid-cols-[14rem_1fr] lg:grid-cols-[16rem_1fr] gap-4 md:gap-10 lg:gap-12"
           >
             {/* Left Column: Period & Context */}
             <div className="space-y-1 md:pt-1">
@@ -29,7 +29,7 @@ export function ExperienceSection() {
             </div>
 
             {/* Right Column: Role, Summary & Deliverables */}
-            <div className="space-y-3.5 max-w-[62ch]">
+            <div className="space-y-3.5 max-w-[72ch]">
               <h3 className="font-serif text-xl sm:text-2xl tracking-[-0.015em] font-normal text-ink">
                 {milestone.role}
               </h3>

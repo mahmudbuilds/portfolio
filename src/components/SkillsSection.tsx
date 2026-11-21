@@ -16,7 +16,7 @@ export function SkillsSection() {
         {skillCategoriesData.map((category) => (
           <div
             key={category.name}
-            className="py-5 grid grid-cols-1 md:grid-cols-[12.5rem_1fr] gap-2 md:gap-10 items-baseline"
+            className="py-5 grid grid-cols-1 md:grid-cols-[14rem_1fr] lg:grid-cols-[16rem_1fr] gap-2 md:gap-10 lg:gap-12 items-baseline"
           >
             <dt className="text-sm font-medium text-ink">
               {category.name}

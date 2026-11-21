@@ -15,7 +15,7 @@ export function App() {
   return (
     <div className="min-h-screen bg-paper text-ink antialiased font-sans transition-colors duration-200">
       <main
-        className={`max-w-4xl mx-auto px-5 sm:px-8 py-8 sm:py-14 md:py-20 space-y-20 sm:space-y-28 ${
+        className={`max-w-6xl mx-auto px-5 sm:px-8 lg:px-10 py-8 sm:py-14 md:py-20 space-y-20 sm:space-y-28 ${
           isResumeOpen ? "no-print" : ""
         }`}
       >

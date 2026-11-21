@@ -15,7 +15,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
     !project.liveUrl.includes("github.com");
 
   return (
-    <article className="py-7 sm:py-9 grid grid-cols-1 md:grid-cols-[12.5rem_1fr] gap-4 md:gap-10">
+    <article className="py-7 sm:py-9 grid grid-cols-1 md:grid-cols-[14rem_1fr] lg:grid-cols-[16rem_1fr] gap-4 md:gap-10 lg:gap-12">
       {/* Left Metadata & Links Column */}
       <div className="flex flex-row md:flex-col items-baseline md:items-start justify-between md:justify-start gap-3 md:pt-1">
         <span className="text-xs text-ink-muted font-medium">
@@ -73,7 +73,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </p>
         </div>
 
-        <p className="text-sm text-ink-muted leading-relaxed max-w-[62ch]">
+        <p className="text-sm text-ink-muted leading-relaxed max-w-[72ch]">
           {project.description}
         </p>
 
@@ -99,7 +99,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             </button>
 
             {expanded && (
-              <div className="mt-3.5 pl-4 border-l border-line-strong space-y-3.5 text-xs sm:text-[13px] leading-relaxed text-ink-secondary max-w-[62ch]">
+              <div className="mt-3.5 pl-4 border-l border-line-strong space-y-3.5 text-xs sm:text-[13px] leading-relaxed text-ink-secondary max-w-[72ch]">
                 <div>
                   <span className="font-medium text-ink block mb-0.5">
                     Architecture &amp; data flow

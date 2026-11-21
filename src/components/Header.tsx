@@ -90,13 +90,13 @@ export function Header({ onOpenResume, theme, onToggleTheme }: HeaderProps) {
             {developerBio.name}
           </h1>
 
-          <p className="text-lg sm:text-xl md:text-[1.35rem] leading-[1.45] text-ink-secondary max-w-[54ch] font-normal">
+          <p className="text-lg sm:text-xl md:text-[1.35rem] leading-[1.45] text-ink-secondary max-w-[60ch] font-normal">
             Full-stack software engineer building resilient web applications, transactional
             backends, and fast, thoughtfully engineered interfaces.
           </p>
         </div>
 
-        <p className="text-sm sm:text-[15px] text-ink-muted leading-relaxed max-w-[62ch]">
+        <p className="text-sm sm:text-[15px] text-ink-muted leading-relaxed max-w-[68ch]">
           I ship end-to-end products with TypeScript, React, Next.js, Python, PostgreSQL, and
           Convex, caring equally about data integrity, API reliability, and frontend polish.
         </p>

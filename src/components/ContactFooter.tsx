@@ -16,7 +16,7 @@ export function ContactFooter() {
   return (
     <footer id="contact" className="pt-12 sm:pt-16 border-t border-line space-y-12">
       <div className="space-y-6">
-        <div className="space-y-2.5 max-w-[54ch]">
+        <div className="space-y-2.5 max-w-[62ch]">
           <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl tracking-[-0.02em] font-normal text-ink">
             Get in touch
           </h2>
