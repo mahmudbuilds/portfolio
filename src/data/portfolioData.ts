@@ -102,6 +102,7 @@ export const projectsData: Project[] = [
       solutionEngineered:
         "Wrapped stock-decrement workflows in atomic database transactions with row-level locks, serializing conflicting writes so stock invariants hold under concurrency.",
     },
+    liveUrl: "https://inventry-roan.vercel.app",
     githubUrl: "https://github.com/mahmudbuilds/inventry",
     featured: true,
     accentHex: "#0f766e",
