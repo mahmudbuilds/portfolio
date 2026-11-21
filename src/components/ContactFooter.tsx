@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, Check, ArrowUpRight } from "lucide-react";
+import { Mail, Copy, Check } from "lucide-react";
 import { developerBio } from "../data/portfolioData";
 
 const currentYear = new Date().getFullYear();
@@ -20,41 +20,41 @@ export function ContactFooter() {
           <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl tracking-[-0.02em] font-normal text-ink">
             Get in touch
           </h2>
-          <p className="text-sm sm:text-[15px] text-ink-secondary leading-relaxed">
+          <p className="text-sm sm:text-base text-ink-secondary leading-relaxed">
             I'm looking for a full-time full-stack engineering role on a product-focused team. If
             you're hiring or want to talk through any of the systems above, send me a note.
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
+          <a
+            href={`mailto:${developerBio.email}`}
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-ink text-paper hover:opacity-90 text-sm font-medium transition-opacity active:scale-[0.99] min-h-[42px]"
+          >
+            <Mail className="w-4 h-4 shrink-0" />
+            <span>Email me</span>
+          </a>
+
           <button
             onClick={handleCopyEmail}
-            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-ink text-paper hover:opacity-90 text-xs sm:text-sm font-medium transition-opacity cursor-pointer active:scale-[0.99] min-h-[40px]"
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-line-strong hover:border-ink text-ink text-sm font-medium transition-colors cursor-pointer active:scale-[0.99] min-h-[42px]"
           >
             {copied ? (
               <>
-                <Check className="w-4 h-4 shrink-0" />
-                <span>Email copied</span>
+                <Check className="w-4 h-4 text-accent shrink-0" />
+                <span>Copied email</span>
               </>
             ) : (
               <>
-                <Mail className="w-4 h-4 shrink-0" />
-                <span className="font-mono text-xs sm:text-[13px]">{developerBio.email}</span>
+                <Copy className="w-4 h-4 text-ink-muted shrink-0" />
+                <span className="font-mono text-[13px]">{developerBio.email}</span>
               </>
             )}
           </button>
-
-          <a
-            href={`mailto:${developerBio.email}`}
-            className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg border border-line-strong hover:border-ink text-ink text-xs sm:text-sm font-medium transition-colors min-h-[40px]"
-          >
-            <span>Open email client</span>
-            <ArrowUpRight className="w-4 h-4 text-ink-muted shrink-0" />
-          </a>
         </div>
       </div>
 
-      <div className="pt-6 border-t border-line flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-ink-muted">
+      <div className="pt-6 border-t border-line flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-[13px] text-ink-muted">
         <p className="tabular-nums">
           © {currentYear} {developerBio.name}
         </p>

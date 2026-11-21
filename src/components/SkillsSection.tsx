@@ -7,21 +7,21 @@ export function SkillsSection() {
         <h2 className="font-serif text-2xl sm:text-3xl tracking-[-0.02em] font-normal text-ink">
           Technical Stack
         </h2>
-        <p className="text-sm text-ink-muted">
+        <p className="text-sm sm:text-[15px] text-ink-muted">
           Core languages, frameworks, and data tools I ship production software with.
         </p>
       </div>
 
-      <dl className="border-t border-b border-line divide-y divide-line">
+      <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-8 pt-8 border-t border-line">
         {skillCategoriesData.map((category) => (
           <div
             key={category.name}
-            className="py-5 grid grid-cols-1 md:grid-cols-[14rem_1fr] lg:grid-cols-[16rem_1fr] gap-2 md:gap-10 lg:gap-12 items-baseline"
+            className="space-y-2.5"
           >
-            <dt className="text-sm font-medium text-ink">
+            <dt className="text-xs font-mono uppercase tracking-[0.08em] text-ink-muted">
               {category.name}
             </dt>
-            <dd className="text-sm text-ink-secondary leading-relaxed">
+            <dd className="text-sm sm:text-[15px] text-ink leading-relaxed">
               {category.skills.map((skill, idx) => (
                 <span key={skill.name}>
                   {idx > 0 && (

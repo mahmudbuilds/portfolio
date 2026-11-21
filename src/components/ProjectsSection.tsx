@@ -1,72 +1,57 @@
-import { useState, useMemo } from "react";
 import { ProjectCard } from "./ProjectCard";
 import { projectsData } from "../data/portfolioData";
-import type { ProjectCategory } from "../types";
-
-const CATEGORIES: ProjectCategory[] = [
-  "All",
-  "Full-Stack",
-  "AI & Systems",
-  "Frontend Concepts",
-];
 
 export function ProjectsSection() {
-  const [activeCategory, setActiveCategory] = useState<ProjectCategory>("All");
-
-  const filteredProjects = useMemo(() => {
-    if (activeCategory === "All") return projectsData;
-    return projectsData.filter((p) => p.category === activeCategory);
-  }, [activeCategory]);
+  const featuredProjects = projectsData.slice(0, 2);
+  const moreProjects = projectsData.slice(2);
 
   return (
-    <section id="projects" className="space-y-8 scroll-mt-16">
-      {/* Section Header & Underline Filter Tabs */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+    <section id="projects" className="space-y-10 scroll-mt-16">
+      {/* Section Header */}
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
         <div className="space-y-1.5">
           <h2 className="font-serif text-2xl sm:text-3xl tracking-[-0.02em] font-normal text-ink">
             Selected Work
           </h2>
-          <p className="text-sm text-ink-muted">
+          <p className="text-sm sm:text-[15px] text-ink-muted">
             End-to-end web applications, resilient API integrations, and browser-native tools.
           </p>
         </div>
-
-        <div
-          role="tablist"
-          aria-label="Filter projects by category"
-          className="flex items-center gap-4 sm:gap-5 overflow-x-auto no-scrollbar shrink-0"
-        >
-          {CATEGORIES.map((category) => {
-            const isActive = activeCategory === category;
-            return (
-              <button
-                key={category}
-                role="tab"
-                aria-selected={isActive}
-                onClick={() => setActiveCategory(category)}
-                className={`pb-1.5 text-xs sm:text-[13px] transition-colors cursor-pointer shrink-0 whitespace-nowrap border-b-2 ${
-                  isActive
-                    ? "border-accent text-ink font-medium"
-                    : "border-transparent text-ink-muted hover:text-ink"
-                }`}
-              >
-                {category === "All" ? (
-                  <span className="tabular-nums">All ({projectsData.length})</span>
-                ) : (
-                  category
-                )}
-              </button>
-            );
-          })}
-        </div>
+        <p className="text-xs sm:text-[13px] font-mono text-ink-muted tabular-nums">
+          {projectsData.length} shipped projects
+        </p>
       </div>
 
-      {/* Editorial Index List */}
-      <div className="border-t border-b border-line divide-y divide-line">
-        {filteredProjects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
+      {/* Flagship Showcase (2-Column Focal Point) */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {featuredProjects.map((project, idx) => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+            index={idx + 1}
+            variant="featured"
+          />
         ))}
       </div>
+
+      {/* Additional Projects Index */}
+      {moreProjects.length > 0 && (
+        <div className="space-y-4 pt-2">
+          <h3 className="text-xs font-mono uppercase tracking-[0.08em] text-ink-muted">
+            More Work
+          </h3>
+          <div className="border-t border-b border-line divide-y divide-line">
+            {moreProjects.map((project, idx) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                index={featuredProjects.length + idx + 1}
+                variant="index"
+              />
+            ))}
+          </div>
+        </div>
+      )}
     </section>
   );
 }

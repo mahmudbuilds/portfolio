@@ -22,8 +22,8 @@
     --bg-paper: #faf9f6;
     --bg-surface: #f2f0eb;
     --text-ink: #161614;
-    --text-secondary: #52504a;
-    --text-muted: #68655e;
+    --text-secondary: #43413c;
+    --text-muted: #5a5751;
     --border-line: #e4e1d9;
     --border-strong: #cbc6bb;
     --accent: #b84a27;
@@ -32,10 +32,10 @@
 
   html.dark {
     --bg-paper: #111110;
-    --bg-surface: #191917;
+    --bg-surface: #181816;
     --text-ink: #f3f1ec;
-    --text-secondary: #aba79e;
-    --text-muted: #8a867d;
+    --text-secondary: #c2beb5;
+    --text-muted: #9e9a90;
     --border-line: #272623;
     --border-strong: #3d3b36;
     --accent: #e07a5f;

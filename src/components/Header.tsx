@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, Check, FileText, ArrowUpRight, Sun, Moon } from "lucide-react";
+import { Mail, Copy, Check, FileText, ArrowUpRight, Sun, Moon } from "lucide-react";
 import { developerBio } from "../data/portfolioData";
 import type { Theme } from "../hooks/useTheme";
 
@@ -24,9 +24,9 @@ export function Header({ onOpenResume, theme, onToggleTheme }: HeaderProps) {
       <div className="flex items-center justify-between gap-4 pb-5 border-b border-line">
         <a
           href="#"
-          className="font-serif text-base sm:text-lg font-medium tracking-[-0.015em] text-ink hover:opacity-80 transition-opacity shrink-0"
+          className="font-mono text-xs sm:text-sm tracking-[-0.01em] text-ink-secondary hover:text-ink transition-colors shrink-0"
         >
-          {developerBio.name}
+          {developerBio.handle}
         </a>
 
         <div className="flex items-center gap-2 sm:gap-3 min-w-0">
@@ -86,56 +86,67 @@ export function Header({ onOpenResume, theme, onToggleTheme }: HeaderProps) {
       {/* Editorial Hero Introduction */}
       <div className="space-y-6 sm:space-y-7">
         <div className="space-y-4">
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-[3.5rem] leading-[1.06] tracking-[-0.025em] font-normal text-ink text-balance">
+          <p className="text-xs sm:text-[13px] font-mono text-ink-muted flex flex-wrap items-center gap-x-2.5 gap-y-1">
+            <span className="inline-flex items-center gap-2 text-ink-secondary">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" aria-hidden="true" />
+              Open to full-time full-stack roles
+            </span>
+            <span aria-hidden="true">·</span>
+            <span>Nigeria · Remote worldwide</span>
+          </p>
+
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-[3.75rem] leading-[1.05] tracking-[-0.025em] font-normal text-ink text-balance">
             {developerBio.name}
           </h1>
 
-          <p className="text-lg sm:text-xl md:text-[1.35rem] leading-[1.45] text-ink-secondary max-w-[60ch] font-normal">
+          <p className="text-lg sm:text-xl md:text-[1.4rem] leading-[1.45] text-ink-secondary max-w-[58ch] font-normal">
             Full-stack software engineer building resilient web applications, transactional
             backends, and fast, thoughtfully engineered interfaces.
           </p>
         </div>
 
-        <p className="text-sm sm:text-[15px] text-ink-muted leading-relaxed max-w-[68ch]">
+        <p className="text-sm sm:text-base text-ink-muted leading-relaxed max-w-[66ch]">
           I ship end-to-end products with TypeScript, React, Next.js, Python, PostgreSQL, and
           Convex, caring equally about data integrity, API reliability, and frontend polish.
         </p>
 
-        {/* Quiet Metadata Line */}
-        <p className="text-xs sm:text-[13px] text-ink-muted flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-x-2.5 gap-y-0.5">
-          <span>Nigeria · Remote worldwide</span>
-          <span className="hidden sm:inline" aria-hidden="true">·</span>
-          <span>Open to full-time full-stack engineering roles</span>
-        </p>
-
-        {/* Restrained Action Bar */}
+        {/* Clear Action Bar */}
         <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1">
-          <button
-            onClick={handleCopyEmail}
-            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-ink text-paper hover:opacity-90 text-xs sm:text-sm font-medium transition-opacity cursor-pointer active:scale-[0.99] min-h-[40px]"
+          <a
+            href={`mailto:${developerBio.email}`}
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-ink text-paper hover:opacity-90 text-sm font-medium transition-opacity active:scale-[0.99] min-h-[42px]"
           >
-            {copied ? (
-              <>
-                <Check className="w-4 h-4 shrink-0" />
-                <span>Email copied</span>
-              </>
-            ) : (
-              <>
-                <Mail className="w-4 h-4 shrink-0" />
-                <span className="font-mono text-xs sm:text-[13px]">{developerBio.email}</span>
-              </>
-            )}
-          </button>
+            <Mail className="w-4 h-4 shrink-0" />
+            <span>Email me</span>
+          </a>
 
           <button
             onClick={onOpenResume}
-            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-line-strong hover:border-ink text-ink text-xs sm:text-sm font-medium transition-colors cursor-pointer active:scale-[0.99] min-h-[40px]"
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-line-strong hover:border-ink text-ink text-sm font-medium transition-colors cursor-pointer active:scale-[0.99] min-h-[42px]"
           >
             <FileText className="w-4 h-4 text-ink-muted shrink-0" />
             <span>View resume</span>
           </button>
 
-          <div className="flex items-center gap-4 pl-1 text-xs sm:text-sm text-ink-secondary">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pl-0.5 sm:pl-1 text-sm text-ink-secondary">
+            <button
+              onClick={handleCopyEmail}
+              className="inline-flex items-center gap-1.5 hover:text-ink transition-colors cursor-pointer py-1"
+              title={`Copy ${developerBio.email}`}
+            >
+              {copied ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-accent shrink-0" />
+                  <span className="text-ink font-medium">Copied email</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-3.5 h-3.5 text-ink-muted shrink-0" />
+                  <span>Copy email</span>
+                </>
+              )}
+            </button>
+
             <a
               href={developerBio.github}
               target="_blank"

@@ -7,7 +7,7 @@ export function ExperienceSection() {
         <h2 className="font-serif text-2xl sm:text-3xl tracking-[-0.02em] font-normal text-ink">
           Experience
         </h2>
-        <p className="text-sm text-ink-muted">
+        <p className="text-sm sm:text-[15px] text-ink-muted">
           Core engineering domains, systems built, and technical ownership from schema to UI.
         </p>
       </div>
@@ -20,10 +20,10 @@ export function ExperienceSection() {
           >
             {/* Left Column: Period & Context */}
             <div className="space-y-1 md:pt-1">
-              <p className="font-mono text-xs tabular-nums text-ink-muted">
+              <p className="font-mono text-[13px] tabular-nums text-ink-secondary">
                 {milestone.year}
               </p>
-              <p className="text-sm font-medium text-ink-secondary">
+              <p className="text-sm font-medium text-ink-muted">
                 {milestone.company}
               </p>
             </div>
@@ -34,7 +34,7 @@ export function ExperienceSection() {
                 {milestone.role}
               </h3>
 
-              <p className="text-sm text-ink-muted leading-relaxed">
+              <p className="text-sm sm:text-[15px] text-ink-muted leading-relaxed">
                 {milestone.description}
               </p>
 
@@ -42,10 +42,10 @@ export function ExperienceSection() {
                 {milestone.highlights.map((highlight, hIdx) => (
                   <li
                     key={hIdx}
-                    className="text-sm text-ink-secondary flex items-start gap-3 leading-relaxed"
+                    className="text-sm sm:text-[15px] text-ink-secondary flex items-start gap-3 leading-relaxed"
                   >
                     <span
-                      className="text-ink-muted select-none shrink-0"
+                      className="text-accent select-none shrink-0"
                       aria-hidden="true"
                     >
                       —
