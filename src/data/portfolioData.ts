@@ -230,6 +230,9 @@ export const projectsData: Project[] = [
     githubUrl: "https://github.com/mahmudbuilds/vesper",
     featured: false,
     accentHex: "#6366f1",
+    screenshot: "/projects/vesper.png",
+    screenshotAlt:
+      "Vesper keyboard-first developer workspace UI showing the hero, 60 FPS spring physics badge, and interactive command palette preview",
   },
 ];
 

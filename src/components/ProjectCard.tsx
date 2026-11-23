@@ -226,75 +226,94 @@ export function ProjectCard({ project, variant = "index" }: ProjectCardProps) {
         </div>
       </div>
 
-      {/* Right Content Column */}
-      <div className="space-y-3 max-w-[54ch]">
-        <div>
-          <h3 className="font-serif text-xl sm:text-2xl tracking-[-0.015em] font-normal text-ink text-balance">
-            {project.title}
-          </h3>
-          <p className="text-sm sm:text-[15px] font-medium text-ink-secondary mt-1">
-            {project.tagline}
+      {/* Right Content Column (+ Optional Preview Image) */}
+      <div
+        className={
+          project.screenshot
+            ? "grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_18rem] gap-6 lg:gap-8 items-start"
+            : ""
+        }
+      >
+        <div className="space-y-3 max-w-[54ch]">
+          <div>
+            <h3 className="font-serif text-xl sm:text-2xl tracking-[-0.015em] font-normal text-ink text-balance">
+              {project.title}
+            </h3>
+            <p className="text-sm sm:text-[15px] font-medium text-ink-secondary mt-1">
+              {project.tagline}
+            </p>
+          </div>
+
+          <p className="text-sm sm:text-[15px] text-ink-muted leading-relaxed">
+            {project.description}
           </p>
+
+          <p className="text-[13px] font-mono text-ink-muted leading-relaxed pt-0.5">
+            {project.stack.join(" · ")}
+          </p>
+
+          <div>
+            <button
+              type="button"
+              onClick={() => setExpanded((prev) => !prev)}
+              aria-expanded={expanded}
+              className="inline-flex items-center gap-1.5 text-[13px] font-medium text-ink-secondary hover:text-ink transition-colors cursor-pointer min-h-[44px]"
+            >
+              <span>
+                {expanded ? "Hide architecture notes" : "Architecture notes"}
+              </span>
+              <ChevronDown
+                className={`w-3.5 h-3.5 text-ink-muted transition-transform duration-200 ${
+                  expanded ? "rotate-180" : ""
+                }`}
+                aria-hidden="true"
+              />
+            </button>
+
+            {expanded && (
+              <div className="mt-2 pl-4 border-l border-line-strong space-y-3 text-[13px] leading-relaxed text-ink-secondary">
+                <div>
+                  <span className="font-medium text-ink block mb-0.5">
+                    System design
+                  </span>
+                  <p className="text-ink-muted">
+                    {project.architecture.clientArchitecture}{" "}
+                    {project.architecture.backendArchitecture}
+                  </p>
+                </div>
+
+                <div>
+                  <span className="font-medium text-ink block mb-0.5">
+                    Key challenge
+                  </span>
+                  <p className="text-ink-muted">
+                    {project.architecture.keyTechnicalChallenge}
+                  </p>
+                </div>
+
+                <div>
+                  <span className="font-medium text-ink block mb-0.5">
+                    Solution
+                  </span>
+                  <p className="text-ink-secondary">
+                    {project.architecture.solutionEngineered}
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
-        <p className="text-sm sm:text-[15px] text-ink-muted leading-relaxed">
-          {project.description}
-        </p>
-
-        <p className="text-[13px] font-mono text-ink-muted leading-relaxed pt-0.5">
-          {project.stack.join(" · ")}
-        </p>
-
-        <div>
-          <button
-            type="button"
-            onClick={() => setExpanded((prev) => !prev)}
-            aria-expanded={expanded}
-            className="inline-flex items-center gap-1.5 text-[13px] font-medium text-ink-secondary hover:text-ink transition-colors cursor-pointer min-h-[44px]"
-          >
-            <span>
-              {expanded ? "Hide architecture notes" : "Architecture notes"}
-            </span>
-            <ChevronDown
-              className={`w-3.5 h-3.5 text-ink-muted transition-transform duration-200 ${
-                expanded ? "rotate-180" : ""
-              }`}
-              aria-hidden="true"
+        {project.screenshot && (
+          <div className="aspect-[16/10] w-full max-w-md lg:max-w-none rounded-lg border border-line bg-surface overflow-hidden">
+            <img
+              src={project.screenshot}
+              alt={project.screenshotAlt ?? `${project.title} application interface`}
+              loading="lazy"
+              className="w-full h-full object-cover object-top"
             />
-          </button>
-
-          {expanded && (
-            <div className="mt-2 pl-4 border-l border-line-strong space-y-3 text-[13px] leading-relaxed text-ink-secondary">
-              <div>
-                <span className="font-medium text-ink block mb-0.5">
-                  System design
-                </span>
-                <p className="text-ink-muted">
-                  {project.architecture.clientArchitecture}{" "}
-                  {project.architecture.backendArchitecture}
-                </p>
-              </div>
-
-              <div>
-                <span className="font-medium text-ink block mb-0.5">
-                  Key challenge
-                </span>
-                <p className="text-ink-muted">
-                  {project.architecture.keyTechnicalChallenge}
-                </p>
-              </div>
-
-              <div>
-                <span className="font-medium text-ink block mb-0.5">
-                  Solution
-                </span>
-                <p className="text-ink-secondary">
-                  {project.architecture.solutionEngineered}
-                </p>
-              </div>
-            </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </article>
   );
